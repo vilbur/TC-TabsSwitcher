@@ -1,0 +1,58 @@
+#SingleInstance force
+
+#Include C:\GoogleDrive\Programs\Core\Autohotkey\Class\VilGUI\VilGUI.ahk
+
+/** Class TabsetInfo
+*/
+Class TabsetInfo{
+
+	_unique_path	:= ""
+	_tabset_name	:= ""
+	_project_name	:= ""	
+	_root_path	:= ""			
+
+	__New($current_path){
+		this._setUniqueFilePath($current_path)		
+		this._setRootPath()						
+		this._setProjectName()
+		this._setTabsSetName()
+	}
+	/* Find path to Project root by finding '.env' path
+	*/
+	_setUniqueFilePath($current_path)
+	{
+		$search_path := RegExReplace( $current_path, "[\\\/]+$", "" ) ; remove trailng slashes
+		
+		While $search_path != $drive 
+		{
+			if( FileExist($search_path "\.env") )
+				break
+			SplitPath, $search_path,, $search_path,,, $drive
+		}
+		this._unique_path := $search_path
+	}
+	/**
+	 */
+	_setProjectName()
+	{
+		SplitPath, % this._unique_path, $project_name
+		this._project_name := $project_name
+	}
+	/**
+	 */
+	_setTabsSetName()
+	{
+		SplitPath, % this._root_path, $tabset_name
+		this._tabset_name := $tabset_name
+	}
+	/**
+	 */
+	_setRootPath()
+	{
+		SplitPath, % this._unique_path,, $root_path
+		this._root_path := $root_path		
+	}
+	
+	
+}
+

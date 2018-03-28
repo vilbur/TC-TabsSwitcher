@@ -1,0 +1,15 @@
+#SingleInstance force
+
+#Include %A_LineFile%\..\..\TabsSwitcher.ahk
+
+
+$test_path := "c:\GoogleDrive\TotalComander\_TC-commands\tabs\TabsSwitcher\Test\TestRoot\Project_A"
+;$test_path := "GoogleDrive"
+
+$TabsSwitcher := new TabsSwitcher($test_path)
+
+$TabsSwitcher.createNewSet()
+
+
+		
+		
