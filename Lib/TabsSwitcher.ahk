@@ -14,11 +14,8 @@ Class TabsSwitcher
 
 	__New($current_path)
 	{
-		$TabsSwitcher := this
-		;this._Gui.parent(this)
-		;this._Gui.parent(this)		
+		$TabsSwitcher := this	
 		;Dump(this._ini_path, "this._ini_path", 1)
-		;this._current_path	:= $current_path
 		;Dump($current_path, "current_path", 1)
 		this._setTabsPath()		
 		this._setTabsetsIni()

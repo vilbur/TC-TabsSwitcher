@@ -1,6 +1,9 @@
-﻿
-#Include C:\GoogleDrive\Programs\Core\Autohotkey\Class\VilGUI\VilGUI.ahk
-
+﻿/* Ahk Lib includes
+*/
+#Include %A_LineFile%\..\..\Ahk-Lib\_vendor\VilGui\VilGui.ahk
+#Include %A_LineFile%\..\..\Ahk-Lib\File\File.ahk 
+/* TabsSwitcher includes
+*/
 #Include %A_LineFile%\..\Lib\Globals.ahk
 #Include %A_LineFile%\..\Lib\Parent.ahk
 
