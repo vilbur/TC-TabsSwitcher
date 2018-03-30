@@ -27,9 +27,9 @@ Class Example Extends Parent
 		$username	= %USERNAME%
 		$users_path	:= combine_path( $users_path, "\..\\" )
 		$Tabfiles	:= "Users"
-		this._RootInfo().createRoot( $users_path, $Tabfiles )
-		this._Root($Tabfiles).createTabfiles("_shared")
-		this._Root($Tabfiles).createTabfiles($username)		
+		this._Tabsets().createTabset( $users_path, $Tabfiles )
+		this._Tabset($Tabfiles).createTabfiles("_shared")
+		this._Tabset($Tabfiles).createTabfiles($username)		
 		
 	}
 

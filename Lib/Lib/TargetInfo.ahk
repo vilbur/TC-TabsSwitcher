@@ -11,7 +11,7 @@ Class TargetInfo
 	_Tabfiles_current	:= ""
 	_folder_current	:= ""
 	_tabs	:= []	
-	_root_path	:= ""
+	_Tabset_path	:= ""
 	
 	__New(){
 
@@ -22,20 +22,20 @@ Class TargetInfo
 	{
 		return % this["_" $key]
 	}
-	/** findRootPath
+	/** findTabsetPath
 	 */
-	findRootPath($current_path, $unique_files){
+	findTabsetPath($current_path, $unique_files){
 		;Dump($unique_files, "unique_files", 1)
 		this._current_path := RegExReplace( $current_path, "[\\\/]+$", "" )
 		this._unique_files := $unique_files 		
 		this._setUniqueFilePath($current_path)		
-		this._setRootPath()
-		this._fillObjectByRootPath()								
+		this._setTabsetPath()
+		this._fillObjectByTabsetPath()								
 		return this
 	}
 	/**
 	 */
-	_fillObjectByRootPath()
+	_fillObjectByTabsetPath()
 	{
 		this._setFolders()
 		this._setFolderCurrent()		
@@ -51,7 +51,7 @@ Class TargetInfo
 	 */
 	_setFolders()
 	{
-		loop, % this._root_path "\*", 2
+		loop, % this._Tabset_path "\*", 2
 			this._tabs.insert(A_LoopFileName)
 	}
 	/* Go revers on path and search for one of unique files
@@ -89,15 +89,15 @@ Class TargetInfo
 	 */
 	_setTabssetCurrent()
 	{
-		SplitPath, % this._root_path, $Tabfiles_name
+		SplitPath, % this._Tabset_path, $Tabfiles_name
 		this._Tabfiles_current := $Tabfiles_name
 	}
 	/**
 	 */
-	_setRootPath()
+	_setTabsetPath()
 	{
-		SplitPath, % this._unique_path,, $root_path
-		this._root_path := $root_path		
+		SplitPath, % this._unique_path,, $Tabset_path
+		this._Tabset_path := $Tabset_path		
 	}
 	
 	

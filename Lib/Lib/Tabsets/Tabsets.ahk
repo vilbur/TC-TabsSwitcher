@@ -1,34 +1,36 @@
-/** Class RootInfo
+/** Class Tabsets
 */
-Class RootInfo Extends Parent
+Class Tabsets Extends Parent
 {
 	_tabs_path	:= ""
-	_Roots	:= {}		
+	_Tabsets	:= {}		
 	;_Example 	:= new Example()	
 
-	loadRoots(){
+	loadTabsets()
+	{
+		;MsgBox,262144,, loadTabsets,2 
 		this._tabs_path	:= getTabsPath()	
 		;this._setTabsPath()
-		this._setTabfiless()
+		this._setTabfiles()
 	}
 	/**
 	 */
-	isAnyRootExists()
+	isAnyTabsetExists()
 	{
-		return % this._Roots.GetCapacity() != 0
+		return % this._Tabsets.GetCapacity() != 0
 	}
 	/**
 	 */
-	createRoot( $path, $name )
+	createTabset( $path, $name )
 	{
-		this._Roots[$name] := new Root(this._tabs_path).root( $path ).name( $name ).create()
-		;MsgBox,262144,, createRoot,2 
+		this._Tabsets[$name] := new Tabset(this._tabs_path).Tabset( $path ).name( $name ).create()
+		;MsgBox,262144,, createTabset,2 
 	}
 	/**
 	 */
-	getRoot($root)
+	getTabset($Tabset)
 	{
-		return % this._Roots[$root]
+		return % this._Tabsets[$Tabset]
 	}
 
 	;/** _setTabsPath
@@ -41,14 +43,14 @@ Class RootInfo Extends Parent
 	 
 	/**
 	 */
-	_setTabfiless()
+	_setTabfiles()
 	{
 		Dump(this._tabs_path, "this._tabs_path", 1)
 		
 		loop, % this._tabs_path "\*.*", 2
 		{
 			Dump(A_LoopFileName, "A_LoopFileName", 1)
-			this._Roots[A_LoopFileName] := new Root(this._tabs_path).name(A_LoopFileName).init()
+			this._Tabsets[A_LoopFileName] := new Tabset(this._tabs_path).name(A_LoopFileName).init()
 		}
 			;this._setTabfilesData(A_LoopFileName)
 	}
@@ -60,9 +62,9 @@ Class RootInfo Extends Parent
 	*/
 	/**
 	 */
-	_getTabfilessNames()
+	_getTabfilesNames()
 	{
-		return % getObjectKeys(this._Roots) 
+		return % getObjectKeys(this._Tabsets) 
 	}
 
 	

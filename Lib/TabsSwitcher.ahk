@@ -6,7 +6,7 @@
 */
 Class TabsSwitcher
 {
-	_RootInfo	:= new RootInfo().parent(this)
+	_Tabsets	:= new Tabsets().parent(this)
 	_TargetInfo	:= new TargetInfo()	
 	_Gui	:= new Gui().parent(this)
 	_Install 	:= new Install()
@@ -19,12 +19,12 @@ Class TabsSwitcher
 		;Dump(this._ini_path, "this._ini_path", 1)
 		;Dump($current_path, "current_path", 1)
 		;this._setTabsPath()		
-		;this._setTabfilessIni()
+		;this._setTabfilesIni()
 		
-		this._RootInfo.loadRoots()
-		;this._TargetInfo.findRootPath($current_path, this._getAllUniqueFiles())
+		this._Tabsets.loadTabsets()
+		;this._TargetInfo.findTabsetPath($current_path, this._getAllUniqueFiles())
 		
-		Dump( this._RootInfo, "_RootInfo", 1)
+		Dump( this._Tabsets, "_Tabsets", 1)
 		;Dump( this._TargetInfo, "_TargetInfo", 0)		
 		;this._getTabs()
 	}
@@ -38,10 +38,10 @@ Class TabsSwitcher
 	*/	
 	TabfilesLoaderGui()
 	{
-		if( ! this._RootInfo.isAnyRootExists())
+		if( ! this._Tabsets.isAnyTabsetExists())
 			 new Example().parent(this).createExample()
 			
-		;Dump( this._RootInfo, "_RootInfo", 1)
+		;Dump( this._Tabsets, "_Tabsets", 1)
 		this._Gui.TabfilesLoaderGui()
 	}
 	/**
@@ -58,7 +58,7 @@ Class TabsSwitcher
 	_getAllUniqueFiles()
 	{
 		$unique_files := []
-		For $i, $Tabfiles in this._RootInfo._Roots
+		For $i, $Tabfiles in this._Tabsets._Tabsets
 			$unique_files.insert($Tabfiles.get("unique_file"))
 		;Dump($unique_files, "unique_files", 1)
 		return % $unique_files 
@@ -74,7 +74,7 @@ Class TabsSwitcher
 	loadTabs($Event)
 	{
 		$data	:= this._gui._getGuiData()
-		$path := this._RootInfo.getRoot($data.root).getTabfiles( $data.Tabfiles ).getTabFilePath( $data.tabs )
+		$path := this._Tabsets.getTabset($data.Tabset).getTabfiles( $data.Tabfiles ).getTabFilePath( $data.tabs )
 		
 		if( $data.Tabfiles=="_shared" )
 			new IniReplacer($path, $data ).replaceFolderName()

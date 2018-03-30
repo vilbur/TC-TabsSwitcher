@@ -14,23 +14,23 @@ Class Parent
 	
 	/**
 	 */
-	_RootInfo()
+	_Tabsets()
 	{
-		;MsgBox,262144,, _RootInfo,2 
-		return % this.Parent()._RootInfo
+		;MsgBox,262144,, _Tabsets,2 
+		return % this.Parent()._Tabsets
 	}
 	/**
 	 */
-	_Root($root)
+	_Tabset($Tabset)
 	{
-		;MsgBox,262144,, _Root,2 
-		return % this._RootInfo().getRoot($root)
+		;MsgBox,262144,, _Tabset,2 
+		return % this._Tabsets().getTabset($Tabset)
 	}
 	/**
 	 */
-	_Tabfiles($root, $Tabfiles)
+	_Tabfiles($Tabset, $Tabfiles)
 	{
-		return % this._Root($root).getTabfiles($Tabfiles)
+		return % this._Tabset($Tabset).getTabfiles($Tabfiles)
 	}
 	/**
 	 */
@@ -38,12 +38,7 @@ Class Parent
 	{
 		return % this.parent()._TargetInfo 
 	}
-	/**
-	 */
-	shit()
-	{
-		MsgBox,262144,, shit,2 
-	}
+
 	
 }
 

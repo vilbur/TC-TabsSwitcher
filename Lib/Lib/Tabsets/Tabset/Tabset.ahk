@@ -1,27 +1,27 @@
-/** Class Root
+/** Class Tabset
 */
-Class Root
+Class Tabset
 {
 	_tabs_path	:= ""
 	_tabssets_path	:= "" 	
 	_name	:= ""
-	_root	:= ""
+	_Tabset	:= ""
 	;_unique_file	:= ""
 	_last_Tabfiles	:= ""
 	_last_tabs	:= ""	
-	_Tabfiless	:= {}
-	_root_folders	:= []	
+	_Tabfiles	:= {}
+	_Tabset_folders	:= []	
 
 
 	__New( $tabs_path ){
 		this._tabs_path	:= $tabs_path 
 	}
 	/**
-		@param string $root to root folder
+		@param string $Tabset to Tabset folder
 	 */
-	root( $root )
+	Tabset( $Tabset )
 	{
-		this._root	:= $root
+		this._Tabset	:= $Tabset
 		return this 
 	}
 	/**
@@ -30,15 +30,15 @@ Class Root
 	{
 		this._name	:= $name
 		this._tabssets_path	:= this._tabs_path "\\" this._name
-		this._ini_path	:= this._tabssets_path "\root.ini"		
+		this._ini_path	:= this._tabssets_path "\Tabset.ini"		
 		return this 
 	}
-	/** create new root
+	/** create new Tabset
 	 */
 	create()
 	{
 		FileCreateDir, % this._tabssets_path
-		this._setIniValue( "root", this._root )
+		this._setIniValue( "Tabset", this._Tabset )
 		return this 
 	}
 	/** create new Tabfiles
@@ -54,8 +54,8 @@ Class Root
 	init()
 	{
 		this._loadIniData()
-		this._setTabfiless()
-		this._setRootFolders()
+		this._setTabfiles()
+		this._setTabsetFolders()
 		return this 
 	}
 
@@ -70,7 +70,7 @@ Class Root
 	 */
 	getTabfiles( $Tabfiles )
 	{
-		return % this._Tabfiless[$Tabfiles]
+		return % this._Tabfiles[$Tabfiles]
 	}
 	/**
 	 */
@@ -84,7 +84,7 @@ Class Root
 	 */
 	_loadIniData()
 	{
-		this._root	:= this._getIniValue("root")
+		this._Tabset	:= this._getIniValue("Tabset")
 		;this._unique_file	:= this._getIniValue("unique_file")
 		this._last_Tabfiles	:= this._getIniValue("last_Tabfiles")
 		this._last_tabs	:= this._getIniValue("last_tabs")		
@@ -108,17 +108,17 @@ Class Root
 	*/
 	/**
 	 */
-	_setTabfiless()
+	_setTabfiles()
 	{
 		loop, % this._tabssets_path  "\*", 2
-			this._Tabfiless[A_LoopFileName] := new Tabfiles(A_LoopFileFullPath).getTabFiles()
+			this._Tabfiles[A_LoopFileName] := new Tabfiles(A_LoopFileFullPath).getTabFiles()
 	}
 	/**
 	 */
-	_setRootFolders()
+	_setTabsetFolders()
 	{
-		loop, % this._root "\*", 2
-			this._root_folders.push(A_LoopFileName)
+		loop, % this._Tabset "\*", 2
+			this._Tabset_folders.push(A_LoopFileName)
 	}
 	/*---------------------------------------
 		GET Tabfiles  DATA
@@ -126,16 +126,16 @@ Class Root
 	*/
 	/**
 	 */
-	_getRootFolders()
+	_getTabsetFolders()
 	{
-		return % getObjectValues(this._root_folders)
+		return % getObjectValues(this._Tabset_folders)
 	}
-	/** ??? RENAME THIS METHOD TO: getTabfilessNames
+	/** ??? RENAME THIS METHOD TO: getTabfilesNames
 	  
 	 */
 	_getFolderNames()
 	{
-		return % getObjectKeys(this._Tabfiless)
+		return % getObjectKeys(this._Tabfiles)
 	}
 
 }

@@ -4,7 +4,7 @@ Class Example Extends Parent
 {
 	_users_path	:= ""
 	_username	:= ""
-	_root_name	:= "Users"
+	_Tabset_name	:= "Users"
 	_tabs_path	:= getTabsPath()
 		
 	__New(){
@@ -35,12 +35,12 @@ Class Example Extends Parent
 	createFolders()
 	{
 
-		this._RootInfo().createRoot( this._users_path, this._root_name )
-		;Dump(this._RootInfo(), "this._RootInfo", 1)
-		;MsgBox,262144,,% this._root_name,2
+		this._Tabsets().createTabset( this._users_path, this._Tabset_name )
+		;Dump(this._Tabsets(), "this._Tabsets", 1)
+		;MsgBox,262144,,% this._Tabset_name,2
 		
-		this._Root(this._root_name).createTabfiles("_shared")
-		this._Root(this._root_name).createTabfiles(this._username)		
+		this._Tabset(this._Tabset_name).createTabfiles("_shared")
+		this._Tabset(this._Tabset_name).createTabfiles(this._username)		
 		
 	}
 
@@ -48,7 +48,7 @@ Class Example Extends Parent
 	 */
 	createSharedTabFile()
 	{
-		$tabsfile_path := getTabsPath() "\\" this._root_name "\\_shared\\Users-Tabs.tab"
+		$tabsfile_path := getTabsPath() "\\" this._Tabset_name "\\_shared\\Users-Tabs.tab"
 		FileDelete, %$tabsfile_path%
 		
 		FileAppend,
@@ -71,7 +71,7 @@ activetab=0
 	 */
 	createUserTabFile()
 	{
-		$tabsfile_path := getTabsPath() "\\" this._root_name "\\" this._username "\\" this._username "-Tabs.tab"
+		$tabsfile_path := getTabsPath() "\\" this._Tabset_name "\\" this._username "\\" this._username "-Tabs.tab"
 		FileDelete, %$tabsfile_path%
 		
 		FileAppend,

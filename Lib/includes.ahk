@@ -12,12 +12,12 @@
 
 #Include %A_LineFile%\..\Lib\Gui.ahk
 
-#Include %A_LineFile%\..\Lib\TargetInfo.ahk
+; #Include %A_LineFile%\..\Lib\Tabsets.ahk
 
-#Include %A_LineFile%\..\Lib\RootInfo\RootInfo.ahk
-#Include %A_LineFile%\..\Lib\RootInfo\Root\Root.ahk
-#Include %A_LineFile%\..\Lib\RootInfo\Root\Tabfiles\Tabfiles.ahk
-#Include %A_LineFile%\..\Lib\RootInfo\Root\Tabfiles\Tabfile\Tabfile.ahk
+#Include %A_LineFile%\..\Lib\Tabsets\Tabsets.ahk
+#Include %A_LineFile%\..\Lib\Tabsets\Tabset\Tabset.ahk
+#Include %A_LineFile%\..\Lib\Tabsets\Tabset\Tabfiles\Tabfiles.ahk
+#Include %A_LineFile%\..\Lib\Tabsets\Tabset\Tabfiles\Tabfile\Tabfile.ahk
 
 #Include %A_LineFile%\..\Lib\IniReplacer.ahk
 #Include %A_LineFile%\..\Lib\TCcommand.ahk
