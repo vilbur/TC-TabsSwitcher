@@ -16,15 +16,13 @@ Class TabsSwitcher
 	{
 		$TabsSwitcher := this
 		
-		;Dump(this._ini_path, "this._ini_path", 1)
-		;Dump($current_path, "current_path", 1)
-		;this._setTabsPath()		
-		;this._setTabfilesIni()
-		
+		If ( ! FileExist( $ini_path ))
+			this.install()
+
 		this._Tabsets.loadTabsets()
 		;this._TargetInfo.findTabsetPath($current_path, this._getAllUniqueFiles())
 		
-		Dump( this._Tabsets, "_Tabsets", 1)
+		;Dump( this._Tabsets, "_Tabsets", 1)
 		;Dump( this._TargetInfo, "_TargetInfo", 0)		
 		;this._getTabs()
 	}
@@ -34,15 +32,16 @@ Class TabsSwitcher
 	{
 		this._Gui.managerGui()
 	}
-	/** TabfilesLoaderGui
+	/** createGui
 	*/	
-	TabfilesLoaderGui()
+	createGui()
 	{
+		;MsgBox,262144,, createGui,2 
 		if( ! this._Tabsets.isAnyTabsetExists())
 			 new Example().parent(this).createExample()
 			
 		;Dump( this._Tabsets, "_Tabsets", 1)
-		this._Gui.TabfilesLoaderGui()
+		this._Gui.createGui()
 	}
 	/**
 	 */
@@ -63,13 +62,13 @@ Class TabsSwitcher
 		;Dump($unique_files, "unique_files", 1)
 		return % $unique_files 
 	} 
-	;/** TabfilesLoaderGui
+	;/** createGui
 	;*/
 	;onSubmit($Event)
 	;{
 	;	$Event.message(50)
 	;}
-	/** TabfilesLoaderGui
+	/** loadTabs
 	*/
 	loadTabs($Event)
 	{
@@ -93,7 +92,7 @@ Class TabsSwitcher
 }
 
 
-/** TabfilesLoaderGui
+/** 
 */
 loadTabsCallback($Event)
 {

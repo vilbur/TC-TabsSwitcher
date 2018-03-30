@@ -10,9 +10,9 @@ Class Gui Extends Parent
 		CREATE GUI
 	-----------------------------------------
 	*/
-	/** TabfilesLoaderGui
+	/** createGui
 	 */
-	TabfilesLoaderGui()
+	createGui()
 	{
 		this._addTabsetControls()
 		this._addTabs()

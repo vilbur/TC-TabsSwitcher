@@ -5,7 +5,7 @@ Class Example Extends Parent
 	_users_path	:= ""
 	_username	:= ""
 	_Tabset_name	:= "Users"
-	_tabs_path	:= getTabsPath()
+	_tabs_path	:= ""
 		
 	__New(){
 		$users_path	= %USERPROFILE%
@@ -17,15 +17,12 @@ Class Example Extends Parent
 		
 	}
 	/**
-	 */
-	create()
-	{
-		
-	}
-	/**
 	 */ 
 	createExample()
 	{
+
+		this._tabs_path	:= getTabsPath()
+		;Dump(this, "Example", 1)
 		this.createFolders()
 		this.createSharedTabFile()
 		this.createUserTabFile()				
@@ -34,14 +31,12 @@ Class Example Extends Parent
 	 */
 	createFolders()
 	{
-
 		this._Tabsets().createTabset( this._users_path, this._Tabset_name )
 		;Dump(this._Tabsets(), "this._Tabsets", 1)
 		;MsgBox,262144,,% this._Tabset_name,2
 		
 		this._Tabset(this._Tabset_name).createTabfiles("_shared")
 		this._Tabset(this._Tabset_name).createTabfiles(this._username)		
-		
 	}
 
 	/**

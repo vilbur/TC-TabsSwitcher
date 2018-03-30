@@ -5,7 +5,7 @@
 Class Tabfiles
 {
 	_path	:= ""
-	_tab_files	:= {}		
+	_tabfiles	:= {}		
 
 	/* 
 		@param string $path to folder with *.tab files
@@ -25,27 +25,27 @@ Class Tabfiles
 	getTabFiles()
 	{
 		loop, % this._path "\*.tab", 0
-			this._tab_files[this._getTabFileName(A_LoopFileName)] := new Tabfile(A_LoopFileFullPath).getTabFiles()
+			this._tabfiles[this._getTabFileName(A_LoopFileName)] := new Tabfile(A_LoopFileFullPath).getTabFiles()
 		return this
 	}
 	/**
 	 */
 	getTabFilePath( $tab_filename )
 	{
-		return % this._tab_files[$tab_filename]._path
+		return % this._tabfiles[$tab_filename]._path
 	}
 	/**
 	 */
 	getTabFilenames()
 	{
-		return % getObjectKeys(this._tab_files)
+		return % getObjectKeys(this._tabfiles)
 	}
 	/**
 	 */
 	getTabsCaptions( $tab_filename )
 	{
 	
-		return % this._tab_files[$tab_filename].getTabsCaptions()
+		return % this._tabfiles[$tab_filename].getTabsCaptions()
 	}
 	
 	/**

@@ -4,8 +4,8 @@ Class Tabset
 {
 	_tabs_path	:= ""
 	_tabssets_path	:= "" 	
+	_path	:= ""
 	_name	:= ""
-	_Tabset	:= ""
 	;_unique_file	:= ""
 	_last_Tabfiles	:= ""
 	_last_tabs	:= ""	
@@ -17,11 +17,11 @@ Class Tabset
 		this._tabs_path	:= $tabs_path 
 	}
 	/**
-		@param string $Tabset to Tabset folder
+		@param string $path to Tabset folder
 	 */
-	Tabset( $Tabset )
+	path( $Tabset )
 	{
-		this._Tabset	:= $Tabset
+		this._path	:= $Tabset
 		return this 
 	}
 	/**
@@ -38,7 +38,7 @@ Class Tabset
 	create()
 	{
 		FileCreateDir, % this._tabssets_path
-		this._setIniValue( "Tabset", this._Tabset )
+		this._setIniValue( "Tabset", this._path )
 		return this 
 	}
 	/** create new Tabfiles
@@ -84,7 +84,7 @@ Class Tabset
 	 */
 	_loadIniData()
 	{
-		this._Tabset	:= this._getIniValue("Tabset")
+		this._path	:= this._getIniValue("Tabset")
 		;this._unique_file	:= this._getIniValue("unique_file")
 		this._last_Tabfiles	:= this._getIniValue("last_Tabfiles")
 		this._last_tabs	:= this._getIniValue("last_tabs")		
@@ -117,7 +117,7 @@ Class Tabset
 	 */
 	_setTabsetFolders()
 	{
-		loop, % this._Tabset "\*", 2
+		loop, % this._path "\*", 2
 			this._Tabset_folders.push(A_LoopFileName)
 	}
 	/*---------------------------------------

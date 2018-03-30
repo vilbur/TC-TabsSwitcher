@@ -5,6 +5,6 @@
 
 
 
-new TabsSwitcher().tabsetLoaderGui()
+new TabsSwitcher().createGui()
 
 
