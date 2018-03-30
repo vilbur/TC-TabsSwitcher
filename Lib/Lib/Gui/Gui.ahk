@@ -3,7 +3,6 @@
 */
 Class Gui Extends Parent
 {
-
 	_gui := new VilGUI("TabsSwitcher")
 	
 	/*---------------------------------------
@@ -210,10 +209,11 @@ Class Gui Extends Parent
 			
 		this.updateTabNamesLookUp( $data )
 		
-		this._getActiveTab().Controls.get("TabsList")
-			.clear()
-			.edit( this._Tabfiles( $data.Tabset, $data.Tabfiles ).getTabFilenames() )
-			.select( 1 )
+		this._getActiveTab().Controls
+							.get("TabsList")
+								.clear()
+								.edit( this._Tabfiles( $data.Tabset, $data.Tabfiles ).getTabFilenames() )
+								.select( 1 )
 	}
 	/**
 	 */
@@ -223,15 +223,6 @@ Class Gui Extends Parent
 		this.updateTabNamesLookUp( $data )
 	}
 	
-	/*---------------------------------------
-		PARENT ACCESS
-	-----------------------------------------
-	*/
 
-
-
-
-
-	
 }
 

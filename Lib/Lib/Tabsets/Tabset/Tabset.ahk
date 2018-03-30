@@ -10,8 +10,8 @@ Class Tabset
 	_last_tabfiles	:= ""
 	_last_tabs	:= ""	
 	_Tabfiles	:= {}
-	_folders	:= []	
-
+	_folders	:= [] ; folderes in target path
+	_folder_current	:= "" ; current target folder found by TargetInfo
 
 	/**
 		@param string $path to Tabset folder
@@ -49,7 +49,7 @@ Class Tabset
 	}
 	/**
 	 */
-	init()
+	load()
 	{
 		this._loadIniData()
 		this._setTabfiles()
@@ -59,10 +59,10 @@ Class Tabset
 
 	/**
 	 */
-	get( $key )
+	get( $property )
 	{
-		;Dump(this["_" $key], "this.", 1)
-		return % this["_" $key]
+		;Dump(this["_" $property ], "this.", 1)
+		return % this["_" $property ]
 	}
 	/**
 	 */

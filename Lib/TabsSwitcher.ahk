@@ -10,6 +10,8 @@ Class TabsSwitcher
 	_TargetInfo	:= new TargetInfo()	
 	_Gui	:= new Gui().parent(this)
 	_Install 	:= new Install()
+	_IniReplacer 	:= new IniReplacer()
+	_TCcommand 	:= new TCcommand()	
 	;_ini_path	:=
 
 	__New()
@@ -21,12 +23,9 @@ Class TabsSwitcher
 			
 		this.setTabsPath()
 		this._Tabsets.loadTabsets()
-		;this._TargetInfo.findTabsetPath($current_path, this._getAllUniqueFiles())
+		this._TargetInfo.findCurrentTabset( this._Tabsets )
 		
-		
-		;Dump( combine_path( "c:\Users\vilbur", "\\..\\") , "this.", 1)
-		;Dump( this._Tabsets, "_Tabsets", 1)
-		;Dump( this._TargetInfo, "_TargetInfo", 0)		
+		Dump(this._Tabsets, "this._Tabsets", 1)
 		;this._getTabs()
 	}
 	/** managerGui
@@ -65,25 +64,22 @@ Class TabsSwitcher
 		;Dump($unique_files, "unique_files", 1)
 		return % $unique_files 
 	} 
-	;/** createGui
-	;*/
-	;onSubmit($Event)
-	;{
-	;	$Event.message(50)
-	;}
+
 	/** loadTabs
 	*/
 	loadTabs($Event)
 	{
 		$data	:= this._gui._getGuiData()
-		$path := this._Tabsets.getTabset($data.Tabset).getTabfiles( $data.Tabfiles ).getTabFilePath( $data.tabs )
-		
+		$path_tab_file	:= this._Tabsets.getTabset($data.Tabset).getTabfiles( $data.Tabfiles ).getTabFilePath( $data.tabs )
+		;Dump($data, "data", 1)
 		if( $data.Tabfiles=="_shared" )
-			new IniReplacer($path, $data ).replaceFolderName()
+			this._IniReplacer.clone()
+					.pathTabFile($path_tab_file)
+					.pathTarget($data.Tabset_path)
+					.replaceFolder($data.folder)
 			
-		;MsgBox,262144,path, %$path%,3 
 		;$Event.message(50)
-		$TCcommand 	:= new TCcommand().loadTabs( $path )
+		;this._TCcommand.loadTabs( $path )
 	}
 	/**
 	 */
