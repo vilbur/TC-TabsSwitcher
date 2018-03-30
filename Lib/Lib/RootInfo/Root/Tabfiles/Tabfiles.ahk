@@ -1,8 +1,8 @@
-/** Class TabSet
+/** Class Tabfiles
   
   
 */
-Class TabSet
+Class Tabfiles
 {
 	_path	:= ""
 	_tab_files	:= {}		
@@ -13,7 +13,7 @@ Class TabSet
 	__New($path){
 		this._path	:= $path
 	}
-	/** create new tabset
+	/** create new Tabfiles
 	 */
 	create()
 	{

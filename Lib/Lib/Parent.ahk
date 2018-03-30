@@ -28,9 +28,9 @@ Class Parent
 	}
 	/**
 	 */
-	_Tabset($root, $tabset)
+	_Tabfiles($root, $Tabfiles)
 	{
-		return % this._Root($root).getTabset($tabset)
+		return % this._Root($root).getTabfiles($Tabfiles)
 	}
 	/**
 	 */

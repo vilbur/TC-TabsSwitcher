@@ -26,10 +26,10 @@ Class Example Extends Parent
 		$users_path_env	= %USERPROFILE%
 		$username	= %USERNAME%
 		$users_path	:= combine_path( $users_path, "\..\\" )
-		$tabset	:= "Users"
-		this._RootInfo().createRoot( $users_path, $tabset )
-		this._Root($tabset).createTabset("_shared")
-		this._Root($tabset).createTabset($username)		
+		$Tabfiles	:= "Users"
+		this._RootInfo().createRoot( $users_path, $Tabfiles )
+		this._Root($Tabfiles).createTabfiles("_shared")
+		this._Root($Tabfiles).createTabfiles($username)		
 		
 	}
 

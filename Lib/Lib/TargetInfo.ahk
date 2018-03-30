@@ -8,7 +8,7 @@ Class TargetInfo
 	_unique_file	:= ""	
 	_current_path	:= ""
 	;_uniquefile_path	:= ""		
-	_tabset_current	:= ""
+	_Tabfiles_current	:= ""
 	_folder_current	:= ""
 	_tabs	:= []	
 	_root_path	:= ""
@@ -43,7 +43,7 @@ Class TargetInfo
 	} 
 	/**
 	 */
-	setTabset($tabset_name)
+	setTabfiles($Tabfiles_name)
 	{
 		
 	}
@@ -89,8 +89,8 @@ Class TargetInfo
 	 */
 	_setTabssetCurrent()
 	{
-		SplitPath, % this._root_path, $tabset_name
-		this._tabset_current := $tabset_name
+		SplitPath, % this._root_path, $Tabfiles_name
+		this._Tabfiles_current := $Tabfiles_name
 	}
 	/**
 	 */

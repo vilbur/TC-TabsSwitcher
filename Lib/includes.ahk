@@ -16,8 +16,8 @@
 
 #Include %A_LineFile%\..\Lib\RootInfo\RootInfo.ahk
 #Include %A_LineFile%\..\Lib\RootInfo\Root\Root.ahk
-#Include %A_LineFile%\..\Lib\RootInfo\Root\TabSet\TabSet.ahk
-#Include %A_LineFile%\..\Lib\RootInfo\Root\TabSet\Tabfile\Tabfile.ahk
+#Include %A_LineFile%\..\Lib\RootInfo\Root\Tabfiles\Tabfiles.ahk
+#Include %A_LineFile%\..\Lib\RootInfo\Root\Tabfiles\Tabfile\Tabfile.ahk
 
 #Include %A_LineFile%\..\Lib\IniReplacer.ahk
 #Include %A_LineFile%\..\Lib\TCcommand.ahk

@@ -39,8 +39,8 @@ Class Example Extends Parent
 		;Dump(this._RootInfo(), "this._RootInfo", 1)
 		;MsgBox,262144,,% this._root_name,2
 		
-		this._Root(this._root_name).createTabset("_shared")
-		this._Root(this._root_name).createTabset(this._username)		
+		this._Root(this._root_name).createTabfiles("_shared")
+		this._Root(this._root_name).createTabfiles(this._username)		
 		
 	}
 

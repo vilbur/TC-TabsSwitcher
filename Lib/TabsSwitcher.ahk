@@ -19,7 +19,7 @@ Class TabsSwitcher
 		;Dump(this._ini_path, "this._ini_path", 1)
 		;Dump($current_path, "current_path", 1)
 		;this._setTabsPath()		
-		;this._setTabsetsIni()
+		;this._setTabfilessIni()
 		
 		this._RootInfo.loadRoots()
 		;this._TargetInfo.findRootPath($current_path, this._getAllUniqueFiles())
@@ -34,15 +34,15 @@ Class TabsSwitcher
 	{
 		this._Gui.managerGui()
 	}
-	/** tabsetLoaderGui
+	/** TabfilesLoaderGui
 	*/	
-	tabsetLoaderGui()
+	TabfilesLoaderGui()
 	{
 		if( ! this._RootInfo.isAnyRootExists())
 			 new Example().parent(this).createExample()
 			
 		;Dump( this._RootInfo, "_RootInfo", 1)
-		this._Gui.tabsetLoaderGui()
+		this._Gui.TabfilesLoaderGui()
 	}
 	/**
 	 */
@@ -58,25 +58,25 @@ Class TabsSwitcher
 	_getAllUniqueFiles()
 	{
 		$unique_files := []
-		For $i, $tabset in this._RootInfo._Roots
-			$unique_files.insert($tabset.get("unique_file"))
+		For $i, $Tabfiles in this._RootInfo._Roots
+			$unique_files.insert($Tabfiles.get("unique_file"))
 		;Dump($unique_files, "unique_files", 1)
 		return % $unique_files 
 	} 
-	;/** tabsetLoaderGui
+	;/** TabfilesLoaderGui
 	;*/
 	;onSubmit($Event)
 	;{
 	;	$Event.message(50)
 	;}
-	/** tabsetLoaderGui
+	/** TabfilesLoaderGui
 	*/
 	loadTabs($Event)
 	{
 		$data	:= this._gui._getGuiData()
-		$path := this._RootInfo.getRoot($data.root).getTabset( $data.tabset ).getTabFilePath( $data.tabs )
+		$path := this._RootInfo.getRoot($data.root).getTabfiles( $data.Tabfiles ).getTabFilePath( $data.tabs )
 		
-		if( $data.tabset=="_shared" )
+		if( $data.Tabfiles=="_shared" )
 			new IniReplacer($path, $data ).replaceFolderName()
 			
 		;MsgBox,262144,path, %$path%,3 
@@ -85,7 +85,7 @@ Class TabsSwitcher
 	}	
 	/**
 	 */
-	_getPathToTabset()
+	_getPathToTabfiles()
 	{
 		
 	} 
@@ -93,7 +93,7 @@ Class TabsSwitcher
 }
 
 
-/** tabsetLoaderGui
+/** TabfilesLoaderGui
 */
 loadTabsCallback($Event)
 {
