@@ -25,7 +25,7 @@ Class TabSet
 	getTabFiles()
 	{
 		loop, % this._path "\*.tab", 0
-			this._tab_files[this._getTabFileName(A_LoopFileName)] := new Tab(A_LoopFileFullPath).getTabFiles()
+			this._tab_files[this._getTabFileName(A_LoopFileName)] := new Tabfile(A_LoopFileFullPath).getTabFiles()
 		return this
 	}
 	/**

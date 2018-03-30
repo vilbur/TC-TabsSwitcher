@@ -4,7 +4,7 @@
   
 */
 
-Class Tab
+Class Tabfile
 {
 	_path	:= "" ; path to *.tab file
 	_tabs	:= {}

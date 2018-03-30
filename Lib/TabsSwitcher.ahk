@@ -26,7 +26,7 @@ Class TabsSwitcher
 		
 		Dump( this._RootInfo, "_RootInfo", 1)
 		;Dump( this._TargetInfo, "_TargetInfo", 0)		
-		this._getTabs()
+		;this._getTabs()
 	}
 	/** managerGui
 	*/	

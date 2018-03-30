@@ -43,7 +43,7 @@ Class RootInfo Extends Parent
 	 */
 	_setTabsets()
 	{
-		Dump(this._tabs_path, "this._tabs_path", 1)
+		;Dump(this._tabs_path, "this._tabs_path", 1)
 		
 		loop, % this._tabs_path "\*.*", 2
 		{
