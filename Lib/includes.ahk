@@ -1,7 +1,7 @@
 ﻿/* Ahk Lib includes
 */
 #Include %A_LineFile%\..\..\Ahk-Lib\_vendor\VilGui\VilGui.ahk
-#Include %A_LineFile%\..\..\Ahk-Lib\File\File.ahk 
+;#Include %A_LineFile%\..\..\Ahk-Lib\File\File.ahk 
 /* TabsSwitcher includes
 */
 #Include %A_LineFile%\..\Lib\Globals.ahk

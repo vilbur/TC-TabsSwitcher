@@ -2,12 +2,13 @@
 */
 Class RootInfo Extends Parent
 {
-	_tabs_path	:= getTabsPath()	
+	_tabs_path	:= ""
 	_Roots	:= {}		
 	;_Example 	:= new Example()	
 
-	__New(){
-		this._setTabsPath()
+	loadRoots(){
+		this._tabs_path	:= getTabsPath()	
+		;this._setTabsPath()
 		this._setTabsets()
 	}
 	/**
@@ -42,8 +43,13 @@ Class RootInfo Extends Parent
 	 */
 	_setTabsets()
 	{
+		Dump(this._tabs_path, "this._tabs_path", 1)
+		
 		loop, % this._tabs_path "\*.*", 2
+		{
+			Dump(A_LoopFileName, "A_LoopFileName", 1)
 			this._Roots[A_LoopFileName] := new Root(this._tabs_path).name(A_LoopFileName).init()
+		}
 			;this._setTabsetData(A_LoopFileName)
 	}
 

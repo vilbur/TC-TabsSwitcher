@@ -3,11 +3,9 @@
 -----------------------------------------
 */
 global $TabsSwitcher
-global $working_path
 global $ini_path
 
-$working_path	:= combine_path( A_LineFile, "\..\..\..\\" )
-$ini_path	:= $working_path RegExReplace( A_ScriptName, "(ahk|exe)$", "ini" )
+$ini_path	:= RegExReplace( A_ScriptFullPath, "\.(ahk|exe)$", ".ini" )
  
 /*---------------------------------------
 	FUNCTIONS

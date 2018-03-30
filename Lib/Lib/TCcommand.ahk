@@ -33,12 +33,11 @@ Class TCcommand
 	}
 	
 	/** create command in wincmd.ini
-		set global $working_path to
 	 */
 	createCommandRunTabSwitcher()
 	{
 		$param := """%P\""" ; "
-		IniWrite, % $working_path "\TabsSwitcher.ahk",	% this._usercmd_ini, % this._cmd_run_tabswitcher, cmd
+		IniWrite, % A_ScriptDir "\TabsSwitcher.ahk",	% this._usercmd_ini, % this._cmd_run_tabswitcher, cmd
 		IniWrite, %$param%,	% this._usercmd_ini, % this._cmd_run_tabswitcher, param		
 	}
 	

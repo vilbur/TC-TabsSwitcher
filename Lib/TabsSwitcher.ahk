@@ -12,15 +12,19 @@ Class TabsSwitcher
 	_Install 	:= new Install()
 	;_ini_path	:=
 
-	__New($current_path)
+	__New()
 	{
-		$TabsSwitcher := this	
+		$TabsSwitcher := this
+		
 		;Dump(this._ini_path, "this._ini_path", 1)
 		;Dump($current_path, "current_path", 1)
-		this._setTabsPath()		
-		this._setTabsetsIni()
-		this._TargetInfo.findRootPath($current_path, this._getAllUniqueFiles())
-		;Dump( this._RootInfo, "_RootInfo", 0)
+		;this._setTabsPath()		
+		;this._setTabsetsIni()
+		
+		this._RootInfo.loadRoots()
+		;this._TargetInfo.findRootPath($current_path, this._getAllUniqueFiles())
+		
+		Dump( this._RootInfo, "_RootInfo", 1)
 		;Dump( this._TargetInfo, "_TargetInfo", 0)		
 		this._getTabs()
 	}
