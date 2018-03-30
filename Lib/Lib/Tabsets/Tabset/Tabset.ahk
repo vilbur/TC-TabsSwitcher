@@ -2,26 +2,24 @@
 */
 Class Tabset
 {
-	_tabs_path	:= ""
-	_tabssets_path	:= "" 	
-	_path	:= ""
+	_path_target	:= ""
+	_path_tabset	:= "" 	
+	
 	_name	:= ""
 	;_unique_file	:= ""
-	_last_Tabfiles	:= ""
+	_last_tabfiles	:= ""
 	_last_tabs	:= ""	
 	_Tabfiles	:= {}
-	_Tabset_folders	:= []	
+	_folders	:= []	
 
 
-	__New( $tabs_path ){
-		this._tabs_path	:= $tabs_path 
-	}
 	/**
 		@param string $path to Tabset folder
 	 */
-	path( $Tabset )
+	pathTarget( $path_target )
 	{
-		this._path	:= $Tabset
+		;Dump($path_target, "path_target", 1)
+		this._path_target	:= $path_target
 		return this 
 	}
 	/**
@@ -29,16 +27,16 @@ Class Tabset
 	name( $name )
 	{
 		this._name	:= $name
-		this._tabssets_path	:= this._tabs_path "\\" this._name
-		this._ini_path	:= this._tabssets_path "\Tabset.ini"		
+		this._path_tabset	:= $tabs_path "\\" this._name
+		;this._ini_path	:= this._path_tabset "\Tabset.ini"		
 		return this 
 	}
 	/** create new Tabset
 	 */
 	create()
 	{
-		FileCreateDir, % this._tabssets_path
-		this._setIniValue( "Tabset", this._path )
+		FileCreateDir, % this._path_tabset
+		this._setIniValue( "path-target", this._path_target )
 		return this 
 	}
 	/** create new Tabfiles
@@ -46,7 +44,7 @@ Class Tabset
 	createTabfiles( $name )
 	{
 		;MsgBox,262144,, createTabfiles,2 
-		new Tabfiles(this._tabssets_path "\\" $name ).create()
+		new Tabfiles(this._path_tabset "\\" $name ).create()
 		return this 
 	}
 	/**
@@ -77,31 +75,9 @@ Class Tabset
 	getLastTabfiles()
 	{
 		;MsgBox,262144,, getLastTabs,2
-		return % this._last_Tabfiles ? this._last_Tabfiles : 1
+		return % this._last_tabfiles ? this._last_tabfiles : 1
 	}
 	
-	/**
-	 */
-	_loadIniData()
-	{
-		this._path	:= this._getIniValue("Tabset")
-		;this._unique_file	:= this._getIniValue("unique_file")
-		this._last_Tabfiles	:= this._getIniValue("last_Tabfiles")
-		this._last_tabs	:= this._getIniValue("last_tabs")		
-	}
-	/**
-	 */
-	_setIniValue( $key, $value )
-	{
-		IniWrite, %$value%, % this._ini_path, config, %$key% 
-	}
-	/**
-	 */
-	_getIniValue( $key )
-	{
-		IniRead, $value,	% this._ini_path, config, %$key%
-		return % $value != "ERROR" ? $value : ""
-	}
 	/*---------------------------------------
 		GET FOLDERS AND FILES DATA
 	-----------------------------------------
@@ -110,15 +86,15 @@ Class Tabset
 	 */
 	_setTabfiles()
 	{
-		loop, % this._tabssets_path  "\*", 2
+		loop, % this._path_tabset  "\*", 2
 			this._Tabfiles[A_LoopFileName] := new Tabfiles(A_LoopFileFullPath).getTabFiles()
 	}
 	/**
 	 */
 	_setTabsetFolders()
 	{
-		loop, % this._path "\*", 2
-			this._Tabset_folders.push(A_LoopFileName)
+		loop, % this._path_target "\*", 2
+			this._folders.push(A_LoopFileName)
 	}
 	/*---------------------------------------
 		GET Tabfiles  DATA
@@ -128,7 +104,7 @@ Class Tabset
 	 */
 	_getTabsetFolders()
 	{
-		return % getObjectValues(this._Tabset_folders)
+		return % getObjectValues(this._folders)
 	}
 	/** ??? RENAME THIS METHOD TO: getTabfilesNames
 	  
@@ -137,6 +113,32 @@ Class Tabset
 	{
 		return % getObjectKeys(this._Tabfiles)
 	}
+	/*---------------------------------------
+		INI METHODS
+	-----------------------------------------
+	*/
+	/**
+	 */
+	_loadIniData()
+	{
+		this._path_target	:= this._getIniValue("path-target")
+		;this._unique_file	:= this._getIniValue("unique_file")
+		this._last_tabfiles	:= this._getIniValue("last-tabfiles")
+		this._last_tabs	:= this._getIniValue("last-tabs")		
+	}
 
+	/**
+	 */
+	_setIniValue( $key, $value )
+	{
+		IniWrite, %$value%, % $tabs_path "\\" this._name "\Tabset.ini", config, %$key% 
+	}
+	/**
+	 */
+	_getIniValue( $key )
+	{
+		IniRead, $value,	% $tabs_path "\\" this._name "\Tabset.ini", config, %$key%
+		return % $value != "ERROR" ? $value : ""
+	}
 }
 

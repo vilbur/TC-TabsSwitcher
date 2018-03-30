@@ -16,15 +16,14 @@ Class Install
 	 */
 	_setPathToTabsFolder()
 	{
-		;Dump($ini_path, "ini_path", 1)
-		IniWrite, % A_ScriptDir "\_tabsets", %$ini_path%, paths, tabs
+		$tabs_path := A_ScriptDir "\_tabsets"
+		IniWrite, %$tabs_path%, %$ini_path%, paths, tabs
 	} 
 	/**
 	 */
 	createTabsFolder()
 	{
-		IniRead, $tabs_path, %$ini_path%, paths, tabs 
-		FileCreateDir, % getTabsPath()
+		FileCreateDir, %$tabs_path%
 		return this				
 	}
 	

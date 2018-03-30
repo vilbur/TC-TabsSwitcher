@@ -4,14 +4,15 @@ Class Tabsets Extends Parent
 {
 	_tabs_path	:= ""
 	_Tabsets	:= {}		
-	;_Example 	:= new Example()	
 
+	/**
+	 */
 	loadTabsets()
-	{
-		;MsgBox,262144,, loadTabsets,2 
-		this._tabs_path	:= getTabsPath()	
-		;this._setTabsPath()
-		this._setTabfiles()
+	{		
+		loop, % $tabs_path "\*.*", 2
+			this._Tabsets[A_LoopFileName] := new Tabset()
+													.name(A_LoopFileName)
+													.init()
 	}
 	/**
 	 */
@@ -21,10 +22,12 @@ Class Tabsets Extends Parent
 	}
 	/**
 	 */
-	createTabset( $path, $name )
+	createTabset( $path_target, $name )
 	{
-		this._Tabsets[$name] := new Tabset(this._tabs_path).path( $path ).name( $name ).create()
-		;MsgBox,262144,, createTabset,2 
+		this._Tabsets[$name] := new Tabset()
+											.pathTarget( $path_target )
+											.name( $name )
+											.create()
 	}
 	/**
 	 */
@@ -32,26 +35,8 @@ Class Tabsets Extends Parent
 	{
 		return % this._Tabsets[$Tabset]
 	}
-
-	;/** _setTabsPath
-	; */
-	;_setTabsPath()
-	;{
-	;	IniRead, $tabs_path, %$ini_path%, paths, tabs 
-	;	this._tabs_path	:= $tabs_path
-	;}
 	 
-	/**
-	 */
-	_setTabfiles()
-	{
-		;Dump(this._tabs_path, "this._tabs_path", 1)
-		
-		loop, % this._tabs_path "\*.*", 2
-			this._Tabsets[A_LoopFileName] := new Tabset(this._tabs_path).name(A_LoopFileName).init()
 
-			;this._setTabfilesData(A_LoopFileName)
-	}
 
 	
 	/*---------------------------------------

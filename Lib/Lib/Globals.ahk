@@ -4,6 +4,7 @@
 */
 global $TabsSwitcher
 global $ini_path
+global $tabs_path
 
 $ini_path	:= RegExReplace( A_ScriptFullPath, "\.(ahk|exe)$", ".ini" )
  
@@ -11,13 +12,7 @@ $ini_path	:= RegExReplace( A_ScriptFullPath, "\.(ahk|exe)$", ".ini" )
 	FUNCTIONS
 -----------------------------------------
 */
-/**
- */
-getTabsPath()
-{
-	IniRead, $tabs_path, %$ini_path%, paths, tabs 
-	return %$tabs_path% 
-}
+
 /**
  */
 getObjectKeys($object)
@@ -51,7 +46,8 @@ joinObject($object, $delimeter:="`n")
  */
 combine_path( $absolute, $relative)
 {
-	$absolute := RegExReplace( $absolute, "\\$", "" ) ;;; remove last  slash\
+	$absolute := RegExReplace( $absolute, "[\\\/]+$", "" ) ;;; remove last  slash\
+	$relative := RegExReplace( $relative, "^[\\\/]+", "" ) ;;; remove last  slash\	
 	;$relative := RegExReplace( RegExReplace( $relative, "^\\", "" ), "/", "\" ) ;" ; remove first \slash, flip slashes
 	$relative := RegExReplace( $relative, "/", "\" ) ;" ;  flip slashes							  
 									   

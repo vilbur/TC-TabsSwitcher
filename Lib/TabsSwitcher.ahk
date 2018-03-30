@@ -18,10 +18,13 @@ Class TabsSwitcher
 		
 		If ( ! FileExist( $ini_path ))
 			this.install()
-
+			
+		this.setTabsPath()
 		this._Tabsets.loadTabsets()
 		;this._TargetInfo.findTabsetPath($current_path, this._getAllUniqueFiles())
 		
+		
+		;Dump( combine_path( "c:\Users\vilbur", "\\..\\") , "this.", 1)
 		;Dump( this._Tabsets, "_Tabsets", 1)
 		;Dump( this._TargetInfo, "_TargetInfo", 0)		
 		;this._getTabs()
@@ -81,14 +84,15 @@ Class TabsSwitcher
 		;MsgBox,262144,path, %$path%,3 
 		;$Event.message(50)
 		$TCcommand 	:= new TCcommand().loadTabs( $path )
-	}	
+	}
 	/**
 	 */
-	_getPathToTabfiles()
+	setTabsPath()
 	{
-		
-	} 
-	
+		IniRead, $tabs_path, %$ini_path%, paths, tabs 
+		;return %$tabs_path% 
+	}
+
 }
 
 

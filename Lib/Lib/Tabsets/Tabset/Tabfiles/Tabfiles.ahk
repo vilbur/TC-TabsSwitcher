@@ -18,7 +18,6 @@ Class Tabfiles
 	create()
 	{
 		FileCreateDir, % this._path
-
 	}
 	/**
 	 */
@@ -44,10 +43,8 @@ Class Tabfiles
 	 */
 	getTabsCaptions( $tab_filename )
 	{
-	
 		return % this._tabfiles[$tab_filename].getTabsCaptions()
 	}
-	
 	/**
 	 */
 	_getTabFileName($tabs_filename)
