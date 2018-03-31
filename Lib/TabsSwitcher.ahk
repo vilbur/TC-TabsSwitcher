@@ -4,7 +4,7 @@
 
 /** Class TabsSwitcher
 */
-Class TabsSwitcher
+Class TabsSwitcher Extends Accessors
 {
 	_Tabsets	:= new Tabsets().parent(this)
 	_TargetInfo	:= new TargetInfo()	
@@ -73,10 +73,9 @@ Class TabsSwitcher
 	loadTabs($Event)
 	{
 		$data	:= this._gui._getGuiData()
-		;$path_tab_file	:= this._Tabsets.getTabset($data.tabset).getTabfiles( $data.tabfiles ).getTabFilePath( $data.tabs )
-		$path_tab_file	:= this._Tabsets.getTabset($data.tabset).getTabfiles( $data.tabfiles ).getTabFilePath( $data.tabs )		
-		;Dump($path_tab_file, "path_tab_file", 1)
-		if( $data.Tabfiles=="_shared" )
+		$path_tab_file	:= this.Tabfile($data.tabset, $data.tabsgroup, $data.tabs ).getPath()
+		
+		if( $data.tabsgroup=="_shared" )
 			this._PathsReplacer.clone()
 					.pathTabFile($path_tab_file)
 					.pathTarget(this._Tabsets.getTabset($data.tabset).get("path_target"))
@@ -91,6 +90,13 @@ Class TabsSwitcher
 	{
 		IniRead, $tabs_path, %$ini_path%, paths, tabs 
 		;return %$tabs_path% 
+	}
+
+	/** set\get parent class
+	 * @return object parent class
+	*/
+	Parent(){
+		return this
 	}
 
 }

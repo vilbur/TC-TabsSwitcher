@@ -8,7 +8,13 @@ Class Tabfile
 	__New($path){
 		this._path	:= $path
 	}
-
+	
+	/**
+	 */
+	getPath()
+	{
+		return this._path
+	}
 	/** get multiline string of tab captions
 		 
 	 */

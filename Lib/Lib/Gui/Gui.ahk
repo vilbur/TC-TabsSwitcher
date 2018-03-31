@@ -16,9 +16,14 @@ Class Gui Extends GuiControls
 		this._addTabsetControls()
 		this._addTabs()
 		this._addMainButtons()
+		
 		this._createGui()
+		
+		this._setFocusOnListbox("LB_TabsGroup")
+		this._setFocusOnListbox("LB_FoldersList")
+		this._setFocusOnListbox("LB_Tabfile")				
+		
 		this._updateTabNamesLookUp()		
-		this._focusTablist()
 	}
 	
 	/**

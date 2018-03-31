@@ -52,8 +52,8 @@ Class Tabset
 	load()
 	{
 		this._loadIniData()
-		this._setTabsetFolders()
 		this._setTabsGroups()
+		this._setTabsetFolders()
 		return this 
 	}
 
@@ -93,8 +93,9 @@ Class Tabset
 	 */
 	_setTabsetFolders()
 	{
-		loop, % this._path_target "\*", 2
-			this._folders.push(A_LoopFileName)
+		if( this._path_target )
+			loop, % this._path_target "\*", 2
+				this._folders.push(A_LoopFileName)
 	}
 	/** get *.tab files available for tabset
 	 */

@@ -14,7 +14,7 @@ Class GuiCallback Extends Parent
 		this._getActiveTab().Controls
 							.get("LB_Tabfile")
 								.clear()
-								.edit( this._TabsGroup( $data.tabset, $data.tabsgroup ).getTabFilenames() )
+								.edit( this.TabsGroup( $data.tabset, $data.tabsgroup ).getTabFilenames() )
 								.select( 1 )
 								
 		this._updateTabNamesLookUp()

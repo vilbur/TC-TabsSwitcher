@@ -8,6 +8,7 @@
 #Include %A_LineFile%\..\Lib\Globals.ahk
 
 #Include %A_LineFile%\..\Lib\Parent\Parent.ahk
+#Include %A_LineFile%\..\Lib\Parent\Accessors.ahk
 
 #Include %A_LineFile%\..\Lib\Install\Install.ahk
 #Include %A_LineFile%\..\Lib\Install\Example.ahk
