@@ -1,6 +1,6 @@
-/** Class Tabfiles
+/** Class TabfilesSet
 */
-Class Tabfiles
+Class TabfilesSet
 {
 	_path_tabs_folder	:= ""
 	_tabfiles	:= {}		
@@ -17,7 +17,7 @@ Class Tabfiles
 	{
 		FileCreateDir, % this._path_tabs_folder
 	}
-	/**
+	/** get *.tab files in folder
 	 */
 	getTabFiles()
 	{
@@ -31,13 +31,13 @@ Class Tabfiles
 	{
 		return % this._tabfiles[$tab_filename]._path_tabs_folder
 	}
-	/**
+	/** get filenames of *.tab files
 	 */
 	getTabFilenames()
 	{
 		return % getObjectKeys(this._tabfiles)
 	}
-	/**
+	/** get values of keys "caption" in *.tab file
 	 */
 	getTabsCaptions( $tab_filename )
 	{

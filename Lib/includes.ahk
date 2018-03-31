@@ -21,8 +21,8 @@
 
 #Include %A_LineFile%\..\Lib\Tabsets\Tabsets.ahk
 #Include %A_LineFile%\..\Lib\Tabsets\Tabset\Tabset.ahk
-#Include %A_LineFile%\..\Lib\Tabsets\Tabset\Tabfiles\Tabfiles.ahk
-#Include %A_LineFile%\..\Lib\Tabsets\Tabset\Tabfiles\Tabfile\Tabfile.ahk
+#Include %A_LineFile%\..\Lib\Tabsets\Tabset\TabfilesSet\TabfilesSet.ahk
+#Include %A_LineFile%\..\Lib\Tabsets\Tabset\TabfilesSet\Tabfile\Tabfile.ahk
 
 #Include %A_LineFile%\..\Lib\TabsReplacer\PathsReplacer.ahk
 #Include %A_LineFile%\..\Lib\TabsLoader\TabsLoader.ahk

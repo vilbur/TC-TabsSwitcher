@@ -7,21 +7,24 @@ Class GuiCallback Extends Parent
 
 	/**
 	 */
-	_tabfilesChanged( $Event )
+	_LB_TabfilesSetChanged( $Event )
 	{
 		$data	:= this._getGuiData()
-			
+		;Dump($data, "data", 1)
+		
 		this._updateTabNamesLookUp( $data )
 		
+		
 		this._getActiveTab().Controls
-							.get("LB_TabsList")
+							.get("LB_Tabfile")
 								.clear()
-								.edit( this._Tabfiles( $data.tabset, $data.tabfiles ).getTabFilenames() )
+								.edit( this._TabfilesSet( $data.tabset, $data.tabfilesset ).getTabFilenames() )
+								;.edit( "TEST" )								
 								.select( 1 )
 	}
 	/**
 	 */
-	_tablistChanged( $Event )
+	_LB_TabfileChanged( $Event )
 	{
 		$data	:= this._getGuiData()
 		this._updateTabNamesLookUp( $data )

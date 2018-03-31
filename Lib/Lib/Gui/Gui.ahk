@@ -42,9 +42,9 @@ Class Gui Extends GuiControls
 		$tab := this._getActiveTab()
 		;Dump($tab, "tab", 1)
 		return %	{"tabset":	$tab.name()
-			,"tabfiles":	$tab.Controls.get("LB_Tabfiles").value()			
+			,"tabfilesset":	$tab.Controls.get("LB_TabfilesSet").value()			
 			,"folder":	$tab.Controls.get("LB_FoldersList").value()			
-			,"tabs":	$tab.Controls.get("LB_TabsList").value()}
+			,"tabs":	$tab.Controls.get("LB_Tabfile").value()}
 	}
 	
 }

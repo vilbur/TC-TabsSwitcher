@@ -4,6 +4,9 @@
  */
 Class GuiControls Extends GuiControlsMethods
 {
+	
+	
+	
 	/**
 	 */
 	_addTabsetControls()
@@ -16,7 +19,7 @@ Class GuiControls Extends GuiControlsMethods
 			
 			.Dropdown( "New||Rename|Delete" )
 				.checked( this._Tabset($tab_name).get("last_tabfiles") )					
-				.add("DD_TabsetsAction")
+				.add("DD_Tabsets")
 		;.section()
 	}
 	/**
@@ -33,28 +36,28 @@ Class GuiControls Extends GuiControlsMethods
 	 */
 	_addTab( $index, $tab_name )
 	{
-		this._addTabfilesSection( $index, $tab_name )		
+		this._addTabfilesSetSection( $index, $tab_name )		
 		this._addFoldersSection( $index, $tab_name )
 		this._addTabsSection($index, $tab_name)
 	}
 	/**
 	 */
-	_addTabfilesSection( $index, $tab_name )
+	_addTabfilesSetSection( $index, $tab_name )
 	{
 		this._Tabs.Tabs[$index].Controls.layout("row")
 			
-			.GroupBox("Tabfiles")
+			.GroupBox("TabfilesSet")
 				.layout("column")
-				.add("GB_Tabfiles")
+				.add("GB_TabfilesSet")
 
 			.ListBox( this._Tabset($tab_name)._getFolderNames() )
-				.checked( this._Tabset($tab_name).getLastTabfiles() )					
-				.callback( &this "._tabfilesChanged" )
+				.checked( this._Tabset($tab_name).getLastTabfilesSet() )					
+				.callback( &this "._LB_TabfilesSetChanged" )
 				.options("w128 h256 -Multi")
-				.add("LB_Tabfiles")
+				.add("LB_TabfilesSet")
 				
 			.Dropdown( "New||Rename|Copy|Delete" )
-				.add("LB_TabfilesAction")
+				.add("DD_TabfilesSet")
 	}
 	
 	/**
@@ -64,11 +67,11 @@ Class GuiControls Extends GuiControlsMethods
 		this._Tabs.Tabs[$index].Controls
 			.GroupBox("Folders")
 					.layout("column")
-					.add("GB_Tabs")
+					.add("GB_FoldersList")
 			
 				.ListBox( this._Tabset($tab_name)._getTabsetFolders() )
 					.checked( 1 )					
-					.callback( &this "._tablistChanged" )
+					;.callback( &this "._LB_TabfileChanged" )
 					.options("w128 h256 -Multi")
 					.add("LB_FoldersList")
 			;.section()
@@ -78,23 +81,23 @@ Class GuiControls Extends GuiControlsMethods
 	 */
 	_addTabsSection( $index, $tab_name )
 	{
+		;Dump(this._TabfilesSet($tab_name, "_shared" ), "TEST", 1)
+		;Dump(this._Tabset($tab_name ), "_Tabset", 1)
+		
 		this._Tabs.Tabs[$index].Controls
-			.GroupBox("Tabs").layout("column").add("GBTabs")
-
+			.GroupBox("Tabs").layout("column").add("GB_Tabfile")
 					
-				.ListBox( this._Tabfiles($tab_name, "_shared" ).getTabFilenames() )
+				.ListBox( this._TabfilesSet($tab_name, "_shared" ).getTabFilenames() )
 					.checked( this._Tabset($tab_name).get("last_tabs") )
-					.callback( &this "._tablistChanged" )
+					.callback( &this "._LB_TabfileChanged" )
 					.options("w128 h256 -Multi")
-					.add("LB_TabsList")
+					.add("LB_Tabfile")
 					
 				.Dropdown("New||Rename|Copy|Delete" )
 					.options("w128 h246")
 					;.checked( this._Tabset($tab_name).get("last_Tabfiles") )
-					.add("DD_TabsAction")
+					.add("DD_Tabfile")
 				.section()
-			
-
 					
 				.Text()
 					.options("w128 h220 top")

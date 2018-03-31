@@ -28,9 +28,9 @@ Class Parent
 	}
 	/**
 	 */
-	_Tabfiles($Tabset, $Tabfiles)
+	_TabfilesSet($Tabset, $tabfilesset)
 	{
-		return % this._Tabset($Tabset).getTabfiles($Tabfiles)
+		return % this._Tabset($Tabset).getTabfilesSet($tabfilesset)
 	}
 	/**
 	 */

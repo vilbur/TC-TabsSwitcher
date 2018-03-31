@@ -33,7 +33,7 @@ Class GuiControlsMethods Extends GuiCallback
 		if( !$data )
 			$data	:= this._getGuiData()
 		;Dump($data, "data", 1)
-		$tabs_names := this._Tabfiles($data.tabset, $data.tabfiles ).getTabsCaptions($data.tabs)
+		$tabs_names := this._Tabfiles($data.tabset, $data.tabfilesset ).getTabsCaptions($data.tabs)
 		;Dump($tabs_names, "tabs_names", 1)
 		this._getActiveTab().Controls.get("TabNamesLookUp").edit( $tabs_names )
 	}
@@ -41,7 +41,7 @@ Class GuiControlsMethods Extends GuiCallback
 	 */
 	_focusTablist()
 	{
-		this._getActiveTab().Controls.get("TabsList").focus()		
+		this._getActiveTab().Controls.get("LB_Tabfile").focus()		
 	}
  
 
