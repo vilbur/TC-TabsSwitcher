@@ -30,6 +30,8 @@ Class Gui Extends GuiControls
 		;this._gui.Margin.container.x( 0 ).y(15)	; set margin between groupboxes
 		;this._gui.Margin.control.x( 30 ).y(5)	; set margin between controls
 		
+		this._gui.Events.Gui.onEscape("exit")
+		
 		this._gui.create()
 				.center("window")
 	}
@@ -42,7 +44,7 @@ Class Gui Extends GuiControls
 		$tab := this._getActiveTab()
 		;Dump($tab, "tab", 1)
 		return %	{"tabset":	$tab.name()
-			,"tabfilesset":	$tab.Controls.get("LB_TabfilesSet").value()			
+			,"tabsgroup":	$tab.Controls.get("LB_TabsGroup").value()			
 			,"folder":	$tab.Controls.get("LB_FoldersList").value()			
 			,"tabs":	$tab.Controls.get("LB_Tabfile").value()}
 	}

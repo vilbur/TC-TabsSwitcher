@@ -9,7 +9,7 @@ Class Tabset
 	_unique_file	:= ""
 	_last_tabfiles	:= ""
 	_last_tabs	:= ""	
-	_TabfilesSets	:= {}
+	_TabsGroups	:= {}
 	_folders	:= [] ; folderes in target path
 
 	/**
@@ -38,12 +38,12 @@ Class Tabset
 		this._setIniValue( "path-target", this._path_target )
 		return this 
 	}
-	/** create new TabfilesSets
+	/** create new TabsGroups
 	 */
-	createTabfilesSet( $name )
+	createTabsGroup( $name )
 	{
-		;MsgBox,262144,, createTabfilesSets,2 
-		new TabfilesSet(this._path_tabset "\\" $name ).create()
+		;MsgBox,262144,, createTabsGroups,2 
+		new TabsGroup(this._path_tabset "\\" $name ).create()
 		return this 
 	}
 	/**
@@ -52,7 +52,7 @@ Class Tabset
 	{
 		this._loadIniData()
 		this._setTabsetFolders()
-		this._setTabfilesSets()
+		this._setTabsGroups()
 		return this 
 	}
 
@@ -65,15 +65,15 @@ Class Tabset
 	}
 	/**
 	 */
-	getTabfilesSet( $TabfilesSet )
+	getTabsGroup( $TabsGroup )
 	{
-		;Dump($TabfilesSet, "getTabfilesSet", 1)
-		;MsgBox,262144,, getTabfilesSet,2 
-		return % this._TabfilesSets[$TabfilesSet]
+		;Dump($TabsGroup, "getTabsGroup", 1)
+		;MsgBox,262144,, getTabsGroup,2 
+		return % this._TabsGroups[$TabsGroup]
 	}
 	/**
 	 */
-	getLastTabfilesSet()
+	getLastTabsGroup()
 	{
 		;return 1
 		;Dump(this._last_tabfiles, "this._last_tabfiles", 1)
@@ -97,13 +97,13 @@ Class Tabset
 	}
 	/** get *.tab files available for tabset
 	 */
-	_setTabfilesSets()
+	_setTabsGroups()
 	{
 		loop, % this._path_tabset  "\*", 2
-			this._TabfilesSets[A_LoopFileName] := new TabfilesSet(A_LoopFileFullPath).getTabFiles()
+			this._TabsGroups[A_LoopFileName] := new TabsGroup(A_LoopFileFullPath).getTabFiles()
 	}
 	/*---------------------------------------
-		GET TabfilesSets  DATA
+		GET TabsGroups  DATA
 	-----------------------------------------
 	*/
 	/**
@@ -112,12 +112,12 @@ Class Tabset
 	{
 		return % getObjectValues(this._folders)
 	}
-	/** ??? RENAME THIS METHOD TO: getTabfilesSetsNames
+	/** ??? RENAME THIS METHOD TO: getTabsGroupsNames
 	  
 	 */
 	_getFolderNames()
 	{
-		return % getObjectKeys(this._TabfilesSets)
+		return % getObjectKeys(this._TabsGroups)
 	}
 	/*---------------------------------------
 		INI METHODS

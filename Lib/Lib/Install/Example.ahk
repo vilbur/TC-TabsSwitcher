@@ -29,8 +29,8 @@ Class Example Extends Parent
 	{
 		this._Tabsets().createTabset( this._users_path, this._Tabset_name )
 		
-		this._Tabset(this._Tabset_name).TabfilesSet("_shared")
-		this._Tabset(this._Tabset_name).TabfilesSet(this._username)		
+		this._Tabset(this._Tabset_name).TabsGroup("_shared")
+		this._Tabset(this._Tabset_name).TabsGroup(this._username)		
 	}
 
 	/**

@@ -28,9 +28,9 @@ Class Parent
 	}
 	/**
 	 */
-	_TabfilesSet($Tabset, $tabfilesset)
+	_TabsGroup($Tabset, $tabsgroup)
 	{
-		return % this._Tabset($Tabset).getTabfilesSet($tabfilesset)
+		return % this._Tabset($Tabset).getTabsGroup($tabsgroup)
 	}
 	/**
 	 */

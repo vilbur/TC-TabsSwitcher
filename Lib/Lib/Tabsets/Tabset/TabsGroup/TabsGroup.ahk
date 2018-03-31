@@ -1,6 +1,6 @@
-/** Class TabfilesSet
+/** Class TabsGroup
 */
-Class TabfilesSet
+Class TabsGroup
 {
 	_path_tabs_folder	:= ""
 	_tabfiles	:= {}		
