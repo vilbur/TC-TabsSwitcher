@@ -22,12 +22,16 @@ Class Tabsets Extends Parent
 	}
 	/**
 	 */
-	createTabset( $path_target, $name )
+	createTabset( $path_target, $name:="" )
 	{
+		if( ! $name )
+			SplitPath, $path_target, $name
+		
 		this._Tabsets[$name] := new Tabset()
-											.pathTarget( $path_target )
-											.name( $name )
-											.create()
+									.pathTarget( $path_target )
+									.name( $name )
+									.create()
+									.createTabsGroup( "_shared" )
 	}
 	/**
 	 */

@@ -37,6 +37,9 @@ Class Gui Extends GuiControls
 		
 		this._gui.Events.Gui.onEscape("exit")
 		
+		this._gui.Menus.Tray
+				.icon("\Icons\TabsSwitcher.ico")	; file in working dir subdir
+		
 		this._gui.create()
 				.center("window")
 	}

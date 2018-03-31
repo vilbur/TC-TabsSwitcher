@@ -25,7 +25,7 @@ Class TabsSwitcher Extends Accessors
 		this._Tabsets.loadTabsets()
 		this._TargetInfo.findCurrentTabset( this._Tabsets )
 		
-		;Dump(this._Tabsets, "this._Tabsets", 1)
+		;Dump(this._Tabsets, "this._Tabsets", 0)
 		;Dump(this._Tabsets._Tabsets.Tabs, "this._Tabsets._Tabsets.Tabs", 1)
 		;Dump(this._Tabsets._Tabsets.Users, "this._Tabsets._Tabsets.Users", 1)				
 		;this._getTabs()
@@ -82,7 +82,10 @@ Class TabsSwitcher Extends Accessors
 					.replaceFolder($data.folder)
 			
 		;$Event.message(50)
+		IniWrite, % $data.tabset, %$ini_path%, tabset, last 
+		
 		this._TabsLoader.loadTabs( $path_tab_file )
+		
 	}
 	/**
 	 */

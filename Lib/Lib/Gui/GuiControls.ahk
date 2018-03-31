@@ -18,8 +18,9 @@ Class GuiControls Extends GuiControlsMethods
 				.options("w148")
 				.add()
 			
-			.Dropdown( "New||Rename|Delete" )
-				.checked( this.Tabset($tab_name).get("last_tabsgroup") )					
+			.Dropdown( "Action||New|Rename|Delete" )
+				.checked( this.Tabset($tab_name).get("last_tabsgroup") )
+				.callback( &this "._DD_TabsetsChanged" ) 
 				.add("DD_Tabsets")
 		;.section()
 	}
@@ -27,17 +28,28 @@ Class GuiControls Extends GuiControlsMethods
 	 */
 	_addTabs()
 	{
+		IniRead, $active_tab, %$ini_path%, tabset, last 
+		
 		$Tabfiles_names	:= this.Tabsets()._getTabfilesNames()
-		this._Tabs	:= this._gui.Tabs( $Tabfiles_names ).add("Tabs_Tabsets").get()
+
+		this._Tabs	:= this._gui.Tabs( $Tabfiles_names )
+						.checked($active_tab)
+						;.checked(2)
+						.add("Tabs_Tabsets")
+						.get()
+		
+		;Dump($Tabfiles_names, "Tabfiles_names", 1)		
 		For $i, $Tabfiles_name in $Tabfiles_names
 			this._addTab( $i, $Tabfiles_name )
-
+		;Dump($Tabfiles_name, "Tabfiles_name", 1)
 	}
 	/**
 	 */
 	_addTab( $index, $tab_name )
 	{
-		this._addTabsGroupSection( $index, $tab_name )		
+		;Dump($tab_name, "tab_name", 1)
+		this._addTargetRoot( $index, $tab_name )
+		this._addTabsGroupSection( $index, $tab_name )				
 		this._addFoldersSection( $index, $tab_name )
 		this._addTabsSection($index, $tab_name)
 	}
@@ -47,10 +59,24 @@ Class GuiControls Extends GuiControlsMethods
 	*/
 	/**
 	 */
-	_addTabsGroupSection( $index, $tab_name )
+	_addTargetRoot( $index, $tab_name )
 	{
 		this._Tabs.Tabs[$index].Controls.layout("row")
-			
+			.GroupBox("Root")
+				.layout("column")
+				.add("GB_TabsGroup")
+				
+			.Edit( this.Tabset($tab_name).get("path_target") )
+				.options("w545")
+				.add()
+		.section()
+	}
+	/**
+	 */
+	_addTabsGroupSection( $index, $tab_name )
+	{
+		;Dump($tab_name, "tab_name", 1)
+		this._Tabs.Tabs[$index].Controls.layout("row")
 			.GroupBox("TabsGroup")
 				.layout("column")
 				.add("GB_TabsGroup")

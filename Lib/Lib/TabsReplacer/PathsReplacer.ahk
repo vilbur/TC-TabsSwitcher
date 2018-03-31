@@ -27,7 +27,7 @@ Class PathsReplacer
 	{
 		this._folder_name	:= $folder_name
 		
-		Dump(this, "this.", 1)
+		;Dump(this, "this.", 1)
 		IniRead, $sections, % this._path_tab_file
 			Loop Parse, $sections, `n
 				this._parseSection( A_LoopField )	

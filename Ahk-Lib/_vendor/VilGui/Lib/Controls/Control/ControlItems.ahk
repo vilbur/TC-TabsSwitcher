@@ -6,7 +6,11 @@ Class ControlItems_vgui extends Control_vgui{
 
 	/** set items for radio buttons or tabs
 	*/
-	items($items:=""){
+	items($items:="")
+	{
+		if( isObject($items) )
+			$items := $items.clone() ; clone object, otherwise it will modify original array
+		
 		this._items.string	:= !isObject($items) ? $items : this._getItemsString($items)
 		this._items.array	:=  isObject($items) ? $items : this._getItemsArray($items)
 		;Dump(this._items, "this._items", 1)

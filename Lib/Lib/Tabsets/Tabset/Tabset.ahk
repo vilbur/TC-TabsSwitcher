@@ -47,6 +47,14 @@ Class Tabset
 		new TabsGroup(this._path_tabset "\\" $name ).create()
 		return this 
 	}
+	/** delete Tabset folder
+	 */
+	delete()
+	{
+		;MsgBox,262144,delete , % this._path_tabset,2   
+		;FileRemoveDir, % this._path_tabset, 1
+		return this 
+	}
 	/**
 	 */
 	load()
