@@ -13,6 +13,9 @@
 #Include %A_LineFile%\..\Lib\Install\Example.ahk
 
 #Include %A_LineFile%\..\Lib\Gui\Gui.ahk
+#Include %A_LineFile%\..\Lib\Gui\GuiControls.ahk
+#Include %A_LineFile%\..\Lib\Gui\GuiControlsMethods.ahk
+#Include %A_LineFile%\..\Lib\Gui\GuiCallback.ahk
 
 #Include %A_LineFile%\..\Lib\TargetInfo.ahk
 

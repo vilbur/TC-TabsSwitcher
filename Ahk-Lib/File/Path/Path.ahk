@@ -1,3 +1,4 @@
+#Include %A_LineFile%\..\includes.ahk
 /* Class Path manipulate with path
    strips path out of quotes, and whitespace on init
    replace environment variables on init
@@ -191,10 +192,10 @@ Class Path {
 	split(){
 		;if RegExMatch( this.path, "^\\*(\w+)\\*$", $folder ) ;;; return $Path if $Path is onnly 1 folder long E.G.: $Path := "fooFolder\"
 			;return % $folder1
-		;$splitted := RegExMatch_All(this.path, "([\\\/])*([^\\\/]+)")[2]
+		;$splitted := RegExMatchAll(this.path, "([\\\/])*([^\\\/]+)")[2]
 		;dump($splitted, "$splitted", 1)
 		$path_slash_prefixed := RegExReplace(  this.path, "i)^([A-Z]:[\\/])*(.*)", "\$2" ) ; replace "c:\" or prefix path with "\"
-		return % RegExMatch_All( $path_slash_prefixed, "([\\\/])([^\\\/]+)")[2]
+		return % RegExMatchAll( $path_slash_prefixed, "([\\\/])([^\\\/]+)")[2]
 	}
 
 	/** getFileMask
@@ -255,7 +256,7 @@ Class Path {
 		;	this.path := ComObjCreate("WScript.Shell").Exec("cmd.exe /q /c echo """ this.path """").StdOut.ReadAll()
 		;
 
-		$env_variable_match := RegExMatch_All( this.path, "%([^\\\s]+)%" )
+		$env_variable_match := RegExMatchAll( this.path, "%([^\\\s]+)%" )
 
 		if ($env_variable_match[1].length()>0) {
 			$matches := $env_variable_match[1]
@@ -288,7 +289,7 @@ Class Path {
 					$matches[A_Index].push( $match%A_Index% )
 		}
 
-		/* IF FULL MATCH E.G: $test := RegExMatch_All( "test", "test" )
+		/* IF FULL MATCH E.G: $test := RegExMatchAll( "test", "test" )
 		*/
 		if ( $matches.length() == 0 ) {
 			$string_match_count := RegExMatch( $string, $regex, $url_match )
