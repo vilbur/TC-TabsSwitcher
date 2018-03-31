@@ -18,7 +18,7 @@ Class GuiControls Extends GuiControlsMethods
 				.add()
 			
 			.Dropdown( "New||Rename|Delete" )
-				.checked( this._Tabset($tab_name).get("last_tabfiles") )					
+				.checked( this._Tabset($tab_name).get("last_tabsgroup") )					
 				.add("DD_Tabsets")
 		;.section()
 	}
@@ -88,7 +88,8 @@ Class GuiControls Extends GuiControlsMethods
 			.GroupBox("Tabs").layout("column").add("GB_Tabfile")
 					
 				.ListBox( this._TabsGroup($tab_name, "_shared" ).getTabFilenames() )
-					.checked( this._Tabset($tab_name).get("last_tabs") )
+					;.checked( this._Tabset($tab_name).get("last_tabs") )
+					.checked( 1 )					
 					.callback( &this "._LB_TabfileChanged" )
 					.options("w128 h256 -Multi")
 					.add("LB_Tabfile")
@@ -101,7 +102,7 @@ Class GuiControls Extends GuiControlsMethods
 					
 				.Text()
 					.options("w128 h220 top")
-					.add("TabNamesLookUp")
+					.add("TabsNameLookUp")
 	}
 	/**
 	 */

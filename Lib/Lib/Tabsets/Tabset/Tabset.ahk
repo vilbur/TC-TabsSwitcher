@@ -7,8 +7,9 @@ Class Tabset
 	
 	_name	:= ""
 	_unique_file	:= ""
-	_last_tabfiles	:= ""
-	_last_tabs	:= ""	
+	_last_tabsgroup	:= ""
+	_last_tabs	:= ""
+	
 	_TabsGroups	:= {}
 	_folders	:= [] ; folderes in target path
 
@@ -76,8 +77,8 @@ Class Tabset
 	getLastTabsGroup()
 	{
 		;return 1
-		;Dump(this._last_tabfiles, "this._last_tabfiles", 1)
-		return % this._last_tabfiles ? this._last_tabfiles : 1
+		;Dump(this._last_tabsgroup, "this._last_tabsgroup", 1)
+		return % this._last_tabsgroup ? this._last_tabsgroup : 1
 	}
 	
 	/*---------------------------------------
@@ -129,7 +130,7 @@ Class Tabset
 	{
 		this._path_target	:= this._getIniValue("path-target")
 		this._unique_file	:= this._getIniValue("unique-file")
-		this._last_tabfiles	:= this._getIniValue("last-tabfiles")
+		this._last_tabsgroup	:= this._getIniValue("last-tabsgroup")
 		this._last_tabs	:= this._getIniValue("last-tabs")		
 	}
 

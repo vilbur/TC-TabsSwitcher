@@ -21,17 +21,24 @@ Class Parent
 	}
 	/**
 	 */
-	_Tabset($Tabset)
+	_Tabset($tabset_name)
 	{
 		;MsgBox,262144,, _Tabset,2 
-		return % this._Tabsets().getTabset($Tabset)
+		return % this._Tabsets().getTabset($tabset_name)
 	}
 	/**
 	 */
-	_TabsGroup($Tabset, $tabsgroup)
+	_TabsGroup($tabset_name, $tabsgroup_name)
 	{
-		return % this._Tabset($Tabset).getTabsGroup($tabsgroup)
+		return % this._Tabset($tabset_name).getTabsGroup($tabsgroup_name)
 	}
+	/**
+	 */
+	_Tabfile($tabset_name, $tabsgroup_name, $tabfile_name)
+	{		
+		return % this._TabsGroup($tabset_name, $tabsgroup_name).getTabFile($tabfile_name)
+	}
+	
 	/**
 	 */
 	_TargetInfo()

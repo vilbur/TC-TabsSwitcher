@@ -14,6 +14,7 @@ Class Tabfile
 	 */
 	getTabsCaptions()
 	{
+		;return "getTabsCaptions"
 		For $pane_name, $tabs in this._tabs ; $pane_name == "activetabs|inactivetabs"
 			$captions .= ( $pane_name=="inactivetabs" ? "`n":"") RegExReplace( $pane_name, "(.*)tabs", "------ $U1 ------`n" ) joinObject( $tabs )
 		return %$captions%
@@ -57,7 +58,7 @@ Class Tabfile
 	 */
 	_getTabName( $tab_num, $key, $value )
 	{
-		return $key=="path" ? $value : this._getFolderName( $value )
+		return $key=="path" ? this._getFolderName( $value ) : $value 
 	} 
 	/**
 	 */

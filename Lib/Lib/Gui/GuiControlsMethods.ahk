@@ -1,4 +1,4 @@
-/** t for controls
+/** methods for controls
  *
  *
  */
@@ -27,15 +27,14 @@ Class GuiControlsMethods Extends GuiCallback
 	}
 	/**
 	 */
-	_updateTabNamesLookUp( $data:="" )
+	_updateTabNamesLookUp()
 	{
-		;MsgBox,262144,, _updateTabNamesLookUp,2 
-		if( !$data )
-			$data	:= this._getGuiData()
-		;Dump($data, "data", 1)
-		$tabs_names := this._Tabfiles($data.tabset, $data.tabsgroup ).getTabsCaptions($data.tabs)
-		;Dump($tabs_names, "tabs_names", 1)
-		this._getActiveTab().Controls.get("TabNamesLookUp").edit( $tabs_names )
+		$data	:= this._getGuiData()
+		
+		$Tabfile := this._Tabfile($data.tabset, $data.tabsgroup, $data.tabs )
+
+		if( $Tabfile )
+			this._getActiveTab().Controls.get("TabsNameLookUp").edit( $Tabfile.getTabsCaptions() )			
 	}
 	/**
 	 */

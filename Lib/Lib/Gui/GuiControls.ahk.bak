@@ -15,7 +15,7 @@ Class GuiControls Extends GuiControlsMethods
 				.add()
 			
 			.Dropdown( "New||Rename|Delete" )
-				.checked( this._Tabset($tab_name).get("last_tabfiles") )					
+				.checked( this._Tabset($tab_name).get("last_tabsgroup") )					
 				.add("DD_TabsetsAction")
 		;.section()
 	}

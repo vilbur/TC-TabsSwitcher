@@ -25,24 +25,37 @@ Class TabsGroup
 			this._tabfiles[this._getTabFileName(A_LoopFileName)] := new Tabfile(A_LoopFileFullPath).getTabFiles()
 		return this
 	}
+	
+	/**
+	  * @return object Tabfile 
+	 */
+	getTabFile($tabfile_name)
+	{
+		;Dump(this, $tabfile_name, 1)
+		return % this._tabfiles[$tabfile_name]
+	}
+	
 	/**
 	 */
-	getTabFilePath( $tab_filename )
+	getTabFilePath( $tabfile_name )
 	{
-		return % this._tabfiles[$tab_filename]._path_tabs_folder
+		return % this._tabfiles[$tabfile_name]._path_tabs_folder
 	}
+	
 	/** get filenames of *.tab files
 	 */
 	getTabFilenames()
 	{
 		return % getObjectKeys(this._tabfiles)
 	}
-	/** get values of keys "caption" in *.tab file
-	 */
-	getTabsCaptions( $tab_filename )
-	{
-		return % this._tabfiles[$tab_filename].getTabsCaptions()
-	}
+	
+	;/** get values of keys "caption" in *.tab file
+	; */
+	;getTabsCaptions( $tabfile_name )
+	;{
+	;	return "getTabsCaptions"
+	;	return % this._tabfiles[$tabfile_name].getTabsCaptions()
+	;}
 	/**
 	 */
 	_getTabFileName($tabs_filename)
