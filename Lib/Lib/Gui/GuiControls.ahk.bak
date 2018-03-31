@@ -42,32 +42,19 @@ Class GuiControls Extends GuiControlsMethods
 	_addTabfilesSection( $index, $tab_name )
 	{
 		this._Tabs.Tabs[$index].Controls.layout("row")
+			.GroupBox("Tabfiles").add("GB_Tabfiles")
 			
-			.GroupBox("Tabfiles")
-				.layout("column")
-				.add("GB_Tabfiles")
-			
-			;.Dropdown( this._Tabset($tab_name)._getFolderNames() )
-			;	.checked( this._Tabset($tab_name).getLastTabfiles() )
-			;	;.checked(1)
-			;	.callback( &this "._TabfilesChanged" )
-			;	.add("LB_Tabfiles")
-				
-
-			
-			.ListBox( this._Tabset($tab_name)._getFolderNames() )
-				.checked( this._Tabset($tab_name).getLastTabfiles() )					
+			.Dropdown( this._Tabset($tab_name)._getFolderNames() )
+				.checked( this._Tabset($tab_name).getLastTabfiles() )
+				;.checked(1)
 				.callback( &this "._TabfilesChanged" )
-				.options("w128 h256 -Multi")
-				.add("LB_Tabfiles")
+				.add("DD_Tabfiles")
 				
 			.Dropdown( "New||Rename|Copy|Delete" )
 				;.checked( this._Tabset($tab_name).get("last_Tabfiles") )					
-				.add("LB_TabfilesAction")
+				.add("DD_TabfilesAction")
 			;.groupEnd()
-			;.section()	
-			
-			
+			.section()			
 	}
 	
 	/**
@@ -93,20 +80,18 @@ Class GuiControls Extends GuiControlsMethods
 	{
 		this._Tabs.Tabs[$index].Controls
 			.GroupBox("Tabs").layout("column").add("GBTabs")
-
-					
+			
 				.ListBox( this._Tabfiles($tab_name, "_shared" ).getTabFilenames() )
 					.checked( this._Tabset($tab_name).get("last_tabs") )
 					.callback( &this "._tablistChanged" )
 					.options("w128 h256 -Multi")
 					.add("LB_TabsList")
+				.section()
+			
 				.Dropdown("New||Rename|Copy|Delete" )
 					.options("w128 h246")
 					;.checked( this._Tabset($tab_name).get("last_Tabfiles") )
 					.add("DD_TabsAction")
-				.section()
-			
-
 					
 				.Text()
 					.options("w128 h220 top")
