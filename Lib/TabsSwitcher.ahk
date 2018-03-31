@@ -26,6 +26,8 @@ Class TabsSwitcher
 		this._TargetInfo.findCurrentTabset( this._Tabsets )
 		
 		;Dump(this._Tabsets, "this._Tabsets", 1)
+		;Dump(this._Tabsets._Tabsets.Tabs, "this._Tabsets._Tabsets.Tabs", 1)
+		Dump(this._Tabsets._Tabsets.Users, "this._Tabsets._Tabsets.Users", 1)				
 		;this._getTabs()
 	}
 	/** managerGui

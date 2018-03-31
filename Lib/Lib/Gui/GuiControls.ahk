@@ -46,28 +46,15 @@ Class GuiControls Extends GuiControlsMethods
 			.GroupBox("Tabfiles")
 				.layout("column")
 				.add("GB_Tabfiles")
-			
-			;.Dropdown( this._Tabset($tab_name)._getFolderNames() )
-			;	.checked( this._Tabset($tab_name).getLastTabfiles() )
-			;	;.checked(1)
-			;	.callback( &this "._TabfilesChanged" )
-			;	.add("LB_Tabfiles")
-				
 
-			
 			.ListBox( this._Tabset($tab_name)._getFolderNames() )
 				.checked( this._Tabset($tab_name).getLastTabfiles() )					
-				.callback( &this "._TabfilesChanged" )
+				.callback( &this "._tabfilesChanged" )
 				.options("w128 h256 -Multi")
 				.add("LB_Tabfiles")
 				
 			.Dropdown( "New||Rename|Copy|Delete" )
-				;.checked( this._Tabset($tab_name).get("last_Tabfiles") )					
 				.add("LB_TabfilesAction")
-			;.groupEnd()
-			;.section()	
-			
-			
 	}
 	
 	/**
@@ -100,6 +87,7 @@ Class GuiControls Extends GuiControlsMethods
 					.callback( &this "._tablistChanged" )
 					.options("w128 h256 -Multi")
 					.add("LB_TabsList")
+					
 				.Dropdown("New||Rename|Copy|Delete" )
 					.options("w128 h246")
 					;.checked( this._Tabset($tab_name).get("last_Tabfiles") )

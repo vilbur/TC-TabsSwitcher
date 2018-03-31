@@ -1,29 +1,27 @@
 /** Class Tabfiles
-  
-  
 */
 Class Tabfiles
 {
-	_path	:= ""
+	_path_tabs_folder	:= ""
 	_tabfiles	:= {}		
 
 	/* 
 		@param string $path to folder with *.tab files
 	 */
 	__New($path){
-		this._path	:= $path
+		this._path_tabs_folder	:= $path
 	}
 	/** create new Tabfiles
 	 */
 	create()
 	{
-		FileCreateDir, % this._path
+		FileCreateDir, % this._path_tabs_folder
 	}
 	/**
 	 */
 	getTabFiles()
 	{
-		loop, % this._path "\*.tab", 0
+		loop, % this._path_tabs_folder "\*.tab", 0
 			this._tabfiles[this._getTabFileName(A_LoopFileName)] := new Tabfile(A_LoopFileFullPath).getTabFiles()
 		return this
 	}
@@ -31,7 +29,7 @@ Class Tabfiles
 	 */
 	getTabFilePath( $tab_filename )
 	{
-		return % this._tabfiles[$tab_filename]._path
+		return % this._tabfiles[$tab_filename]._path_tabs_folder
 	}
 	/**
 	 */

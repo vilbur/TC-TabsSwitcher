@@ -51,8 +51,8 @@ Class Tabset
 	load()
 	{
 		this._loadIniData()
-		this._setTabfiles()
 		this._setTabsetFolders()
+		this._setTabfiles()
 		return this 
 	}
 
@@ -82,19 +82,23 @@ Class Tabset
 		GET FOLDERS AND FILES DATA
 	-----------------------------------------
 	*/
-	/**
-	 */
-	_setTabfiles()
-	{
-		loop, % this._path_tabset  "\*", 2
-			this._Tabfiles[A_LoopFileName] := new Tabfiles(A_LoopFileFullPath).getTabFiles()
-	}
-	/**
+	/** get folders in target root
+	  *
+	  * @example target\root
+	  *				\project_1
+	  *				\project_2	  
 	 */
 	_setTabsetFolders()
 	{
 		loop, % this._path_target "\*", 2
 			this._folders.push(A_LoopFileName)
+	}
+	/** get *.tab files available for tabset
+	 */
+	_setTabfiles()
+	{
+		loop, % this._path_tabset  "\*", 2
+			this._Tabfiles[A_LoopFileName] := new Tabfiles(A_LoopFileFullPath).getTabFiles()
 	}
 	/*---------------------------------------
 		GET Tabfiles  DATA

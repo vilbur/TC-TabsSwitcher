@@ -1,14 +1,9 @@
 /** Read *.tab file and get name of each tab
-  
-  
-  
 */
-
 Class Tabfile
 {
 	_path	:= "" ; path to *.tab file
 	_tabs	:= {}
-	_section	:= "" ; store curent setcion in loop
 
 	__New($path){
 		this._path	:= $path
@@ -41,34 +36,28 @@ Class Tabfile
 		
 		IniRead, $sections, % this._path, %$section%
 			Loop Parse, $sections, `n
-				this._parseLine( A_LoopField )
-				
-		this.delete("_section")
+				this._parseLine($section, A_LoopField )
 	} 
-	/**
+	/** prse key=value par in ini
 	 */
-	_parseLine( $line_content )
+	_parseLine($section,  $line_content )
 	{
-		;Dump($line_content, "line_content", 1)
 		$key_value	:= StrSplit($line_content, "=")
 		
 		RegExMatch( $key_value[1], "i)^(\d+)_(path|caption)", $key )
 		
 		if($key)
-			this._setTabValue( $tab_num1, $key2, $key_value[2] )
+			this._tabs[$section].push( this._getTabName( $tab_num1, $key2, $key_value[2] ) )
 	}
 	
-	/** Set path folder name from key "path" or key "caption"
-		*.tab file contains these keys
-			1_path=C:\Foo\Folder\
-			1_caption=Renamed Tab
+	/** Get path folder name from key "path" or key "caption"
+	  *	*.tab file contains these keys
+	  *		1_path=C:\Foo\Folder\
+	  *		1_caption=Renamed Tab
 	 */
-	_setTabValue( $tab_num, $key, $value )
+	_getTabName( $tab_num, $key, $value )
 	{
-		if($key=="path")
-			$value := this._getFolderName( $value )
-
-		this._tabs[this._section].push($value)		
+		return $key=="path" ? $value : this._getFolderName( $value )
 	} 
 	/**
 	 */
