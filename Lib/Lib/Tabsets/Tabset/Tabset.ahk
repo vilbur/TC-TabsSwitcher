@@ -52,7 +52,7 @@ Class Tabset
 	delete()
 	{
 		;MsgBox,262144,delete , % this._path_tabset,2   
-		;FileRemoveDir, % this._path_tabset, 1
+		FileRemoveDir, % this._path_tabset, 1
 		return this 
 	}
 	/**

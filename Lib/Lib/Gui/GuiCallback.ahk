@@ -10,12 +10,7 @@ Class GuiCallback Extends Parent
 	_DD_TabsetsChanged( $Event )
 	{
 		$data	:= this._getGuiData()
-		
-		;$Event.message()
-		
-		;$value := $Event.value
-		;Dump( "--" $Event.value() "--", "", 1)
-		;MsgBox,262144,value, %$value%,3 
+
 		if( $Event.value == "New" )
 		{
 			SplitPath, A_WorkingDir, $dir_name
@@ -30,17 +25,9 @@ Class GuiCallback Extends Parent
 				
 		}else if(  $Event.value == "Delete" )
 			MsgBox, 260, DELETE ROOT, % "Do You want delete tabset: " $data.tabset
-				;IfMsgBox, Yes
+				IfMsgBox, Yes
+					this.Tabset($data.tabset).delete()
 
-			
-		
-		;this._getActiveTab().Controls
-		;					.get("LB_Tabfile")
-		;						.clear()
-		;						.edit( this.TabsGroup( $data.tabset, $data.tabsgroup ).getTabFilenames() )
-		;						.select( 1 )
-		;						
-		;this._updateTabNamesLookUp()
 	}
 
 
