@@ -1,10 +1,9 @@
 /** Class TargetInfo
 */
 Class TargetInfo
-{
-	_tabsets	:= {}
-	
-	
+{	
+	_folder_current	:= "" ; current target folder found by TargetInfo
+
 	/**
 	 */
 	findCurrentTabset( $Tabsets )
@@ -12,7 +11,13 @@ Class TargetInfo
 		For $tabset_name, $Tabset in $Tabsets._Tabsets
 			if( InStr(A_WorkingDir, $Tabset.get("path_target")) )
 				this._setCurrentTabset($Tabset)
-	} 
+	}
+	/**
+	 */
+	get( $property )
+	{
+		return % this["_" $property ]
+	}
 	/**
 	 */
 	_setCurrentTabset( $Tabset )
@@ -21,7 +26,7 @@ Class TargetInfo
 		
 		RegExMatch( A_WorkingDir, $rx_path, $current_folder )
 		
-		$Tabset._folder_current := $current_folder1
+		this._folder_current := $current_folder1
 	}
 
 	

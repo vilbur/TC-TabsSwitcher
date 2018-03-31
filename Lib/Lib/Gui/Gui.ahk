@@ -25,17 +25,14 @@ Class Gui Extends Parent
 	_addTabsetControls()
 	{
 		this._gui.controls
-			.GroupBox("Tabfiles").add("GBTabfiles")
+			.GroupBox("Tabsets").add("GB_Tabsets")
 			.Text("Current: " this._TargetInfo().get("folder_current") )
 				.options("w148")
 				.add()
 			
 			.Dropdown( "New||Rename|Delete" )
-				;.label("Action")
-				;.callback( &this "._TabfilesChanged", $tab_name )
-				;.items( "New||Rename|Delete" )
-				.checked( this._Tabset($tab_name).get("last_Tabfiles") )					
-				.add("TabsetAction")
+				.checked( this._Tabset($tab_name).get("last_tabfiles") )					
+				.add("DD_TabsetsAction")
 		;.section()
 	}
 	/**
@@ -43,7 +40,7 @@ Class Gui Extends Parent
 	_addTabs()
 	{
 		$Tabfiles_names	:= this._Tabsets()._getTabfilesNames()
-		this._Tabs	:= this._gui.Tabs( $Tabfiles_names ).add("TabfilesTabs").get()
+		this._Tabs	:= this._gui.Tabs( $Tabfiles_names ).add("Tabs_Tabsets").get()
 		For $i, $Tabfiles_name in $Tabfiles_names
 			this._addTab( $i, $Tabfiles_name )
 
@@ -61,17 +58,17 @@ Class Gui Extends Parent
 	_addTabfiles( $index, $tab_name )
 	{
 		this._Tabs.Tabs[$index].Controls.layout("row")
-			.GroupBox("Tabfiles").add("GBTabfiles")
+			.GroupBox("Tabfiles").add("GB_Tabfiles")
 			
 			.Dropdown( this._Tabset($tab_name)._getFolderNames() )
 				.checked( this._Tabset($tab_name).getLastTabfiles() )
 				;.checked(1)
 				.callback( &this "._TabfilesChanged" )
-				.add("ddTabfiles")
+				.add("DD_Tabfiles")
 				
 			.Dropdown( "New||Rename|Copy|Delete" )
 				;.checked( this._Tabset($tab_name).get("last_Tabfiles") )					
-				.add("TabfilesAction")
+				.add("DD_TabfilesAction")
 			;.groupEnd()
 			.section()			
 	}
@@ -83,14 +80,13 @@ Class Gui Extends Parent
 		this._Tabs.Tabs[$index].Controls
 			.GroupBox("Folders")
 					.layout("column")
-					.add("GBTabs")
+					.add("GB_Tabs")
 			
 				.ListBox( this._Tabset($tab_name)._getTabsetFolders() )
-					;.checked( this._Tabset($tab_name).get("last_tabs") )
 					.checked( 1 )					
 					.callback( &this "._tablistChanged" )
 					.options("w128 h256 -Multi")
-					.add("FoldersList")
+					.add("LB_FoldersList")
 			;.section()
 	} 
 
@@ -105,13 +101,13 @@ Class Gui Extends Parent
 					.checked( this._Tabset($tab_name).get("last_tabs") )
 					.callback( &this "._tablistChanged" )
 					.options("w128 h256 -Multi")
-					.add("TabsList")
+					.add("LB_TabsList")
 				.section()
 			
 				.Dropdown("New||Rename|Copy|Delete" )
 					.options("w128 h246")
 					;.checked( this._Tabset($tab_name).get("last_Tabfiles") )
-					.add("TabsAction")
+					.add("DD_TabsAction")
 					
 				.Text()
 					.options("w128 h220 top")
@@ -153,26 +149,27 @@ Class Gui Extends Parent
 	 */
 	_getActiveTab()
 	{
-		return % this._gui.TabfilesTabs.getActive()		
+		return % this._gui.Tabs_Tabsets.getActive()		
 	}
 	/**
 	 */
 	_getGuiData()
 	{
+		;MsgBox,262144,, _getGuiData,2 
 		$tab := this._getActiveTab()
-		return %	{"Tabset":	$tab.name()
-			,"Tabset_path":	this._Tabset( $tab.name() ).get("Tabset")
-			,"folder":	$tab.Controls.get("FoldersList").value()			
-			,"Tabfiles":	$tab.Controls.get("ddTabfiles").value()			
-			,"tabs":	$tab.Controls.get("TabsList").value()}
+		;Dump($tab, "tab", 1)
+		return %	{"tabset":	$tab.name()
+			,"tabfiles":	$tab.Controls.get("DD_Tabfiles").value()			
+			,"folder":	$tab.Controls.get("LB_FoldersList").value()			
+			,"tabs":	$tab.Controls.get("LB_TabsList").value()}
 	} 
 	/**
 	 */
 	_setDropdownItems($control_name, $items, $selected:="")
 	{
 		this._gui.Controls.get($control_name)
-			.clear()
-			.edit($items)
+							.clear()
+							.edit($items)
 	} 
 	/**
 	 */
@@ -184,11 +181,13 @@ Class Gui Extends Parent
 	 */
 	updateTabNamesLookUp( $data:="" )
 	{
+		;MsgBox,262144,, updateTabNamesLookUp,2 
 		if( !$data )
 			$data	:= this._getGuiData()
-		
-		$tabs_names := this._Tabfiles($data.Tabset, $data.Tabfiles ).getTabsCaptions($data.tabs)
-		this._getActiveTab().Controls.get("TabNamesLookUp").edit($tabs_names )
+		;Dump($data, "data", 1)
+		$tabs_names := this._Tabfiles($data.tabset, $data.tabfiles ).getTabsCaptions($data.tabs)
+		;Dump($tabs_names, "tabs_names", 1)
+		this._getActiveTab().Controls.get("TabNamesLookUp").edit( $tabs_names )
 	}
 	/**
 	 */
@@ -212,7 +211,7 @@ Class Gui Extends Parent
 		this._getActiveTab().Controls
 							.get("TabsList")
 								.clear()
-								.edit( this._Tabfiles( $data.Tabset, $data.Tabfiles ).getTabFilenames() )
+								.edit( this._Tabfiles( $data.tabset, $data.tabfiles ).getTabFilenames() )
 								.select( 1 )
 	}
 	/**

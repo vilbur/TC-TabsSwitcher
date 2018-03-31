@@ -11,7 +11,6 @@ Class Tabset
 	_last_tabs	:= ""	
 	_Tabfiles	:= {}
 	_folders	:= [] ; folderes in target path
-	_folder_current	:= "" ; current target folder found by TargetInfo
 
 	/**
 		@param string $path to Tabset folder

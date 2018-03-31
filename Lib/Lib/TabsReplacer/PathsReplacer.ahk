@@ -1,6 +1,6 @@
-/** Class IniReplacer
+/** Class PathsReplacer
 */
-Class IniReplacer
+Class PathsReplacer
 {
 	_path_tab_file	:= "" ; path to folder with *.tab files
 	_path_target	:= ""
@@ -9,9 +9,9 @@ Class IniReplacer
 
 	/**
 	 */
-	pathTabFile( $path )
+	pathTabFile( $path_tab_file )
 	{
-		this._path := $path
+		this._path_tab_file := $path_tab_file
 		return this
 	}
 	/**
@@ -27,10 +27,10 @@ Class IniReplacer
 	{
 		;Dump($data, "data", 1)
 		this._folder_name	:= $folder_name
-		Dump(this, "this.", 1)
-		;IniRead, $sections, % this._path_tab_file
-		;	Loop Parse, $sections, `n
-		;		this._parseSection( A_LoopField )	
+		;Dump(this, "this.", 1)
+		IniRead, $sections, % this._path_tab_file
+			Loop Parse, $sections, `n
+				this._parseSection( A_LoopField )	
 	}
 	/**
 	 */
@@ -56,18 +56,18 @@ Class IniReplacer
 	 */
 	_replaceInPath( $key, $full_path )
 	{
-		$path_Tabset	:= RegExReplace( this._data.Tabset_path, "\\+$", "" ) ;;; remove last  slash\'
-		$replace_path	= %$path_Tabset%\
+		$path_tabset	:= RegExReplace( this._path_target, "\\+$", "" ) ;;; remove last  slash\'
+		$replace_path	= %$path_tabset%\
 		
-		$path_Tabset_rx	:= RegExReplace( $path_Tabset, "[\\\/]+", "\\")
+		$path_tabset_rx	:= RegExReplace( $path_tabset, "[\\\/]+", "\\")
 
-		$path_new	:= RegExReplace( $full_path, "i)" $path_Tabset_rx  "[\\]+[^\\\/]+", $replace_path this._data.folder )
+		$path_new	:= RegExReplace( $full_path, "i)" $path_tabset_rx  "[\\]+[^\\\/]+", $replace_path this._folder_name )
 		
-		Dump($path_Tabset_rx, "path_Tabset_rx", 1)
-		Dump($path_new, "path_new", 1)
+		;Dump($path_tabset_rx, "path_tabset_rx", 1)
+		;Dump($path_new, "path_new", 1)
 		;Dump("-----------------------------", "", 1)				
 		
-		;IniWrite, %$path_new%, % this._path, % this._section, %$key% 
+		IniWrite, %$path_new%, % this._path_tab_file, % this._section, %$key% 
 
 	} 
 

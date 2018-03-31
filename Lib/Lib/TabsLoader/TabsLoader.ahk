@@ -1,6 +1,6 @@
-/** Class TCcommand
+/** Class TabsLoader
 */
-Class TCcommand
+Class TabsLoader
 {
 	_usercmd_ini	:= "" ; save commands
 	_wincmd_ini	:= "" ; set keyboard shortcuts

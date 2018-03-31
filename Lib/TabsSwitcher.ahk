@@ -10,8 +10,8 @@ Class TabsSwitcher
 	_TargetInfo	:= new TargetInfo()	
 	_Gui	:= new Gui().parent(this)
 	_Install 	:= new Install()
-	_IniReplacer 	:= new IniReplacer()
-	_TCcommand 	:= new TCcommand()	
+	_PathsReplacer 	:= new PathsReplacer()
+	_TabsLoader 	:= new TabsLoader()	
 	;_ini_path	:=
 
 	__New()
@@ -25,7 +25,7 @@ Class TabsSwitcher
 		this._Tabsets.loadTabsets()
 		this._TargetInfo.findCurrentTabset( this._Tabsets )
 		
-		Dump(this._Tabsets, "this._Tabsets", 1)
+		;Dump(this._Tabsets, "this._Tabsets", 1)
 		;this._getTabs()
 	}
 	/** managerGui
@@ -49,7 +49,7 @@ Class TabsSwitcher
 	 */
 	install()
 	{
-		;new TCcommand().createCommandRunTabSwitcher( $path )
+		;new TabsLoader().createCommandRunTabSwitcher( $path )
 		this._Install
 				.createIniFile()		
 				.createTabsFolder()
@@ -70,16 +70,17 @@ Class TabsSwitcher
 	loadTabs($Event)
 	{
 		$data	:= this._gui._getGuiData()
-		$path_tab_file	:= this._Tabsets.getTabset($data.Tabset).getTabfiles( $data.Tabfiles ).getTabFilePath( $data.tabs )
-		;Dump($data, "data", 1)
+		;$path_tab_file	:= this._Tabsets.getTabset($data.tabset).getTabfiles( $data.tabfiles ).getTabFilePath( $data.tabs )
+		$path_tab_file	:= this._Tabsets.getTabset($data.tabset).getTabfiles( $data.tabfiles ).getTabFilePath( $data.tabs )		
+		;Dump($path_tab_file, "path_tab_file", 1)
 		if( $data.Tabfiles=="_shared" )
-			this._IniReplacer.clone()
+			this._PathsReplacer.clone()
 					.pathTabFile($path_tab_file)
-					.pathTarget($data.Tabset_path)
+					.pathTarget(this._Tabsets.getTabset($data.tabset).get("path_target"))
 					.replaceFolder($data.folder)
 			
 		;$Event.message(50)
-		;this._TCcommand.loadTabs( $path )
+		this._TabsLoader.loadTabs( $path_tab_file )
 	}
 	/**
 	 */
