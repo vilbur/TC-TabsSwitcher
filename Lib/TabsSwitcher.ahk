@@ -51,7 +51,8 @@ Class TabsSwitcher
 	{
 		;new TabsLoader().createCommandRunTabSwitcher( $path )
 		this._Install
-				.createIniFile()		
+				.createCommands()
+				.createIniFile()						
 				.createTabsFolder()
 	}
 	/** get all unique files from all ini files

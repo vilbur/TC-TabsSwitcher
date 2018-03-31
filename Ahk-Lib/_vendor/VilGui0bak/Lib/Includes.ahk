@@ -3,6 +3,7 @@
 -----------------------------------------
 */
 #Include %A_LineFile%\..\..\Ahk-Lib\Monitor\Monitor.ahk
+#Include %A_LineFile%\..\..\Ahk-Lib\File\Path\Path.ahk
 
 /*---------------------------------------
 	MENU

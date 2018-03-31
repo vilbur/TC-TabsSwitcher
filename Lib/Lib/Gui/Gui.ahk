@@ -139,7 +139,10 @@ Class Gui Extends Parent
 		;this._gui.Margin.container.x( 0 ).y(15)	; set margin between groupboxes
 		;this._gui.Margin.control.x( 30 ).y(5)	; set margin between controls
 		
-		this._gui.create()		
+		this._gui.Events.Gui.onEscape("exit")
+		
+		this._gui.create()
+				 .center("window")
 	} 
 	/*---------------------------------------
 		ACTIONS

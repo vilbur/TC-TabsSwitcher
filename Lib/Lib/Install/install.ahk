@@ -2,9 +2,16 @@
 */
 Class Install
 {
-	__New(){
-		
+	
+	createCommands(){
+		new TcCommand()
+			.name("Open")
+			.prefix("TabsSwitcher")
+			.cmd( A_ScriptFullPath )
+			.icon( A_ScriptDir "\Icons\tab-switcher.ico" )			
+			.create()
 	}
+	
 	/**
 	 */
 	createIniFile()
