@@ -1,9 +1,7 @@
-/** Gui create gui
- * 
- *
- *
- */
-Class Gui Extends GuiControls
+
+/** Class Gui
+*/
+Class Gui Extends Parent
 {
 	_gui := new VilGUI("TabsSwitcher")
 	
@@ -19,7 +17,7 @@ Class Gui Extends GuiControls
 		this._addTabs()
 		this._addMainButtons()
 		this._createGui()
-		this.updateTabNamesLookUp()		
+		this._updateTabNamesLookUp()		
 		this._focusTablist()
 	}
 	
@@ -32,10 +30,7 @@ Class Gui Extends GuiControls
 		;this._gui.Margin.container.x( 0 ).y(15)	; set margin between groupboxes
 		;this._gui.Margin.control.x( 30 ).y(5)	; set margin between controls
 		
-		this._gui.Events.Gui.onEscape("exit")
-		
-		this._gui.create()
-				 .center("window")
+		this._gui.create()		
 	}
 	
 	/**

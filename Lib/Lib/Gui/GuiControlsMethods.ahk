@@ -11,7 +11,6 @@ Class GuiControlsMethods Extends GuiCallback
 	{
 		return % this._gui.Tabs_Tabsets.getActive()		
 	}
-
 	/**
 	 */
 	_setDropdownItems($control_name, $items, $selected:="")
@@ -28,9 +27,9 @@ Class GuiControlsMethods Extends GuiCallback
 	}
 	/**
 	 */
-	updateTabNamesLookUp( $data:="" )
+	_updateTabNamesLookUp( $data:="" )
 	{
-		;MsgBox,262144,, updateTabNamesLookUp,2 
+		;MsgBox,262144,, _updateTabNamesLookUp,2 
 		if( !$data )
 			$data	:= this._getGuiData()
 		;Dump($data, "data", 1)
