@@ -6,7 +6,7 @@ Class Tabset
 	_path_tabset	:= "" 	
 	
 	_name	:= ""
-	;_unique_file	:= ""
+	_unique_file	:= ""
 	_last_tabfiles	:= ""
 	_last_tabs	:= ""	
 	_Tabfiles	:= {}
@@ -73,7 +73,8 @@ Class Tabset
 	 */
 	getLastTabfiles()
 	{
-		;MsgBox,262144,, getLastTabs,2
+		;return 1
+		;Dump(this._last_tabfiles, "this._last_tabfiles", 1)
 		return % this._last_tabfiles ? this._last_tabfiles : 1
 	}
 	
@@ -121,7 +122,7 @@ Class Tabset
 	_loadIniData()
 	{
 		this._path_target	:= this._getIniValue("path-target")
-		;this._unique_file	:= this._getIniValue("unique_file")
+		this._unique_file	:= this._getIniValue("unique-file")
 		this._last_tabfiles	:= this._getIniValue("last-tabfiles")
 		this._last_tabs	:= this._getIniValue("last-tabs")		
 	}
@@ -136,7 +137,8 @@ Class Tabset
 	 */
 	_getIniValue( $key )
 	{
-		IniRead, $value,	% $tabs_path "\\" this._name "\Tabset.ini", config, %$key%
+		IniRead, $value,	% $tabs_path "\\" this._name "\Tabset.ini", config, %$key%, 
+		;return $value
 		return % $value != "ERROR" ? $value : ""
 	}
 }

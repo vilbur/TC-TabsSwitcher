@@ -4,6 +4,7 @@
  */
 Class GuiControls Extends GuiControlsMethods
 {
+	
 	/**
 	 */
 	_addTabsetControls()
@@ -17,13 +18,15 @@ Class GuiControls Extends GuiControlsMethods
 			.Dropdown( "New||Rename|Delete" )
 				.checked( this._Tabset($tab_name).get("last_tabfiles") )					
 				.add("DD_TabsetsAction")
-		;.section()
+				
 	}
 	/**
 	 */
 	_addTabs()
 	{
 		$Tabfiles_names	:= this._Tabsets()._getTabfilesNames()
+		;Dump($Tabfiles_names, "Tabfiles_names", 1)
+		
 		this._Tabs	:= this._gui.Tabs( $Tabfiles_names ).add("Tabs_Tabsets").get()
 		For $i, $Tabfiles_name in $Tabfiles_names
 			this._addTab( $i, $Tabfiles_name )
@@ -41,6 +44,8 @@ Class GuiControls Extends GuiControlsMethods
 	 */
 	_addTabfiles( $index, $tab_name )
 	{
+		
+		
 		this._Tabs.Tabs[$index].Controls.layout("row")
 			.GroupBox("Tabfiles").add("GB_Tabfiles")
 			

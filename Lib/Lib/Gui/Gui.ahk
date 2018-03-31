@@ -1,7 +1,7 @@
 
 /** Class Gui
 */
-Class Gui Extends Parent
+Class Gui Extends GuiControls
 {
 	_gui := new VilGUI("TabsSwitcher")
 	
