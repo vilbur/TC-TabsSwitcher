@@ -4,6 +4,27 @@
  */
 Class GuiControlsMethods Extends GuiCallback
 {
+	_last_selected_folders	:= {}
+	
+	/** fill listbox if tabsgroup changed to "_shared"
+	    clear listbox if tabsgroup not "_shared"
+		
+		temporary save selection to _last_selected_folders
+	 */
+	_editTabsgroupListBox( $data )
+	{
+		$Tab 	:= this._getActiveTab()
+		$LB_FoldersList	:= $Tab.Controls.get("LB_FoldersList")
+		
+		if ($data.tabsgroup=="_shared"){
+			
+			$LB_FoldersList.edit( this.Tabset($data.tabset)._getTabsetFolders() )
+							.select( this._last_selected_folders[$data.tabset] )				
+		} else {
+			this._last_selected_folders[$data.tabset] := $LB_FoldersList.value()
+			$LB_FoldersList.clear()
+		}
+	}
 
 	/**
 	 */
@@ -43,7 +64,7 @@ Class GuiControlsMethods Extends GuiCallback
 	{
 		this._getActiveTab().Controls.get($listbox_name).focus()		
 	}
-  
+	
 
 	
 

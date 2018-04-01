@@ -41,29 +41,32 @@ Class GuiCallback Extends Parent
 		this._getActiveTab().Controls
 							.get("LB_Tabfile")
 								.clear()
-								.edit( this.TabsGroup( $data.tabset, $data.tabsgroup ).getTabFilenames() )
+								.edit( this.TabsGroup($data.tabset, $data.tabsgroup ).getTabFilenames() )
+								;.checked( this.Tabset($data.tabset).getLast("tabfile") )					
 								.select( 1 )
-								
+		
+		
+		this._editTabsgroupListBox($data)
+		
 		this._updateTabNamesLookUp()
 	}
 	/**
 	 */
 	_LB_FoldersListChanged( $Event )
 	{
-		;$data	:= this._getGuiData()
 		if( $Event.type=="DoubleClick" )
 			this.Parent().loadTabs()
-		;$Event.message()
-		;this._updateTabNamesLookUp()
 	}
 	/**
 	 */
 	_LB_TabfileChanged( $Event )
 	{
-		$data	:= this._getGuiData()
-		;$Event.message()
+		;$data	:= this._getGuiData()
 		
-		this._updateTabNamesLookUp()
+		if( $Event.type=="DoubleClick" )
+			this.Parent().loadTabs()
+		else
+			this._updateTabNamesLookUp()
 	}
 	
 
