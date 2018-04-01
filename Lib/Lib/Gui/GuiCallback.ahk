@@ -5,7 +5,7 @@
 Class GuiCallback Extends Parent
 {
 
-	/**
+	/** Add or delete target root
 	 */
 	_DD_TabsetsChanged( $Event )
 	{
@@ -23,10 +23,11 @@ Class GuiCallback Extends Parent
 					Reload
 				}
 				
-		}else if(  $Event.value == "Delete" )
+		}else if(  $Event.value == "Delete" ){
 			MsgBox, 260, DELETE ROOT, % "Do You want delete tabset: " $data.tabset
 				IfMsgBox, Yes
 					this.Tabset($data.tabset).delete()
+		}
 
 	}
 
@@ -47,10 +48,20 @@ Class GuiCallback Extends Parent
 	}
 	/**
 	 */
+	_LB_FoldersListChanged( $Event )
+	{
+		;$data	:= this._getGuiData()
+		if( $Event.type=="DoubleClick" )
+			this.Parent().loadTabs()
+		;$Event.message()
+		;this._updateTabNamesLookUp()
+	}
+	/**
+	 */
 	_LB_TabfileChanged( $Event )
 	{
 		$data	:= this._getGuiData()
-		$Event.message()
+		;$Event.message()
 		
 		this._updateTabNamesLookUp()
 	}

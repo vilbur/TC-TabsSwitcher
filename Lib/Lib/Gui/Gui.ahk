@@ -35,7 +35,9 @@ Class Gui Extends GuiControls
 		;this._gui.Margin.container.x( 0 ).y(15)	; set margin between groupboxes
 		;this._gui.Margin.control.x( 30 ).y(5)	; set margin between controls
 		
-		this._gui.Events.Gui.onEscape("exit")
+		this._gui.Events.Gui
+			.onEscape("exit")
+			.onEnter("submit")			
 		
 		this._gui.Menus.Tray
 				.icon("\Icons\TabsSwitcher.ico")	; file in working dir subdir

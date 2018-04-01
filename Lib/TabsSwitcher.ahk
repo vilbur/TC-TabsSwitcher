@@ -70,10 +70,12 @@ Class TabsSwitcher Extends Accessors
 
 	/** loadTabs
 	*/
-	loadTabs($Event)
+	loadTabs($Event:="")
 	{
 		$data	:= this._gui._getGuiData()
-		$path_tab_file	:= this.Tabfile($data.tabset, $data.tabsgroup, $data.tabs ).getPath()
+		;$Tabset	:= this.Tabset($data.tabset)
+		;$Tabsgroup	:= $Tabset.getTabsGroup($data.tabsgroup)		
+		$path_tab_file	:= this.Tabfile( $data.tabset, $data.tabsgroup, $data.tabs ).getPath()
 		
 		if( $data.tabsgroup=="_shared" )
 			this._PathsReplacer.clone()
@@ -83,6 +85,7 @@ Class TabsSwitcher Extends Accessors
 			
 		;$Event.message(50)
 		IniWrite, % $data.tabset, %$ini_path%, tabset, last 
+		this.Tabset($data.tabset).saveLastToIni( $data.tabsgroup, $data.folder, $data.tabs )
 		
 		this._TabsLoader.loadTabs( $path_tab_file )
 		

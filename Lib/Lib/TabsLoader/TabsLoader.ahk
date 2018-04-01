@@ -5,7 +5,7 @@ Class TabsLoader
 	_usercmd_ini	:= "" ; save commands
 	_wincmd_ini	:= "" ; set keyboard shortcuts
 	_cmd_load_tabs	:= "em_TabsSwitcher_load-tabs"
-	_cmd_run_tabswitcher	:= "em_TabsSwitcher_run"	
+	;_cmd_run_tabswitcher	:= "em_TabsSwitcher_run"	
 
 	/** _setTabsPath
 	 */
@@ -22,10 +22,11 @@ Class TabsLoader
 	{
 		;this.createCommandRunTabSwitcher()
 		this._editCommandLoadTabs("OPENTABS """ $tab_file_path """")
-		this._editShortcut()
+		this._createShortcut()
 		this._executeShortcut()
 	} 
-	/** edit command in wincmd.ini
+	/** Edit command in wincmd.ini
+		This command is loadnig tab files
 	 */
 	_editCommandLoadTabs( $open_tabs_cmd )
 	{

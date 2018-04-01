@@ -82,7 +82,7 @@ Class GuiControls Extends GuiControlsMethods
 				.add("GB_TabsGroup")
 
 			.ListBox( this.Tabset($tab_name)._getFolderNames() )
-				.checked( this.Tabset($tab_name).getLastTabsGroup() )					
+				.checked( this.Tabset($tab_name).getLast("tabsgroup") )					
 				.callback( &this "._LB_TabsGroupChanged" )
 				.options("w128 h256 -Multi")
 				.add("LB_TabsGroup")
@@ -105,8 +105,8 @@ Class GuiControls Extends GuiControlsMethods
 						.add("GB_FoldersList")
 				
 					.ListBox( $tab_folders )
-						.checked( 1 )					
-						;.callback( &this "._LB_TabfileChanged" )
+						.checked( this.Tabset($tab_name).getLast("folder") )					
+						.callback( &this "._LB_FoldersListChanged" )
 						.options("w128 h256 -Multi")
 						.add("LB_FoldersList")
 				;.section()
@@ -124,7 +124,7 @@ Class GuiControls Extends GuiControlsMethods
 					
 				.ListBox( this.TabsGroup($tab_name, "_shared" ).getTabFilenames() )
 					;.checked( this.Tabset($tab_name).get("last_tabs") )
-					.checked( 1 )					
+					.checked( this.Tabset($tab_name).getLast("tabfile") )					
 					.callback( &this "._LB_TabfileChanged" )
 					.options("w128 h256 -Multi")
 					.add("LB_Tabfile")
