@@ -24,7 +24,7 @@ Class Install
 	_setPathToTabsFolder()
 	{
 		$tabs_path := A_ScriptDir "\_tabsets"
-		IniWrite, %$tabs_path%, %$ini_path%, paths, tabs
+		IniWrite, %$tabs_path%, %$ini_path%, paths, tabs_path
 	} 
 	/**
 	 */

@@ -54,6 +54,7 @@ Class GuiCallback Extends Parent
 	 */
 	_LB_FoldersListChanged( $Event )
 	{
+		;$Event.message()		
 		if( $Event.type=="DoubleClick" )
 			this.Parent().loadTabs()
 	}
@@ -61,11 +62,15 @@ Class GuiCallback Extends Parent
 	 */
 	_LB_TabfileChanged( $Event )
 	{
-		;$data	:= this._getGuiData()
-		
-		if( $Event.type=="DoubleClick" )
-			this.Parent().loadTabs()
-		else
+		$data	:= this._getGuiData()
+		$control_key	:= GetKeyState("control", "P") 
+		if( $Event.type=="DoubleClick" ){
+			if( $control_key )
+				this.Parent().openTabs()			
+			else
+				this.Parent().loadTabs()
+		}
+		else		
 			this._updateTabNamesLookUp()
 	}
 	

@@ -143,7 +143,7 @@ Class GuiControls Extends GuiControlsMethods
 		MAIN CONTROLS BELLOW TABS
 	-----------------------------------------
 	*/
-	/**
+	/** 
 	 */
 	_addMainButtons()
 	{

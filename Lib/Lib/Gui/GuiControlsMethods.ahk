@@ -25,7 +25,6 @@ Class GuiControlsMethods Extends GuiCallback
 			$LB_FoldersList.clear()
 		}
 	}
-
 	/**
 	 */
 	_getActiveTab()
@@ -52,7 +51,7 @@ Class GuiControlsMethods Extends GuiCallback
 	{
 		$data	:= this._getGuiData()
 		
-		$Tabfile := this.Tabfile($data.tabset, $data.tabsgroup, $data.tabs )
+		$Tabfile := this.Tabfile ($data.tabset, $data.tabsgroup, $data.tabfile )
 
 		if( $Tabfile )
 			this._getActiveTab().Controls.get("TabsNameLookUp").edit( $Tabfile.getTabsCaptions() )			

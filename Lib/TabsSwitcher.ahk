@@ -1,7 +1,4 @@
-;#SingleInstance force
 #Include %A_LineFile%\..\includes.ahk
-
-
 /** Class TabsSwitcher
 */
 Class TabsSwitcher Extends Accessors
@@ -25,7 +22,7 @@ Class TabsSwitcher Extends Accessors
 		this._Tabsets.loadTabsets()
 		this._TargetInfo.findCurrentTabset( this._Tabsets )
 		
-		;Dump(this._Tabsets, "this._Tabsets", 0)
+		Dump(this._Tabsets, "this._Tabsets", 0)
 		;Dump(this._Tabsets._Tabsets.Tabs, "this._Tabsets._Tabsets.Tabs", 1)
 		;Dump(this._Tabsets._Tabsets.Users, "this._Tabsets._Tabsets.Users", 1)				
 		;this._getTabs()
@@ -73,31 +70,50 @@ Class TabsSwitcher Extends Accessors
 	loadTabs($Event:="")
 	{
 		$data	:= this._gui._getGuiData()
-		;$Tabset	:= this.Tabset($data.tabset)
-		;$Tabsgroup	:= $Tabset.getTabsGroup($data.tabsgroup)		
-		$path_tab_file	:= this.Tabfile( $data.tabset, $data.tabsgroup, $data.tabs ).getPath()
+		$path_tab_file	:= this.Tabfile( $data.tabset, $data.tabsgroup, $data.tabfile ).getPath()
 		
 		if( $data.tabsgroup=="_shared" )
 			this._PathsReplacer.clone()
-					.pathTabFile($path_tab_file)
-					.pathTarget(this._Tabsets.getTabset($data.tabset).get("path_target"))
-					.replaceFolder($data.folder)
+					.pathTabFile( $path_tab_file )
+					.pathTarget( this._Tabsets.getTabset($data.tabset).get("path_target") )
+					.replaceFolder( $data.folder )
 			
 		;$Event.message(50)
 		IniWrite, % $data.tabset, %$ini_path%, tabset, last 
-		this.Tabset($data.tabset).saveLastToIni( $data.tabsgroup, $data.folder, $data.tabs )
+		this.Tabset($data.tabset).saveLastToIni( $data.tabsgroup, $data.folder, $data.tabfile )
 		
 		this._TabsLoader.loadTabs( $path_tab_file )
+	}
+	/** open *.tab file
+	 */
+	openTabs( $tabset:="", $tabsgroup:="", $tabfile:="" )
+	{
+		$data	:= this._getData( $tabset, $tabsgroup, $tabfile )
 		
+		$path_tab_file	:= this.Tabfile( $data.tabset, $data.tabsgroup, $data.tabfile ).getPath()
+		
+		Run, Notepad++ %$path_tab_file%
 	}
 	/**
 	 */
 	setTabsPath()
 	{
-		IniRead, $tabs_path, %$ini_path%, paths, tabs 
+		IniRead, $tabs_path, %$ini_path%, paths, tabs_path 
 		;return %$tabs_path% 
 	}
-
+	
+	/** get data object from gui or passed params
+	 */
+	_getData( $tabset:="", $tabsgroup:="", $tabfile:="" )
+	{
+		if( ! $tabset && ! $tabsgroup && ! $tabfile )
+			return % this._gui._getGuiData()
+	
+		return %	{"tabset":	$tabset
+			,"tabsgroup":	$tabsgroup
+			,"tabfile":	$tabfile}
+	} 
+	
 	/** set\get parent class
 	 * @return object parent class
 	*/

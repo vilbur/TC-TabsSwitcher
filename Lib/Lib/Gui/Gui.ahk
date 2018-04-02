@@ -1,6 +1,6 @@
-
 /** Class Gui
-*/
+ *
+ */
 Class Gui Extends GuiControls
 {
 	_gui := new VilGUI("TabsSwitcher")
@@ -36,13 +36,14 @@ Class Gui Extends GuiControls
 		;this._gui.Margin.control.x( 30 ).y(5)	; set margin between controls
 		
 		this._gui.Events.Gui
-			.onEscape("exit")
-			.onEnter("submit")			
+				.onEscape("exit")
+				.onEnter("submit")			
 		
 		this._gui.Menus.Tray
 				.icon("\Icons\TabsSwitcher.ico")	; file in working dir subdir
 		
 		this._gui.create()
+				.alwaysOnTop()
 				.center("window")
 	}
 	
@@ -56,7 +57,7 @@ Class Gui Extends GuiControls
 		return %	{"tabset":	$tab.name()
 			,"tabsgroup":	$tab.Controls.get("LB_TabsGroup").value()			
 			,"folder":	$tab.Controls.get("LB_FoldersList").value()			
-			,"tabs":	$tab.Controls.get("LB_Tabfile").value()}
+			,"tabfile":	$tab.Controls.get("LB_Tabfile").value()}
 	}
 	
 }

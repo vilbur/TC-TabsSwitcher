@@ -8,7 +8,7 @@ Class Tabsets Extends Parent
 	/**
 	 */
 	loadTabsets()
-	{		
+	{
 		loop, % $tabs_path "\*.*", 2
 			this._Tabsets[A_LoopFileName] := new Tabset()
 													.name(A_LoopFileName)
@@ -40,9 +40,6 @@ Class Tabsets Extends Parent
 		return % this._Tabsets[$Tabset]
 	}
 	 
-
-
-	
 	/*---------------------------------------
 		GET TABSTES DATA
 	-----------------------------------------

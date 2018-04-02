@@ -61,6 +61,7 @@ Class Tabset
 	 */
 	load()
 	{
+		Dump(this, "load", 1)
 		this._loadIniData()
 		this._setTabsGroups()
 		this._setTabsetFolders()
