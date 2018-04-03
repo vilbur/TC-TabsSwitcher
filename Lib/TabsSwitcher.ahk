@@ -90,7 +90,8 @@ Class TabsSwitcher Extends Accessors
 		if( $data.tabsgroup=="_shared" )
 			this._PathsReplacer.clone()
 					.pathTabFile( $path_tab_file )
-					.pathTarget( this._Tabsets.getTabset($data.tabset).get("path_target") )
+					.setTabsetFolders( $Tabset._getTabsetFolders()  )
+					.pathTarget( $Tabset.get("path_target") )
 					.replaceFolder( $target_folder )
 			
 		;;;;IniWrite, % $data.tabset, %$ini_path%, tabset, last
