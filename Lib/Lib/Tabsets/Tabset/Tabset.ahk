@@ -18,18 +18,23 @@ Class Tabset
 	/**
 		@param string $path to Tabset folder
 	 */
-	pathTarget( $path_target )
+	pathTarget( $path_target:="" )
 	{
+		if( $path_target )
+			this._path_target	:= $path_target
+			
 		;Dump($path_target, "path_target", 1)
-		this._path_target	:= $path_target
-		return this 
+		return  % $path_target ? this : this._path_target
 	}
+	
 	/**
 	 */
 	name( $name )
 	{
 		this._name	:= $name
-		this._path_tabset	:= $tabs_path "\\" this._name
+		$path	= %$tabs_path%\%$name%
+		;this._path_tabset	:= $tabs_path "\" this._name
+		this._path_tabset	:= $path	
 		;this._ini_path	:= this._path_tabset "\Tabset.ini"		
 		return this 
 	}
@@ -67,7 +72,6 @@ Class Tabset
 		this._setTabsetFolders()
 		return this 
 	}
-
 	/**
 	 */
 	get( $property )
@@ -94,6 +98,13 @@ Class Tabset
 		;return 1
 		;Dump(this._last_tabsgroup, "this._last_tabsgroup", 1)
 		return % $value ? $value : 1
+	}
+	
+	/** if user is somewhere in path of target
+	 */
+	isPathInTarget( $path )
+	{
+		return InStr($path, this._path_target)
 	}
 	
 	/*---------------------------------------

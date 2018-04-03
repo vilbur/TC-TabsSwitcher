@@ -66,34 +66,42 @@ Class TabsSwitcher Extends Accessors
 		return % $unique_files 
 	} 
 
-	/** loadTabs
-	*/
+	/** Load Tabs file or go to target root folder
+	  *
+	  * Go to target root path if user try to load "_shared" tabs directly and current path is not in target
+	  *		E.G.: if A_WorkingDir == "C:\foo\folder" and try to load tabs to "C:\program\files"  then go to "C:\program\files"
+	  *
+	  */
 	loadTabs($tabset:="", $tabsgroup:="", $tabfile:="")
 	{
 		$data	:= this._getData( $tabset, $tabsgroup, $tabfile )
+		$Tabset	:= this.Tabset($data.tabset)
 		$path_tab_file	:= this.Tabfile( $data.tabset, $data.tabsgroup, $data.tabfile ).getPath()
 		;$target_folder	:= $data.folder ? $data.folder : this.TargetInfo().get( "folder_current" )
 		$target_folder	:= $data.folder ? $data.folder : this.TargetInfo().get( "folder_current" )		
 		
-		if( ! $target_folder )
-			this._MsgBox.exit("TabsSwitcher.laodTabs() - $target_folder is missing")
+		/* GO TO PATH
+		*/
+		if( $tabfile && ! $Tabset.isPathInTarget( A_WorkingDir ) )
+			this._goToTargetRoot( $Tabset.pathTarget() )
 		
-		;Dump( "-" $data.folder "-", "", 1)
-		;Dump($target_folder, "target_folder", 1)
-		;Dump(this.TargetInfo(), "this.TargetInfo() " $data.tabset, 1)
-		
+		/* REPLACE SHARED TABS
+		*/
 		if( $data.tabsgroup=="_shared" )
 			this._PathsReplacer.clone()
 					.pathTabFile( $path_tab_file )
 					.pathTarget( this._Tabsets.getTabset($data.tabset).get("path_target") )
 					.replaceFolder( $target_folder )
 			
-		;$Event.message(50)
-		IniWrite, % $data.tabset, %$ini_path%, tabset, last 
+		;;;;IniWrite, % $data.tabset, %$ini_path%, tabset, last
+		
 		this.Tabset($data.tabset).saveLastToIni( $data.tabsgroup, $data.folder, $data.tabfile )
 
+		/* LAOD TAB FILE
+		*/
 		this._TabsLoader.loadTabs( $path_tab_file )
 	}
+	
 	/** open *.tab file
 	 */
 	openTabs( $Event:="" )
@@ -122,7 +130,16 @@ Class TabsSwitcher Extends Accessors
 		return %	{"tabset":	$tabset
 			,"tabsgroup":	$tabsgroup
 			,"tabfile":	$tabfile}
+	}
+	/**
+	 */
+	_goToTargetRoot( $path )
+	{
+		WinGet, $process_name , ProcessName, ahk_class TTOTAL_CMD
+		Run, %COMMANDER_PATH%\%$process_name% /O /S /L=%$path%
+		exitApp
 	} 
+	
 	
 	/** set\get parent class
 	 * @return object parent class

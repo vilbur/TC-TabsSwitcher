@@ -89,14 +89,15 @@ Class Icon extends Parent_iv
 		
 		UrlDownloadToFile, % "https://dummyimage.com/" this._dimensions[this._text.length()] $colors ".gif&text=" $text, %$path%		
 		sleep, 500
-		;MsgBox,262144, _iview_path, %  this.Parent()._iview_path ,2  
+
 		Run, % this.Parent()._iview_path " " $path " /crop=(" this._crop[this._text.length()] ") /convert=" $path
 		;sleep, 500		
 	}
-	/**
+	/** Merge temp images, set transparent color, save to final icon file
 	 */
 	_convertToIcon()
 	{
+		
 		Run, % this.Parent()._iview_path " " this._getPanoramaParameter() " /transpcolor=(255,255,255) /convert=" this._path
 	}	
 	/**
