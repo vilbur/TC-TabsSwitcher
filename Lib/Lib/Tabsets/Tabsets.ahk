@@ -2,6 +2,8 @@
 */
 Class Tabsets Extends Parent
 {
+	_Callback	:= new TabsetsCallback()
+
 	_tabs_path	:= ""
 	_Tabsets	:= {}		
 
@@ -38,6 +40,17 @@ Class Tabsets Extends Parent
 	getTabset($Tabset)
 	{
 		return % this._Tabsets[$Tabset]
+	}
+	/**
+	 */
+	Callback($Event, $data)
+	{
+		if( $Event.value == "New" )
+			this._Callback.new()
+				
+		else if( $Event.value == "Delete" )
+			this._Callback.delete( this.Tabset($data.tabset) )
+
 	}
 	 
 	/*---------------------------------------

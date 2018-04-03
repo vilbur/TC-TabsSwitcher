@@ -36,7 +36,7 @@ Class Accessors
 	{
 		return % this.parent()._TargetInfo 
 	}
-
+	
 	
 
 }

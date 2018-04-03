@@ -2,11 +2,16 @@
 */
 Class Tabfile
 {
+	_Callback	:= new TabfileCallback()
+
 	_path	:= "" ; path to *.tab file
+	;_name	:= "" ; name of *.tab file	
 	_tabs	:= {}
 
 	__New($path){
 		this._path	:= $path
+		;SplitPath, $path,,,, $noext
+		;this._name	:= $noext		
 	}
 	
 	/**
@@ -34,6 +39,51 @@ Class Tabfile
 				this._parseSection( A_LoopField )	
 		return this
 	}
+	/** delete Tabset folder
+	 */
+	delete()
+	{
+		MsgBox,262144,DELETE , % this._path,2
+		;FileRemoveDir, % this._path_tabset, 1
+		;return this 
+	}
+	/**
+	 */
+	createCommand($data)
+	{
+		$path_icon := RegExReplace( this._path, "tab$", "ico" )
+		
+		new TcCommand()
+				.name("LOAD TABS - " $data.tabset "-" $data.tabsgroup "-" $data.tabfile "" )
+				.prefix("TabsSwitcher")
+				.cmd( A_ScriptFullPath )
+				.param($data.tabset, $data.tabsgroup, $data.tabfile)
+				.icon( $path_icon  )			
+				.create()
+				
+		$IrfanView := new IrfanView()
+		StringUpper, $icon_text, % $data.tabfile
+		
+		$IrfanView.Icon( $path_icon )
+					.color("", "blue")
+					.text($icon_text)
+					.create()
+	
+	}
+	/**
+	 */
+	Callback($Event, $data)
+	{
+		if( $Event.value == "New" )
+			this._Callback.new()
+				
+		else if( $Event.value == "Delete" )
+			this._Callback.delete( this, $data )
+		
+		else if( $Event.value == "Create command" )
+			this._Callback.createCommand( this, $data )
+	}
+	
 	/**
 	 */
 	_parseSection( $section )

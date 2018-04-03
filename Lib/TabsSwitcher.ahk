@@ -9,7 +9,7 @@ Class TabsSwitcher Extends Accessors
 	_Install 	:= new Install()
 	_PathsReplacer 	:= new PathsReplacer()
 	_TabsLoader 	:= new TabsLoader()	
-	;_ini_path	:=
+	_MsgBox 	:= new MsgBox()
 
 	__New()
 	{
@@ -22,7 +22,8 @@ Class TabsSwitcher Extends Accessors
 		this._Tabsets.loadTabsets()
 		this._TargetInfo.findCurrentTabset( this._Tabsets )
 		
-		Dump(this._Tabsets, "this._Tabsets", 0)
+		;Dump(this._Tabsets, "this._Tabsets", 0)
+		;Dump(this._TargetInfo, "this._TargetInfo", 0)		
 		;Dump(this._Tabsets._Tabsets.Tabs, "this._Tabsets._Tabsets.Tabs", 1)
 		;Dump(this._Tabsets._Tabsets.Users, "this._Tabsets._Tabsets.Users", 1)				
 		;this._getTabs()
@@ -67,26 +68,35 @@ Class TabsSwitcher Extends Accessors
 
 	/** loadTabs
 	*/
-	loadTabs($Event:="")
+	loadTabs($tabset:="", $tabsgroup:="", $tabfile:="")
 	{
-		$data	:= this._gui._getGuiData()
+		$data	:= this._getData( $tabset, $tabsgroup, $tabfile )
 		$path_tab_file	:= this.Tabfile( $data.tabset, $data.tabsgroup, $data.tabfile ).getPath()
+		;$target_folder	:= $data.folder ? $data.folder : this.TargetInfo().get( "folder_current" )
+		$target_folder	:= $data.folder ? $data.folder : this.TargetInfo().get( "folder_current" )		
+		
+		if( ! $target_folder )
+			this._MsgBox.exit("TabsSwitcher.laodTabs() - $target_folder is missing")
+		
+		;Dump( "-" $data.folder "-", "", 1)
+		;Dump($target_folder, "target_folder", 1)
+		;Dump(this.TargetInfo(), "this.TargetInfo() " $data.tabset, 1)
 		
 		if( $data.tabsgroup=="_shared" )
 			this._PathsReplacer.clone()
 					.pathTabFile( $path_tab_file )
 					.pathTarget( this._Tabsets.getTabset($data.tabset).get("path_target") )
-					.replaceFolder( $data.folder )
+					.replaceFolder( $target_folder )
 			
 		;$Event.message(50)
 		IniWrite, % $data.tabset, %$ini_path%, tabset, last 
 		this.Tabset($data.tabset).saveLastToIni( $data.tabsgroup, $data.folder, $data.tabfile )
-		
+
 		this._TabsLoader.loadTabs( $path_tab_file )
 	}
 	/** open *.tab file
 	 */
-	openTabs( $tabset:="", $tabsgroup:="", $tabfile:="" )
+	openTabs( $Event:="" )
 	{
 		$data	:= this._getData( $tabset, $tabsgroup, $tabfile )
 		

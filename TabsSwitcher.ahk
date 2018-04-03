@@ -11,7 +11,7 @@ $TabsSwitcher 	:= new TabsSwitcher()
 
 
 if( $tabset && $tabsgroup && $tabfile )
-	$TabsSwitcher.openTabs( $tabset, $tabsgroup, $tabfile )
+	$TabsSwitcher.loadTabs( $tabset, $tabsgroup, $tabfile )
 	
 else
 	$TabsSwitcher.createGui()

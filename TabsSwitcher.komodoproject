@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Komodo Project File - DO NOT EDIT -->
 <project id="69b497b9-0e8d-44e9-af27-63fb57340eb1" kpf_version="5" name="TabsSwitcher.komodoproject">
+<livefolder id="2624fe29-fb15-491a-bdd8-ef36b769e730" idref="69b497b9-0e8d-44e9-af27-63fb57340eb1" name="Lib" url="Lib/">
+</livefolder>
 <livefolder id="97ee06db-6027-4118-8328-0f439bd99d90" idref="69b497b9-0e8d-44e9-af27-63fb57340eb1" name="Tabsets" url="Lib/Lib/Tabsets/">
 </livefolder>
 <livefolder id="bce9b8ff-e545-4867-aad4-09689a35497f" idref="69b497b9-0e8d-44e9-af27-63fb57340eb1" name="Gui" url="Lib/Lib/Gui/">

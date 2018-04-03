@@ -116,9 +116,6 @@ Class GuiControls Extends GuiControlsMethods
 	 */
 	_addTabsSection( $index, $tab_name )
 	{
-		;Dump(this.TabsGroup($tab_name, "_shared" ), "TEST", 1)
-		;Dump(this.Tabset($tab_name ), "_Tabset", 1)
-		
 		this._Tabs.Tabs[$index].Controls
 			.GroupBox("Tabs").layout("column").add("GB_Tabfile")
 					
@@ -129,9 +126,10 @@ Class GuiControls Extends GuiControlsMethods
 					.options("w128 h256 -Multi")
 					.add("LB_Tabfile")
 					
-				.Dropdown("New||Rename|Copy|Delete" )
+				.Dropdown("New||Create command|Rename|Copy|Delete" )
 					.options("w128 h246")
 					;.checked( this.Tabset($tab_name).get("last_Tabfiles") )
+					.callback( &this "._DD_TabfileChanged" )
 					.add("DD_Tabfile")
 				.section()
 					

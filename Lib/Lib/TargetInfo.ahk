@@ -22,10 +22,21 @@ Class TargetInfo
 	 */
 	_setCurrentTabset( $Tabset )
 	{
-		$rx_path	:= RegExReplace( $Tabset.get("path_target"), "[\\\/]+", "\\" ) "([^\\\/]+)"
+		$path_target	:= RegExReplace( $Tabset.get("path_target"), "[\\\/]+", "\" ) ; "
+										
+		if( ! $path_target )
+			return 
+
+		$path_relative	:= SubStr( A_WorkingDir,  StrLen($path_target)+2 )
 		
-		RegExMatch( A_WorkingDir, $rx_path, $current_folder )
+		RegExMatch( $path_relative, "([^\\]+)", $current_folder )
 		
+		;Dump(A_WorkingDir, "A_WorkingDir", 1)
+		;Dump($path_target, "path_target", 1)
+		;Dump($path_relative, "path_relative", 1)
+		;Dump($current_folder, "current_folder1", 1)
+		
+		;if( $path_target )
 		this._folder_current := $current_folder1
 	}
 
