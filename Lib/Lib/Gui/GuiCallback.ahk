@@ -11,17 +11,17 @@ Class GuiCallback Extends Parent
 	_BTN_TEST()
 	{
 		;MsgBox,262144,, Test,2
-		;$data	:= this._getGuiData()
-		;Dump($data, "data", 1)
+		$data	:= this._getGuiData()
+		Dump($data, "data", 1)
 		
-		this._getActiveTab().Controls
-							;.get("R_Shared.Folder")
-							.get("R_Shared.Root")							
-							.edit(0)
+		;this._getActiveTab().Controls
+		;					;.get("R_replace.Folder")
+		;					.get("R_replace.Root")							
+		;					.edit(0)
 
 				
 		;this._getActiveTab().Controls.get("LB_TabsGroup").select(0)		
-		this._LB_unselect("LB_TabsGroup")
+		;this._LB_unselect("LB_TabsGroup")
 	}  
 	/*---------------------------------------
 		RADIO
@@ -29,7 +29,7 @@ Class GuiCallback Extends Parent
 	*/
 	/**
 	 */
-	_R_SharedChanged( $Event )
+	_R_replaceChanged( $Event )
 	{
 		$data	:= this._getGuiData()
 
@@ -99,13 +99,11 @@ Class GuiCallback Extends Parent
 	 */
 	_LB_TabsGroupChanged( $Event )
 	{
-		this._R_SharedUnselect()
-		;MsgBox,262144,, Test,2
+		this._R_replaceUnselect()
 
 		$data	:= this._getGuiData()
 		
 		this._LB_set( "LB_Tabfile", this.TabsGroup($data.tabset, $data.tabsgroup ).getTabFilenames() , 1 )
-
 		
 		this._editTabsgroupListBox($data)
 		this._updateTabNamesLookUp()

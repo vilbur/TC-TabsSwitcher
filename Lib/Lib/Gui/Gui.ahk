@@ -52,13 +52,15 @@ Class Gui Extends GuiControls
 	_getGuiData()
 	{
 		;MsgBox,262144,, _getGuiData,2 
-		$tab := this._getActiveTab()
+		$tab	:= this._getActiveTab()
+		$Controls	:= $tab.Controls
 		;Dump($tab, "tab", 1)
-		return %	{"tabsetroot":	$tab.Controls.get("LB_TabssetRoot").value()
-			,"tabset":	$tab.name()
-			,"tabsgroup":	$tab.Controls.get("LB_TabsGroup").value()			
-			,"folder":	$tab.Controls.get("LB_FoldersList").value()			
-			,"tabfile":	$tab.Controls.get("LB_Tabfile").value()}
+		return %	{"tabset":	$tab.name()
+			,"tabsetroot":	$Controls.get("LB_TabssetRoot").value()
+			,"tabsgroup":	$Controls.get("LB_TabsGroup").value()			
+			,"replace":	$Controls.get("R_replace").value()
+			,"folder":	$Controls.get("LB_FoldersList").value()			
+			,"tabfile":	$Controls.get("LB_Tabfile").value()}
 	}
 	
 }

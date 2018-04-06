@@ -107,10 +107,10 @@ Class GuiControls Extends GuiControlsMethods
 				
 				.Radio()
 					.items(["Root","Folder"])
-					.callback( &this "._R_SharedChanged" )
+					.callback( &this "._R_replaceChanged" )
 					.options("w64")
 					.checked(1)
-					.add("R_Shared")	
+					.add("R_replace")	
 			.section()
 			
 				.ListBox( this.Tabset($tab_name)._getTabsGroupsNames() )

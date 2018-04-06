@@ -122,7 +122,7 @@ Class TabsSwitcher Extends Accessors
 		;return %$tabs_path% 
 	}
 	
-	/** get data object from gui or passed params
+	/** get data object from gui or params
 	 */
 	_getData( $tabset:="", $tabsgroup:="", $tabfile:="" )
 	{

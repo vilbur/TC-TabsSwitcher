@@ -36,11 +36,11 @@ Class GuiControlsMethods Extends GuiCallback
 	*/
 	/**
 	 */
-	_R_SharedUnselect( )
+	_R_replaceUnselect( )
 	{
 		$Tab := this._getActiveTab().Controls
-		$Tab.get("R_Shared.Root").edit(0)
-		$Tab.get("R_Shared.Folder").edit(0)		
+		$Tab.get("R_replace.Root").edit(0)
+		$Tab.get("R_replace.Folder").edit(0)		
 	}
 	
 	/*---------------------------------------
