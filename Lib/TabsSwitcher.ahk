@@ -44,6 +44,7 @@ Class TabsSwitcher Extends Accessors
 			
 		;Dump( this._Tabsets, "_Tabsets", 1)
 		this._Gui.createGui()
+		;Dump(this._Gui._gui, "this._Gui._gui.Controls", 0)
 	}
 	/**
 	 */

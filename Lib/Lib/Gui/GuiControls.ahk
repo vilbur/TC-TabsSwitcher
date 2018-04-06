@@ -91,6 +91,10 @@ Class GuiControls Extends GuiControlsMethods
 			
 		.section()
 	}
+	/*---------------------------------------
+		TABSGROUP
+	-----------------------------------------
+	*/
 	/**
 	 */
 	_addTabsGroupSection( $index, $tab_name )
@@ -98,19 +102,31 @@ Class GuiControls Extends GuiControlsMethods
 		;Dump($tab_name, "tab_name", 1)
 		this._Tabs.Tabs[$index].Controls.layout("row")
 			.GroupBox("TabsGroup")
-				.layout("column")
+				.layout("row")
 				.add("GB_TabsGroup")
-
-			.ListBox( this.Tabset($tab_name)._getFolderNames() )
-				.checked( this.Tabset($tab_name).getLast("tabsgroup") )					
-				.callback( &this "._LB_TabsGroupChanged" )
-				.options("w128 h256 -Multi")
-				.add("LB_TabsGroup")
 				
-			.Dropdown( "New||Rename|Copy|Delete" )
-				.add("DD_TabsGroup")
+				.Radio()
+					.items(["Root","Folder"])
+					.callback( &this "._R_SharedChanged" )
+					.options("w64")
+					.checked(1)
+					.add("R_Shared")	
+			.section()
+			
+				.ListBox( this.Tabset($tab_name)._getTabsGroupsNames() )
+					.checked( this.Tabset($tab_name).getLast("tabsgroup") )					
+					.callback( &this "._LB_TabsGroupChanged" )
+					.options("w128 h228 -Multi")
+					.add("LB_TabsGroup")
+			.section()
+					
+				.Dropdown( "New||Rename|Copy|Delete" )
+					.add("DD_TabsGroup")
 	}
-	
+	/*---------------------------------------
+		ROOT FOLDERS
+	-----------------------------------------
+	*/
 	/** Add folders in target root
 	  * not showed if unique tabs
 	 */
@@ -132,7 +148,10 @@ Class GuiControls Extends GuiControlsMethods
 						.add("LB_FoldersList")
 				;.section()
 	} 
-
+	/*---------------------------------------
+		TABS FILES
+	-----------------------------------------
+	*/
 	/** Add Listbox and other controls
 	 */
 	_addTabsSection( $index, $tab_name )
@@ -178,6 +197,11 @@ Class GuiControls Extends GuiControlsMethods
 				.callback( this._Parent ".loadTabs" )
 				.options("w96 h48")
 				.exit("Exit")
+				
+			.Button()
+				.callback( &this "._BTN_TEST" )
+				.options("w96 h48")
+				.add("TEST")		
 	}
 
 }

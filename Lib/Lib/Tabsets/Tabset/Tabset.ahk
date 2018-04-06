@@ -75,7 +75,7 @@ Class Tabset
 		this._setTabsGroups()
 		this._setTabsRoots()		
 		this._setTabsetFolders()
-		Dump(this, this._name, 0)
+		;Dump(this, this._name, 0)
 		return this 
 	}
 	/**
@@ -174,12 +174,22 @@ Class Tabset
 	{
 		return % getObjectValues(this._folders)
 	}
+	
 	/** ??? RENAME THIS METHOD TO: getTabsGroupsNames
 	  
 	 */
-	_getFolderNames()
+	_getTabsGroupsNames()
 	{
-		return % getObjectKeys(this._TabsGroups)
+		;$groups := []
+		;For $group_name, $data in this._TabsGroups
+		;	if( $group_name!=="_shared" )
+		;		$groups.insert( $group_name )
+		;		
+		;return %$groups%
+		
+		return % getObjectKeys(this._TabsGroups, "_shared")
+		;return % getObjectKeys(this._TabsGroups)		
+		
 	}
 	/*---------------------------------------
 		INI METHODS

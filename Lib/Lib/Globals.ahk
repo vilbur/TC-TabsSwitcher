@@ -15,11 +15,13 @@ $ini_path	:= RegExReplace( A_ScriptFullPath, "\.(ahk|exe)$", ".ini" )
 
 /**
  */
-getObjectKeys($object)
+getObjectKeys($object, $ignore:="")
 {
 	$keys := []
 	For $key, $value in $object
-		$keys.insert( $key )
+		if( $key!=$ignore )
+			$keys.insert( $key )
+			
 	return %$keys%
 }
 /**
@@ -36,7 +38,6 @@ getObjectValues($object)
  */
 joinObject($object, $delimeter:="`n")
 {
-	;$values := []
 	For $key, $value in $object
 		$string .= $value $delimeter
 	return %$string%

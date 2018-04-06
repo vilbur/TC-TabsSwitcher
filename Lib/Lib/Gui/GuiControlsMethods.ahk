@@ -19,6 +19,48 @@ Class GuiControlsMethods Extends GuiCallback
 			$text_control.edit($path)
 			
 	}
+	/*---------------------------------------
+		TAB
+	-----------------------------------------
+	*/
+	
+	/**
+	 */
+	_getActiveTab()
+	{
+		return % this._gui.Tabs_Tabsets.getActive()		
+	}
+	/*---------------------------------------
+		RADIO
+	-----------------------------------------
+	*/
+	/**
+	 */
+	_R_SharedUnselect( )
+	{
+		$Tab := this._getActiveTab().Controls
+		$Tab.get("R_Shared.Root").edit(0)
+		$Tab.get("R_Shared.Folder").edit(0)		
+	}
+	
+	/*---------------------------------------
+		LISTBOX
+	-----------------------------------------
+	*/
+	_LB_set( $listbox_name, $data:="", $select:=0 )
+	{
+		;MsgBox,262144,, _LB_fill,2
+		$listbox := this._getActiveTab().Controls.get( $listbox_name )
+		
+		$listbox.clear()
+		
+		if( $data )
+			$listbox.edit( $data )
+			
+		if( $select )
+			$listbox.select( 1 )
+			
+	}
 	
 	/** fill listbox if tabsgroup changed to "_shared"
 	    clear listbox if tabsgroup not "_shared"
@@ -42,10 +84,21 @@ Class GuiControlsMethods Extends GuiCallback
 	}
 	/**
 	 */
-	_getActiveTab()
+	_setFocusOnListbox( $listbox_name )
 	{
-		return % this._gui.Tabs_Tabsets.getActive()		
+		this._getActiveTab().Controls.get($listbox_name).focus()		
 	}
+	/**
+	 */
+	_LB_unselect($listbox_name )
+	{
+		this._getActiveTab().Controls.get($listbox_name).select(0)	
+	}
+		
+	/*---------------------------------------
+		DROPDOWN
+	-----------------------------------------
+	*/
 	/**
 	 */
 	_setDropdownItems($control_name, $items, $selected:="")
@@ -53,13 +106,12 @@ Class GuiControlsMethods Extends GuiCallback
 		this._gui.Controls.get($control_name)
 							.clear()
 							.edit($items)
-	} 
-	/**
-	 */
-	_getControlValue($control_name)
-	{
-		return % this._gui.Controls.get($control_name).value()
 	}
+	
+	/*---------------------------------------
+		TEXT
+	-----------------------------------------
+	*/
 	/**
 	 */
 	_updateTabNamesLookUp()
@@ -71,14 +123,15 @@ Class GuiControlsMethods Extends GuiCallback
 		if( $Tabfile )
 			this._getActiveTab().Controls.get("TabsNameLookUp").edit( $Tabfile.getTabsCaptions() )			
 	}
-
+	
+	
 	/**
 	 */
-	_setFocusOnListbox($listbox_name )
+	_getControlValue($control_name)
 	{
-		this._getActiveTab().Controls.get($listbox_name).focus()		
+		return % this._gui.Controls.get($control_name).value()
 	}
-	
+
 
 	
 
