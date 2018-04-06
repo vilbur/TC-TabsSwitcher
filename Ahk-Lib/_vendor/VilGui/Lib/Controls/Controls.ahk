@@ -237,7 +237,6 @@ Class Controls_vgui extends ControlsTypes_vgui
 	*/
 	values()
 	{
-		
 		$values_types	:= {"Edit":"", "Checkbox":"", "ListBox":"", "Dropdown":"", "Radio":"", "File":"", "Folder":"", "ListView":""  }
 		$form_data	:= {}
 
@@ -252,6 +251,7 @@ Class Controls_vgui extends ControlsTypes_vgui
 	_getControlValue( ByRef $form_data ,$Control )
 	{
 		if( $Control._type!="Radio" )   ; if not unselected RADIO or CHECKBOX button
+		;if( !( $Control._type=="Radio" &&  $Control.value()=0  ) )   ; if not unselected RADIO or CHECKBOX button
 			$form_data[$Control._name]	:= $Control.value()		
 		else
 			this._getRadioValue( $form_data ,$Control )
@@ -264,10 +264,7 @@ Class Controls_vgui extends ControlsTypes_vgui
 	_getRadioValue( ByRef $form_data ,$Control )
 	{
 		if( $Control.value()!=0 )
-		{
-			$name_value	:= StrSplit( $Control._name, ".")	
-			$form_data[$name_value[1]]	:= $name_value[2]
-		}
+			$form_data[$Control.RadioGroup] := $Control._name
 	}
 	
 	

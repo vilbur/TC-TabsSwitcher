@@ -70,16 +70,16 @@ Class GuiControlsMethods Extends GuiCallback
 	_editTabsgroupListBox( $data )
 	{
 		$Tab 	:= this._getActiveTab()
-		$LB_FoldersList	:= $Tab.Controls.get("LB_FoldersList")
+		$LB_Folder	:= $Tab.Controls.get("LB_Folder")
 		
 		if ($data.tabsgroup=="_shared"){
 			
-			$LB_FoldersList.clear()
+			$LB_Folder.clear()
 							.edit( this.Tabset($data.tabset)._getTabsetFolders() )
 							.select( this._last_selected_folders[$data.tabset] )				
 		} else {
-			this._last_selected_folders[$data.tabset] := $LB_FoldersList.value()
-			$LB_FoldersList.clear()
+			this._last_selected_folders[$data.tabset] := $LB_Folder.value()
+			$LB_Folder.clear()
 		}
 	}
 	/**

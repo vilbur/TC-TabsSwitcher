@@ -51,16 +51,24 @@ Class Gui Extends GuiControls
 	 */
 	_getGuiData()
 	{
-		;MsgBox,262144,, _getGuiData,2 
 		$tab	:= this._getActiveTab()
 		$Controls	:= $tab.Controls
-		;Dump($tab, "tab", 1)
-		return %	{"tabset":	$tab.name()
-			,"tabsetroot":	$Controls.get("LB_TabssetRoot").value()
-			,"tabsgroup":	$Controls.get("LB_TabsGroup").value()			
-			,"replace":	$Controls.get("R_replace").value()
-			,"folder":	$Controls.get("LB_FoldersList").value()			
-			,"tabfile":	$Controls.get("LB_Tabfile").value()}
+		$form_data	:= {"tabset":	$tab.name()}
+		
+		For $control_name, $value in $Controls.values()
+			if( ! InStr($control_name, "DD_" ) )
+				 $form_data[RegExReplace( $control_name, "^[^_]+_", "" )] :=  $value
+		
+		;Dump($Controls.values(), "Controls", 1)
+		;Dump($form_data, "form_data", 1)
+		
+		return $form_data
+		;return %	{"tabset":	$tab.name()
+		;	,"tabsetroot":	$Controls.get("LB_TabssetRoot").value()
+		;	,"tabsgroup":	$Controls.get("LB_TabsGroup").value()			
+		;	,"replace":	$Controls.get("R_replace").value()
+		;	,"folder":	$Controls.get("LB_FoldersList").value()			
+		;	,"tabfile":	$Controls.get("LB_Tabfile").value()}
 	}
 	
 }

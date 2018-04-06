@@ -80,9 +80,9 @@ Class GuiControls Extends GuiControlsMethods
 			;	.add("EDIT_TabsetType")	
 			.ListBox( this.Tabset($tab_name).getTabsRootsPaths() )
 				.checked( this.Tabset($tab_name).getLast("root") )					
-				.callback( &this "._LB_TabssetRootChanged" )
+				.callback( &this "._LB_TabsetRootChanged" )
 				.options("w400 h64 -Multi")
-				.add("LB_TabssetRoot")
+				.add("LB_TabsetRoot")
 			
 			.Dropdown("root folder||unique folder|unique file")
 				.callback( &this "._DD_TabsetTypeChanged")
@@ -143,9 +143,9 @@ Class GuiControls Extends GuiControlsMethods
 				
 					.ListBox( $tab_folders )
 						.checked( this.Tabset($tab_name).getLast("folder") )					
-						.callback( &this "._LB_FoldersListChanged" )
+						.callback( &this "._LB_FolderChanged" )
 						.options("w128 h256 -Multi")
-						.add("LB_FoldersList")
+						.add("LB_Folder")
 				;.section()
 	} 
 	/*---------------------------------------

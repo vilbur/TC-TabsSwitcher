@@ -32,11 +32,16 @@ Class GuiCallback Extends Parent
 	_R_replaceChanged( $Event )
 	{
 		$data	:= this._getGuiData()
+		;Dump($data, "data", 1)
+		;Dump($data.tabset, "data.tabset", 1)				
+		;Dump($data.tabsetroot, "data.tabsetroot", 1)
+		;
+		;Dump( this.Tabset($data.tabset )._getTabsRootFolders( $data.tabsetroot ) , "data", 1)
 
 		if( $data.tabsgroup ) ; do not update if switching between radio buttons
 		{
 			this._LB_unselect("LB_TabsGroup")
-			this._LB_set( "LB_FoldersList", this.Tabset($data.tabset )._getTabsRootFolders( $data.tabsetroot ), 1 )
+			this._LB_set( "LB_Folder", this.Tabset($data.tabset )._getTabsRootFolders( $data.tabsetroot ), 1 )
 			this._LB_set( "LB_Tabfile", this.TabsGroup($data.tabset, "_shared" ).getTabFilenames() , 1 )
 
 		}
@@ -89,7 +94,7 @@ Class GuiCallback Extends Parent
 		$data	:= this._getGuiData()
 		;Dump($data, "data", 1)
 		
-		this._LB_set( "LB_FoldersList", this.Tabset($data.tabset)._getTabsRootFolders($data.tabsetroot), 1 )
+		this._LB_set( "LB_Folder", this.Tabset($data.tabset)._getTabsRootFolders($data.tabsetroot), 1 )
 
 
 		;this._editTabsgroupListBox($data)
@@ -110,7 +115,7 @@ Class GuiCallback Extends Parent
 	}
 	/**
 	 */
-	_LB_FoldersListChanged( $Event )
+	_LB_FolderChanged( $Event )
 	{
 		if( $Event.type=="DoubleClick" )
 			this.Parent().loadTabs()
