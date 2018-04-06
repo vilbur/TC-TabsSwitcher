@@ -16,7 +16,7 @@ Class Tab_vgui {
 	*/
 	name($name:="~null"){
 		if($name=="~null"){
-			return % RegExReplace( this._name, "i)\|+$", "" ) 
+			return % this._name
 		}
 		this._name := $name
 		return this
