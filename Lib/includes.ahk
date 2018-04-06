@@ -32,6 +32,7 @@
 
 #Include %A_LineFile%\..\Lib\Tabsets\Tabset\Tabset.ahk
 
+#Include %A_LineFile%\..\Lib\Tabsets\Tabset\TabsRoot\TabsRoot.ahk
 #Include %A_LineFile%\..\Lib\Tabsets\Tabset\TabsGroup\TabsGroup.ahk
 
 #Include %A_LineFile%\..\Lib\Tabsets\Tabset\TabsGroup\Tabfile\Tabfile.ahk

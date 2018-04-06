@@ -128,7 +128,8 @@ Class TabsSwitcher Extends Accessors
 		if( ! $tabset && ! $tabsgroup && ! $tabfile )
 			return % this._gui._getGuiData()
 	
-		return %	{"tabset":	$tabset
+		return %	{"tabsetroot":	$tabset
+			,"tabset":	$tabset
 			,"tabsgroup":	$tabsgroup
 			,"tabfile":	$tabfile}
 	}

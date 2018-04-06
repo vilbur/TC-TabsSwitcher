@@ -54,7 +54,8 @@ Class Gui Extends GuiControls
 		;MsgBox,262144,, _getGuiData,2 
 		$tab := this._getActiveTab()
 		;Dump($tab, "tab", 1)
-		return %	{"tabset":	$tab.name()
+		return %	{"tabsetroot":	$tab.Controls.get("LB_TabssetRoot").value()
+			,"tabset":	$tab.name()
 			,"tabsgroup":	$tab.Controls.get("LB_TabsGroup").value()			
 			,"folder":	$tab.Controls.get("LB_FoldersList").value()			
 			,"tabfile":	$tab.Controls.get("LB_Tabfile").value()}

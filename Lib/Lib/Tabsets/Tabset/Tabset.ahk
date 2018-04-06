@@ -8,11 +8,14 @@ Class Tabset
 	_name	:= ""
 	_unique_file	:= ""
 	
+	_last	:= {}
+	
 	_last_tabsgroup	:= ""
 	_last_folder	:= ""	
 	_last_tabfile	:= ""
 	
 	_TabsGroups	:= {}
+	_TabsRoots	:= {}	
 	_folders	:= [] ; folderes in target path
 
 	/**
@@ -51,7 +54,7 @@ Class Tabset
 	createTabsGroup( $name )
 	{
 		;MsgBox,262144,, createTabsGroups,2 
-		new TabsGroup(this._path_tabset "\\" $name ).create()
+		new TabsGroup( this._path_tabset "\\" $name ).create()
 		return this 
 	}
 	/** delete Tabset folder
@@ -68,8 +71,11 @@ Class Tabset
 	{
 		;Dump(this, "load", 1)
 		this._loadIniData()
+		this._loadIniLastUsed()		
 		this._setTabsGroups()
+		this._setTabsRoots()		
 		this._setTabsetFolders()
+		Dump(this, this._name, 0)
 		return this 
 	}
 	/**
@@ -93,10 +99,8 @@ Class Tabset
 	 */
 	getLast( $property )
 	{
-		$value := this.get( "last_" $property )
-		;Dump($value, $property, 1)
-		;return 1
-		;Dump(this._last_tabsgroup, "this._last_tabsgroup", 1)
+		;$value := this.get( "last_" $property )
+		$value := this._last[$property]	
 		return % $value ? $value : 1
 	}
 	
@@ -123,6 +127,17 @@ Class Tabset
 			loop, % this._path_target "\*", 2
 				this._folders.push(A_LoopFileName)
 	}
+	/**
+	 */
+	_setTabsRoots()
+	{
+		$roots := this._getIniValueNEW( "roots" )
+		Loop, Parse, % $roots, `n
+		{
+			$key_value	:= StrSplit( A_LoopField, "=")
+			this._TabsRoots[$key_value[1]] := new TabsRoot().setRootFolders($key_value[1]).setLastFolder($key_value[2])
+		}
+	} 
 	/** get *.tab files available for tabset
 	 */
 	_setTabsGroups()
@@ -130,6 +145,25 @@ Class Tabset
 		loop, % this._path_tabset  "\*", 2
 			this._TabsGroups[A_LoopFileName] := new TabsGroup(A_LoopFileFullPath).getTabFiles()
 	}
+	/*---------------------------------------
+		GET TabRoots  DATA
+	-----------------------------------------
+	*/
+	/**
+	 */
+	getTabsRootsPaths()
+	{
+		return % joinObject( getObjectKeys(this._TabsRoots), "|" )
+		
+	}
+	/**
+	 */
+	_getTabsRootFolders($tabsroot)
+	{
+		;this._TabsRoots[$tabsroot].getFolders()
+		return % getObjectValues(this._TabsRoots[$tabsroot]._folders)
+	}
+	
 	/*---------------------------------------
 		GET TabsGroups  DATA
 	-----------------------------------------
@@ -151,7 +185,18 @@ Class Tabset
 		INI METHODS
 	-----------------------------------------
 	*/
+	/**
+	 */
+	_loadIniLastUsed()
+	{
+		$last := this._getIniValueNEW( "last" )
+		Loop, Parse, % $last, `n
+		{
+			$key_value	:= StrSplit( A_LoopField, "=")
+			this._last[$key_value[1]] := $key_value[2]
+		}
 
+	}
 	/** save last loaded items to *.ini
 	 */
 	saveLastToIni( $tabgroup, $tabfolder, $tabfile )
@@ -186,5 +231,14 @@ Class Tabset
 		;return $value
 		return % $value != "ERROR" ? $value : ""
 	}
+	
+	/**
+	 */
+	_getIniValueNEW( $section, $key:="" )
+	{
+		IniRead, $value,	% $tabs_path "\\" this._name "\Tabset.ini", %$section%, %$key%, 
+		return % $value != "ERROR" ? $value : ""
+	}
+	
 }
 

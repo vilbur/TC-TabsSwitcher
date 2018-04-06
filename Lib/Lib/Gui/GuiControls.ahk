@@ -74,10 +74,15 @@ Class GuiControls Extends GuiControlsMethods
 			;	.options("w545")
 			;	.callback("callBackTestX")
 			;	.add()
-			.Text()
-				.options("w320")
-				.value(this.Tabset($tab_name).get("path_target"))
-				.add("EDIT_TabsetType")	
+			;.Text()
+			;	.options("w320")
+			;	.value(this.Tabset($tab_name).get("path_target"))
+			;	.add("EDIT_TabsetType")	
+			.ListBox( this.Tabset($tab_name).getTabsRootsPaths() )
+				.checked( this.Tabset($tab_name).getLast("root") )					
+				.callback( &this "._LB_TabssetRootChanged" )
+				.options("w400 h64 -Multi")
+				.add("LB_TabssetRoot")
 			
 			.Dropdown("root folder||unique folder|unique file")
 				.callback( &this "._DD_TabsetTypeChanged")
@@ -111,9 +116,10 @@ Class GuiControls Extends GuiControlsMethods
 	 */
 	_addFoldersSection( $index, $tab_name )
 	{
-		$tab_folders := this.Tabset($tab_name)._getTabsetFolders()
+		;$tab_folders := this.Tabset($tab_name)._getTabsRootFolders("C:\Git\Laravel-Packages")
+		$tab_folders := this.Tabset($tab_name)._getTabsRootFolders(this.Tabset($tab_name).getLast("root"))
 		
-		if( $tab_folders.length()>0 )
+		;if( $tab_folders.length()>0 )
 			this._Tabs.Tabs[$index].Controls
 				.GroupBox("Folders")
 						.layout("column")
