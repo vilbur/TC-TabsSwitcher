@@ -94,8 +94,8 @@ Class TabsSwitcher Extends Accessors
 					.pathTarget( $Tabset.get("path_target") )
 					.replaceFolder( $target_folder )
 			
-		;;;;IniWrite, % $data.tabset, %$ini_path%, tabset, last
 		
+		IniWrite, % $data.tabset, %$ini_path%, tabset, last ; save last tabset
 		this.Tabset($data.tabset).saveLastToIni( $data.tabsgroup, $data.folder, $data.tabfile )
 
 		/* LAOD TAB FILE
@@ -140,7 +140,6 @@ Class TabsSwitcher Extends Accessors
 		Run, %COMMANDER_PATH%\%$process_name% /O /S /L=%$path%
 		exitApp
 	} 
-	
 	
 	/** set\get parent class
 	 * @return object parent class

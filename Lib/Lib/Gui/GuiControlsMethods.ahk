@@ -6,6 +6,20 @@ Class GuiControlsMethods Extends GuiCallback
 {
 	_last_selected_folders	:= {}
 	
+	/**
+	 */
+	_EDIT_TabsetTypeEdit( $tabset_type, $path)
+	{
+		$text_control := this._getActiveTab().Controls.get("EDIT_TabsetType")
+		
+		if( $tabset_type!="root folder" ){
+			SplitPath, $path, $name
+			$text_control.edit($name)
+		}else if( $tabset_type=="" )
+			$text_control.edit($path)
+			
+	}
+	
 	/** fill listbox if tabsgroup changed to "_shared"
 	    clear listbox if tabsgroup not "_shared"
 		
@@ -18,7 +32,8 @@ Class GuiControlsMethods Extends GuiCallback
 		
 		if ($data.tabsgroup=="_shared"){
 			
-			$LB_FoldersList.edit( this.Tabset($data.tabset)._getTabsetFolders() )
+			$LB_FoldersList.clear()
+							.edit( this.Tabset($data.tabset)._getTabsetFolders() )
 							.select( this._last_selected_folders[$data.tabset] )				
 		} else {
 			this._last_selected_folders[$data.tabset] := $LB_FoldersList.value()
@@ -51,7 +66,7 @@ Class GuiControlsMethods Extends GuiCallback
 	{
 		$data	:= this._getGuiData()
 		
-		$Tabfile := this.Tabfile ($data.tabset, $data.tabsgroup, $data.tabfile )
+		$Tabfile := this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile )
 
 		if( $Tabfile )
 			this._getActiveTab().Controls.get("TabsNameLookUp").edit( $Tabfile.getTabsCaptions() )			

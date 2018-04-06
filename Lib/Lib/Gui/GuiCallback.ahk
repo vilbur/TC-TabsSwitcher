@@ -10,13 +10,29 @@ Class GuiCallback Extends Parent
 		DROPDOWNS
 	-----------------------------------------
 	*/
-	/** Add or delete target root
+	/**
+	 */
+	_DD_TabsetTypeChanged($Event)
+	{
+		this._gui.alwaysOnTop(false)
+		
+		if( $Event.value == "unique file" )
+			FileSelectFile, $output, 32, A_WorkingDir, Select unique file in tree
+		else
+			FileSelectFolder, $output, % "*"  A_WorkingDir, 0, Select unique folder in tree			
+		
+		if( $output )
+			this._EDIT_TabsetTypeEdit($Event.value, $output)
+
+		this._gui.alwaysOnTop()
+	}
+	/** 
 	 */
 	_DD_TabsetsChanged( $Event )
 	{
 		this.Tabsets().Callback($Event, this._getGuiData())
 	}
-	/** Add or delete target root
+	/** 
 	 */
 	_DD_TabfileChanged( $Event )
 	{

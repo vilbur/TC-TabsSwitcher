@@ -90,7 +90,7 @@ Class PathsReplacer
 		
 		IniRead, $caption_old, % this._path_tab_file, % this._section, %$key_captions%
 			
-		$caption_new	:= RegExReplace( $caption_old, "(" this._tabset_folders ")([\\\/]+)" , this._folder_name "$2" )
+		$caption_new	:= RegExReplace( $caption_old, "(" this._tabset_folders ")([\\\/]+)*" , this._folder_name "$2" )
 
 		;Dump($caption_old, "caption_old", 1)
 		;Dump($caption_new, "caption_new", 1)		

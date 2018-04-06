@@ -61,14 +61,29 @@ Class GuiControls Extends GuiControlsMethods
 	 */
 	_addTargetRoot( $index, $tab_name )
 	{
+		if( $tab_name=="_Tabs" )
+			return 
+		
 		this._Tabs.Tabs[$index].Controls.layout("row")
-			.GroupBox("Root")
-				.layout("column")
+			.GroupBox("Type of tabset")
+				.layout("row")
 				.add("GB_TabsGroup")
 				
-			.Edit( this.Tabset($tab_name).get("path_target") )
-				.options("w545")
-				.add()
+			;.File( this.Tabset($tab_name).get("path_target") )
+			;.label(false)
+			;	.options("w545")
+			;	.callback("callBackTestX")
+			;	.add()
+			.Text()
+				.options("w320")
+				.value(this.Tabset($tab_name).get("path_target"))
+				.add("EDIT_TabsetType")	
+			
+			.Dropdown("root folder||unique folder|unique file")
+				.callback( &this "._DD_TabsetTypeChanged")
+
+				.add("DD_TabsetType")			
+			
 		.section()
 	}
 	/**
@@ -159,9 +174,6 @@ Class GuiControls Extends GuiControlsMethods
 				.exit("Exit")
 	}
 
-
-
-	
-
 }
+
 
