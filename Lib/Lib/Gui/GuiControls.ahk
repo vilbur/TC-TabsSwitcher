@@ -137,7 +137,7 @@ Class GuiControls Extends GuiControlsMethods
 						.add("GB_FoldersList")
 				
 					.ListBox( $tab_folders )
-						.checked( $Tabset.getLast("folder") )					
+						.checked( $Tabset.getLastFolder($Tabset.getLast("root")) )					
 						.callback( &this "._LB_FolderChanged" )
 						.options("w128 h256 -Multi")
 						.add("LB_Folder")
@@ -193,10 +193,10 @@ Class GuiControls Extends GuiControlsMethods
 				.options("w96 h48")
 				.exit("Exit")
 				
-			.Button()
-				.callback( &this "._BTN_TEST" )
-				.options("w96 h48")
-				.add("TEST")		
+			;.Button()
+			;	.callback( &this "._BTN_TEST" )
+			;	.options("w96 h48")
+			;	.add("TEST")		
 	}
 
 }

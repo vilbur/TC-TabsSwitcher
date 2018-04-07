@@ -33,7 +33,6 @@ getObjectValues($object)
 		$values.insert( $value )
 	return %$values%
 }
-
 /**
  */
 joinObject($object, $delimeter:="`n")
@@ -62,9 +61,17 @@ flatternObject($object)
 			$next := flatternObject($value)
 			loop % $next._MaxIndex()
 				$flat._Insert($next[A_Index])
-	 
 		}
 	return $flat
+}
+/*
+*/
+findInAray($object, $item)
+{
+	for $i, $value in $object
+		if ($value = $item)
+			return $i
+	return 0
 }
  /** Combine absolute and relative paths
  */

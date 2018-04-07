@@ -23,7 +23,6 @@ Class GuiControlsMethods Extends GuiCallback
 		TAB
 	-----------------------------------------
 	*/
-	
 	/**
 	 */
 	_getActiveTab()
@@ -93,9 +92,14 @@ Class GuiControlsMethods Extends GuiCallback
 	}
 	/**
 	 */
-	_setFocusOnListbox( $listbox_name )
+	_setFocusOnListbox( $listbox_name, $select )
 	{
-		this._getActiveTab().Controls.get($listbox_name).focus()		
+		$listbox := this._getActiveTab().Controls.get($listbox_name)
+		
+		$listbox.focus()
+		
+		if( $select )
+			$listbox.select($select)	
 	}
 	/**
 	 */
