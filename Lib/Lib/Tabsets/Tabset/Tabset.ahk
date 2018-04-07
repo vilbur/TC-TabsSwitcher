@@ -45,6 +45,29 @@ Class Tabset
 	}
 	/** create new TabsGroups
 	 */
+	createTabsRoot( $path )
+	{
+		if( ! InStr( FileExist($path), "D" ) ||  _TabsRoots.hasKey($path) )
+			return
+		
+		new TabsRoot().create( $path )
+		
+		this._setIniValue( "roots", $path )
+
+		return this 
+	}
+	/** create new TabsGroups
+	 */
+	removeTabsRoot( $path )
+	{
+		this._TabsRoots.delete($path)
+		
+		this._deleteIniValue( "roots", $path )
+		
+		return this 
+	}
+	/** create new TabsGroups
+	 */
 	createTabsGroup( $name )
 	{
 		;MsgBox,262144,, createTabsGroups,2 
@@ -220,7 +243,7 @@ Class Tabset
 	}
 	/**
 	 */
-	_setIniValue( $section, $key, $value )
+	_setIniValue( $section, $key, $value:="" )
 	{
 		IniWrite, %$value%, % $tabs_path "\\" this._name "\Tabset.ini", %$section%, %$key% 
 	}
@@ -231,6 +254,11 @@ Class Tabset
 		IniRead, $value,	% $tabs_path "\\" this._name "\Tabset.ini", %$section%, %$key%, 
 		return % $value != "ERROR" ? $value : ""
 	}
-	
+	/**
+	 */
+	_deleteIniValue( $section, $key:="" )
+	{
+		IniDelete, % $tabs_path "\\" this._name "\Tabset.ini", %$section%, %$key%
+	}
 }
 

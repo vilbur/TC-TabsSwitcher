@@ -35,12 +35,12 @@ getObjectValues($object)
 }
 /**
  */
-joinObject($object, $delimeter:="`n")
+joinObject($object, $delimeter:="`n", $remove:=1)
 {
 	For $key, $value in $object
 		$string .= $value $delimeter
 	
-	return % SubStr( $string, 1, StrLen($string) -1 )
+	return % SubStr( $string, 1, StrLen($string) - $remove )
 	;return $string
 }
 /**

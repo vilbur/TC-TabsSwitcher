@@ -76,8 +76,8 @@ Class GuiControls Extends GuiControlsMethods
 			
 			.Dropdown("Add||Remove")
 				.options("w72 x-92 y-24")
-				.callback( &this "._DD_TabsetTypeChanged")
-				.add("DD_TabsetType")
+				.callback( &this "._DD_TabsetRootChanged")
+				.add("DD_TabsetRoot")
 				
 		.section()
 	}

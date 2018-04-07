@@ -49,19 +49,19 @@ Class GuiCallback Extends Parent
 	*/
 	/**
 	 */
-	_DD_TabsetTypeChanged($Event)
+	_DD_TabsetRootChanged($Event)
 	{
 		this._gui.alwaysOnTop(false)
 		
-		if( $Event.value == "unique file" )
-			FileSelectFile, $output, 32, A_WorkingDir, Select unique file in tree
-		else
-			FileSelectFolder, $output, % "*"  A_WorkingDir, 0, Select unique folder in tree			
-		
-		if( $output )
-			this._EDIT_TabsetTypeEdit($Event.value, $output)
+		$data	:= this._getGuiData()
 
-		this._gui.alwaysOnTop()
+		if( $Event.value == "Add" )
+			this.Tabset( $data.tabset )
+					.createTabsRoot( this._MsgBox.Input("ADD NEW ROOT FOLDER", "Set path to new root ?" , {"w":720, "default":A_WorkingDir})  )
+		
+		else if( $Event.value == "Remove" )
+			if( this._MsgBox.confirm("REMOVE ROOT", "Remove root ?`n`n" $data.tabsetroot ) )
+				this.Tabset( $data.tabset ).removeTabsRoot( $data.tabsetroot )
 	}
 	/** 
 	 */

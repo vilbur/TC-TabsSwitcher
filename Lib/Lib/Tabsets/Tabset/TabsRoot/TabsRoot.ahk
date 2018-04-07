@@ -11,15 +11,16 @@ Class TabsRoot
 	;	this._path	:= $path
 	;}
 	
-	;/**
-	; */
-	;path( $path:="" )
-	;{
-	;	if( $path )
-	;		this._path	:= $path
-	;	
-	;	return $path ? this : this._path 
-	;} 
+	/**
+	 */
+	create( $path:="" )
+	{
+		MsgBox,262144,, Create,2 
+		;if( $path )
+		;	this._path	:= $path
+		
+		;return $path ? this : this._path 
+	} 
 	/** get folders
 	 */
 	folders()
