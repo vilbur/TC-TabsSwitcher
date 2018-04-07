@@ -61,8 +61,6 @@ Class Gui Extends GuiControls
 			if( $value && ! InStr($control_name, "DD_" ) )
 				 $form_data[RegExReplace( $control_name, "^[^_]+_", "" )] :=  $value
 		
-
-		
 		return $form_data
 		;return %	{"tabset":	$tab.name()
 		;	,"tabsetroot":	$Controls.get("LB_TabssetRoot").value()
