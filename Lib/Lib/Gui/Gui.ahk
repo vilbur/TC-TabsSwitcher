@@ -3,8 +3,9 @@
  */
 Class Gui Extends GuiControls
 {
-	_gui := new VilGUI("TabsSwitcher")
-	
+	_gui	:= new VilGUI("TabsSwitcher")
+	_TcPane 	:= new TcPane().setActivePane()
+
 	/*---------------------------------------
 		CREATE GUI
 	-----------------------------------------

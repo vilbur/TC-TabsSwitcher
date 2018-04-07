@@ -41,17 +41,6 @@ Class Tabsets Extends Parent
 	{
 		return % this._Tabsets[$Tabset]
 	}
-	/**
-	 */
-	Callback($Event, $data)
-	{
-		if( $Event.value == "New" )
-			this._Callback.new()
-				
-		else if( $Event.value == "Delete" )
-			this._Callback.delete( this.Tabset($data.tabset) )
-
-	}
 	 
 	/*---------------------------------------
 		GET TABSTES DATA

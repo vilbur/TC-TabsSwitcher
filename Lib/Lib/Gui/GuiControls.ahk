@@ -95,8 +95,9 @@ Class GuiControls Extends GuiControlsMethods
 		this._Tabs.Tabs[$index].Controls.layout("row")
 				
 		this._GroupBox($index, "TabsGroup" )
-			.Dropdown( "New||Rename|Copy|Delete" )
+			.Dropdown( "Add||Rename|Remove" )
 				.options("x+78 y-24 w72")
+				.callback( &this "._DD_TabsGroupChanged" )
 				.add("DD_TabsGroup")
 			.section()
 
@@ -113,8 +114,6 @@ Class GuiControls Extends GuiControlsMethods
 				.callback( &this "._LB_TabsGroupChanged" )
 				.options("h220 -Multi " this._LB_WIDTH)
 				.add("LB_TabsGroup")
-				
-
 	}
 
 	/*---------------------------------------
@@ -168,11 +167,6 @@ Class GuiControls Extends GuiControlsMethods
 				.add("LB_Tabfile")
 			.section()
 		.GroupEnd()
-
-				
-			;.Text()
-			;	.options("w128 h220 top")
-			;	.add("TabsNameLookUp")
 	}
 	
 	/*---------------------------------------

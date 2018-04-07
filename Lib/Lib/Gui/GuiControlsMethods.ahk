@@ -100,27 +100,18 @@ Class GuiControlsMethods Extends GuiCallback
 	_TEXT_update()
 	{
 		$data	:= this._getGuiData()
-		;MsgBox,262144,, Test,2 
-		$Tabfile := this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile )
+		$Tabfile	:= this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile )
 
-		;Dump($Tabfile.getTabsCaptions(), "Tabfile.getTabsCaptions()", 1)
-
-		
-		if( $Tabfile ){
+		if( $Tabfile )
+		{
+			$active_pane	:= this._TcPane.getActivePane()
 			
-			$TcPane	:= new TcPane()
 			$tabs	:= $Tabfile.getTabsCaptions()
-			;Dump($tabs, "tabs", 1)
 			
-			this._gui.Controls.get("TEXT_pane_" $TcPane.getPaneSide("source")).edit( $tabs.activetabs )
-			this._gui.Controls.get("TEXT_pane_" $TcPane.getPaneSide("target")).edit( $tabs.inactivetabs )									
-			
-			
-			;this._gui.Controls.get("TEXT_pane_left").edit()
-			
+			this._gui.Controls.get("TEXT_pane_" $active_pane).edit( $tabs.activetabs )
+			this._gui.Controls.get("TEXT_pane_" ($active_pane	== "right" ? "left" : "right")).edit( $tabs.inactivetabs )
 		}
 	}
-	
 	
 	/*---------------------------------------
 		HELPERS

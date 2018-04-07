@@ -41,7 +41,6 @@ Class GuiCallback Extends Parent
 			$data.tabsgroup := "_shared" 
 			this._LB_set( "LB_Tabfile", this._getTabFilenames( $data ) , 1 )
 		}
-			
 	}
 	/*---------------------------------------
 		DROPDOWN
@@ -65,9 +64,14 @@ Class GuiCallback Extends Parent
 	}
 	/** 
 	 */
-	_DD_TabsetsChanged( $Event )
+	_DD_TabsGroupChanged( $Event )
 	{
-		this.Tabsets().Callback($Event, this._getGuiData())
+		;this.Tabsets().Callback($Event, this._getGuiData())
+		if( $Event.value == "Add" )
+			MsgBox,262144,, Test,2 
+				
+		;else if( $Event.value == "Remove" )
+			;this._Callback.delete( this.Tabset($data.tabset) )		
 	}
 	/** 
 	 */
@@ -97,9 +101,12 @@ Class GuiCallback Extends Parent
 	 */
 	_LB_TabsGroupChanged( $Event )
 	{
-		this._R_replaceUnselect()
-
 		$data	:= this._getGuiData()
+
+		if( $data.tabsgroup=="_shared" )
+			return
+		
+		this._R_replaceUnselect()
 		
 		this._LB_set( "LB_Tabfile", this._getTabFilenames( $data ) , 1 )
 		
