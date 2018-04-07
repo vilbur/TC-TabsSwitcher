@@ -39,16 +39,8 @@ Class GuiControlsMethods Extends GuiCallback
 	{
 		$Radios := this._getActiveTab().Controls.get("R_replace")
 		
-		
 		For $name, $addr in $Radios._buttons
 			$Radios.get($name).edit(0)
-			;Dump($Radio, $r, 1)
-			
-			;$Radio.edit(0)
-			 
-		
-		;$Tab.get("R_replace.Root").edit(0)
-		;$Tab.get("R_replace.Folder").edit(0)
 	}
 	
 	/*---------------------------------------
@@ -66,33 +58,11 @@ Class GuiControlsMethods Extends GuiCallback
 			$listbox.edit( $data )
 			
 		if( $select )
-			$listbox.select( 1 )
-			
-	}
-	
-	/** fill listbox if tabsgroup changed to "_shared"
-	    clear listbox if tabsgroup not "_shared"
-		
-		temporary save selection to _last_selected_folders
-	 */
-	_editTabsgroupListBox( $data )
-	{
-		$Tab 	:= this._getActiveTab()
-		$LB_Folder	:= $Tab.Controls.get("LB_Folder")
-		
-		if ($data.tabsgroup=="_shared"){
-			
-			$LB_Folder.clear()
-							.edit( this.Tabset($data.tabset)._getTabsetFolders() )
-							.select( this._last_selected_folders[$data.tabset] )				
-		} else {
-			this._last_selected_folders[$data.tabset] := $LB_Folder.value()
-			$LB_Folder.clear()
-		}
+			$listbox.select( $select )
 	}
 	/**
 	 */
-	_setFocusOnListbox( $listbox_name, $select )
+	_LB_focus( $listbox_name, $select )
 	{
 		$listbox := this._getActiveTab().Controls.get($listbox_name)
 		
@@ -107,7 +77,7 @@ Class GuiControlsMethods Extends GuiCallback
 	{
 		this._getActiveTab().Controls.get($listbox_name).select(0)	
 	}
-		
+	
 	/*---------------------------------------
 		DROPDOWN
 	-----------------------------------------
@@ -127,7 +97,7 @@ Class GuiControlsMethods Extends GuiCallback
 	*/
 	/**
 	 */
-	_updateTabNamesLookUp()
+	_TEXT_update()
 	{
 		$data	:= this._getGuiData()
 		
@@ -138,6 +108,10 @@ Class GuiControlsMethods Extends GuiCallback
 	}
 	
 	
+	/*---------------------------------------
+		HELPERS
+	-----------------------------------------
+	*/
 	/**
 	 */
 	_getControlValue($control_name)
