@@ -53,14 +53,15 @@ Class Gui Extends GuiControls
 	{
 		$tab	:= this._getActiveTab()
 		$Controls	:= $tab.Controls
-		$form_data	:= {"tabset":	$tab.name()}
+		$form_data	:= {"tabset":	$tab.name()
+			   ,"tabsgroup":	"_shared"}
+		
 		
 		For $control_name, $value in $Controls.values()
-			if( ! InStr($control_name, "DD_" ) )
+			if( $value && ! InStr($control_name, "DD_" ) )
 				 $form_data[RegExReplace( $control_name, "^[^_]+_", "" )] :=  $value
 		
-		;Dump($Controls.values(), "Controls", 1)
-		;Dump($form_data, "form_data", 1)
+
 		
 		return $form_data
 		;return %	{"tabset":	$tab.name()

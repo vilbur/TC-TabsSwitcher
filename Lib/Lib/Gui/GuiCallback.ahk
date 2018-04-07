@@ -89,7 +89,7 @@ Class GuiCallback Extends Parent
 	*/
 	/**
 	 */
-	_LB_TabssetRootChanged( $Event )
+	_LB_TabsetRootChanged( $Event )
 	{
 		$data	:= this._getGuiData()
 		;Dump($data, "data", 1)

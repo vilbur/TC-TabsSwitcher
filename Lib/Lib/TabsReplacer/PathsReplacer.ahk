@@ -3,13 +3,19 @@
 Class PathsReplacer
 {
 	_path_tab_file	:= "" ; path to folder with *.tab files
-	_path_target	:= ""
-	_folder_name	:= ""
+
+	_search_folders	:= ""
+	_replace_folder	:= ""	
+
+	_search_roots	:= ""
+	_replace_root	:= ""	
+
+
+	_replace	:= ""
+	;_old_folder_name	:= ""
+	;_tab_files	:= {}
+	;_tabset_folders	:= ""
 	
-	_path_target_rx	:= ""
-	_old_folder_name	:= ""
-	;_tab_files	:= {}		
-	_tabset_folders	:= ""
 	/**
 	 */
 	pathTabFile( $path_tab_file )
@@ -19,23 +25,55 @@ Class PathsReplacer
 	}
 	/**
 	 */
-	pathTarget( $path_target )
+	searchRoots( $search_roots )
 	{
-		this._path_target := $path_target
+		this._search_roots := this._escapePathRegex( joinObject( $search_roots, "|" ) )
+		return this
+	}
+	/**
+	 */
+	replaceRoot( $replace_root )
+	{
+		this._replace_root := $replace_root
+		return this
+	}
+	/**
+	 */
+	searchFolders( $search_folders )
+	{
+		;Dump($search_folders, "search_folders", 1)
+		this._search_folders :=  joinObject( $search_folders, "|" )
+
 		return this
 	}
 	/**
 	 */
 	replaceFolder($folder_name)
 	{
-		this._folder_name	:= $folder_name
-		
+		this._replace_folder	:= $folder_name
+		return this
 		;this._setPathTargetRegex()
-		this.setTabsetFolder()		
-		
+
+	}
+	/**
+	 */
+	replace($replace)
+	{
+		this._replace	:= $replace
+		;Dump(this, "this.", 1)
+		this._loopSections()
+	}
+	/*---------------------------------------
+		PARSE *.tab FILE
+	-----------------------------------------
+	*/
+	/**
+	 */
+	_loopSections(  )
+	{
 		IniRead, $sections, % this._path_tab_file
 			Loop Parse, $sections, `n
-				this._parseSection( A_LoopField )	
+				this._parseSection( A_LoopField )
 	}
 	/**
 	 */
@@ -45,93 +83,84 @@ Class PathsReplacer
 		IniRead, $sections, % this._path_tab_file, %$section%
 			Loop Parse, $sections, `n
 				this._parseLine( A_LoopField )
-	} 
+	}
+	
 	/**
 	 */
 	_parseLine( $line_content )
 	{
-		$key_value	:= StrSplit($line_content, "=")
-		
-		if( InStr( $key_value[1], "_path") )
-			this._replacePathByFolderName( $key_value[1], $key_value[2] )
+		if( RegExMatch( $line_content, "i)\d+_path" ) )
+			this._replacePathAndCaptions( StrSplit($line_content, "=") )
 	}
-	/**
-	 */
-	setTabsetFolders($tabset_folders)
-	{
-		;Dump($tabset_folders, "tabset_folders", 1)
-		
-		For $i, $folder in $tabset_folders
-			this._tabset_folders .= $folder "|" 
-		
-		this._tabset_folders :=  SubStr(this._tabset_folders, 1, StrLen(this._tabset_folders)-1) 
-		return this
-	} 
+	
+	/*---------------------------------------
+		REPLACE IN *.tab FILE
+	-----------------------------------------
+	*/
 	/** replace key 1_path in *.tab
-	  
+
 	 */
-	_replacePathByFolderName( $key, $full_path )
+	_replacePathAndCaptions( $key_path )
 	{
-		$path_new	:= RegExReplace( $full_path, "([\\\/])(" this._tabset_folders ")([\\\/])" , "$1" this._folder_name "$3" )
-		;Dump($full_path, "full_path", 1)
-		;Dump(this._tabset_folders, "this._tabset_folders", 1)
-		;Dump(this._folder_name, "this._folder_name", 1)
-		;Dump($path_new, "path_new", 1)
-		;Dump("-----------------------------", "", 1)
-		IniWrite, %$path_new%, % this._path_tab_file, % this._section, %$key% 
-		this._replaceCaptions( $key, $search_folder_match1 )
+		$path_new	:= $key_path[2]
+		
+		if( InStr( this._replace, "root" )  )
+			$path_new	:= this._replaceRoot( $path_new )
+		
+		$path_new	:= this._replaceFolder( $path_new )
+		
+		this._setToIni( $key_path[1], $path_new )
+		
+		this._replaceCaptions( RegExReplace( $key_path[1], "i)path", "caption" ) )
+	}
+
+	/*---------------------------------------
+		REPLACE VALUES
+	-----------------------------------------
+	*/
+	/** replace key 1_path in *.tab
+	 */
+	_replaceRoot( $path_old )
+	{
+		return % RegExReplace( $path_old, "i)^(" this._search_roots ")", this._replace_root  )
+	}
+	/** 
+	 */
+	_replaceFolder( $path_old )
+	{
+		return % RegExReplace( $path_old, "i)([\\\/])(?:" this._search_folders ")([\\\/])" , "$1" this._replace_folder "$2" )
 	}
 	
 	/** replace key 1_caption in *.tab
 	 */
-	_replaceCaptions( $key, $old_folder_name )
+	_replaceCaptions( $key )
 	{
-		$key_captions := RegExReplace( $key, "path", "caption" )
-		
-		IniRead, $caption_old, % this._path_tab_file, % this._section, %$key_captions%
-			
-		$caption_new	:= RegExReplace( $caption_old, "(" this._tabset_folders ")([\\\/]+)*" , this._folder_name "$2" )
+		IniRead, $caption_old, % this._path_tab_file, % this._section, %$key%
 
-		;Dump($caption_old, "caption_old", 1)
-		;Dump($caption_new, "caption_new", 1)		
-		
-		;Dump($caption_new, $caption_old, 1)
-		;if( $caption_new!="ERROR" && $caption_old != $caption_new )
-		
+		$caption_new	:= RegExReplace( $caption_old, "^(" this._search_folders ")([\\\/]+)*" , this._replace_folder "$2" )
+
 		if( $caption_old!="ERROR" &&  $caption_old!=$caption_new )
-			IniWrite, %$caption_new%, % this._path_tab_file, % this._section, %$key_captions% 
-		
-	} 
-	/** FOR _replacePathByRoot()
-		CURRENTLY UNUSED
-	 */
-	_setPathTargetRegex()
-	{
-		;$path_tabset	:= RegExReplace( this._path_target, "\\+$", "" ) ;;; remove last  slash\'
-		;this._path_target_rx	:= RegExReplace( $path_tabset, "[\\\/]+", "\\")
-	} 
-	/** replace key 1_path in *.tab
-		CURRENTLY UNUSED
-			  
-	 */
-	_replacePathByRoot( $key, $full_path )
-	{
-	;;	$path_tabset	:= RegExReplace( this._path_target, "\\+$", "" ) ;;; remove last  slash\'
-	;;	$path_tabset	= %$path_tabset%\
-	;;	
-	;;	$path_new	:= RegExReplace( $full_path, "i)" this._path_target_rx "[\\]+([^\\\/]+)", $path_tabset this._folder_name )
-	;;
-	;;	;Dump($path_new, "path_new", 1)
-	;;	;Dump("-----------------------------", "", 1)				
-	;;	
-	;;	IniWrite, %$path_new%, % this._path_tab_file, % this._section, %$key% 
-	;;
-	;;	this._replaceCaptions( $key, $search_folder_match1 )
+			this._setToIni( $key, $caption_new )
 	}
 
+	/*---------------------------------------
+		HELPERS
+	-----------------------------------------
+	*/
+	/**
+	 */
+	_setToIni( $key, $value )
+	{
+		IniWrite, %$value%, % this._path_tab_file, % this._section, %$key%
+	} 
+	/**
+	 */
+	_escapePathRegex($path)
+	{
+		;$path_tabset	:= RegExReplace( this._replace_root, "\\+$", "" ) ;;; remove last  slash\'
+		return % RegExReplace( $path, "[\\\/]+", "\\")
+	}
 
-
-	
 }
 
 

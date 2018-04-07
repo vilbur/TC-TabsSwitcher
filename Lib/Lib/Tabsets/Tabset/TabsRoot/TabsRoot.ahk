@@ -20,7 +20,12 @@ Class TabsRoot
 	;	
 	;	return $path ? this : this._path 
 	;} 
-	
+	/** get folders
+	 */
+	folders()
+	{
+		return % this._folders
+	} 
 	
 	/** get folders in target root
 	  *
@@ -35,13 +40,13 @@ Class TabsRoot
 			
 		return this
 	}	
-	
 	/**
 	 */
 	setLastFolder($last_folder)
 	{
 		this._last_folder := $last_folder
 		return this
-	}  
+	}
+	
 }
 

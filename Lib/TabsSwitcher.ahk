@@ -81,24 +81,28 @@ Class TabsSwitcher Extends Accessors
 		;$target_folder	:= $data.folder ? $data.folder : this.TargetInfo().get( "folder_current" )
 		$target_folder	:= $data.folder ? $data.folder : this.TargetInfo().get( "folder_current" )		
 		
-		/* GO TO PATH
-		*/
-		if( $tabfile && ! $Tabset.isPathInTarget( A_WorkingDir ) )
-			this._goToTargetRoot( $Tabset.pathTarget() )
+		;Dump($data, "data", 1)
 		
-		/* REPLACE SHARED TABS
-		*/
-		if( $data.tabsgroup=="_shared" )
+		;/* GO TO PATH
+		;*/
+		;if( $tabfile && ! $Tabset.isPathInTarget( A_WorkingDir ) )
+		;	this._goToTargetRoot( $Tabset.pathTarget() )
+		;
+		;/* REPLACE SHARED TABS
+		;*/
+		if( $data.replace )
 			this._PathsReplacer.clone()
 					.pathTabFile( $path_tab_file )
-					.setTabsetFolders( $Tabset._getTabsetFolders()  )
-					.pathTarget( $Tabset.get("path_target") )
+					.searchRoots( $Tabset.getTabsRootsPaths() )
+					.replaceRoot( $data.tabsetroot )
+					.searchFolders( $Tabset.getTabsRootFoldersAll()  )
 					.replaceFolder( $target_folder )
+					.replace( $data.replace )
 			
 		
 		IniWrite, % $data.tabset, %$ini_path%, tabset, last ; save last tabset
 		this.Tabset($data.tabset).saveLastToIni( $data.tabsgroup, $data.folder, $data.tabfile )
-
+		
 		/* LAOD TAB FILE
 		*/
 		this._TabsLoader.loadTabs( $path_tab_file )
@@ -126,13 +130,13 @@ Class TabsSwitcher Extends Accessors
 	 */
 	_getData( $tabset:="", $tabsgroup:="", $tabfile:="" )
 	{
-		if( ! $tabset && ! $tabsgroup && ! $tabfile )
+		;if( ! $tabset && ! $tabsgroup && ! $tabfile )
 			return % this._gui._getGuiData()
 	
-		return %	{"tabsetroot":	$tabset
-			,"tabset":	$tabset
-			,"tabsgroup":	$tabsgroup
-			,"tabfile":	$tabfile}
+		;return %	{"tabsetroot":	$tabset
+		;	,"tabset":	$tabset
+		;	,"tabsgroup":	$tabsgroup
+		;	,"tabfile":	$tabfile}
 	}
 	/**
 	 */

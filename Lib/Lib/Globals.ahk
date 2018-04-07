@@ -40,9 +40,32 @@ joinObject($object, $delimeter:="`n")
 {
 	For $key, $value in $object
 		$string .= $value $delimeter
-	return %$string%
+	
+	return % SubStr( $string, 1, StrLen($string) -1 )
+	;return $string
 }
-
+/**
+ */
+flatternObject($object)
+{
+	if (! isobject($object))
+		return $object
+   
+	$flat := {}
+   
+	$enum := $object._newenum()
+	While $enum[$key, $value]
+		if !isobject($value)
+			$flat._Insert($value)
+		else
+		{
+			$next := flatternObject($value)
+			loop % $next._MaxIndex()
+				$flat._Insert($next[A_Index])
+	 
+		}
+	return $flat
+}
  /** Combine absolute and relative paths
  */
 combine_path( $absolute, $relative)

@@ -64,22 +64,15 @@ Class GuiControls Extends GuiControlsMethods
 		if( $tab_name=="_Tabs" )
 			return 
 		
+		$Tabset := this.Tabset($tab_name)
+		
 		this._Tabs.Tabs[$index].Controls.layout("row")
 			.GroupBox("Type of tabset")
 				.layout("row")
 				.add("GB_TabsGroup")
 				
-			;.File( this.Tabset($tab_name).get("path_target") )
-			;.label(false)
-			;	.options("w545")
-			;	.callback("callBackTestX")
-			;	.add()
-			;.Text()
-			;	.options("w320")
-			;	.value(this.Tabset($tab_name).get("path_target"))
-			;	.add("EDIT_TabsetType")	
-			.ListBox( this.Tabset($tab_name).getTabsRootsPaths() )
-				.checked( this.Tabset($tab_name).getLast("root") )					
+			.ListBox( $Tabset.getTabsRootsPaths() )
+				.checked( $Tabset.getLast("root") )					
 				.callback( &this "._LB_TabsetRootChanged" )
 				.options("w400 h64 -Multi")
 				.add("LB_TabsetRoot")
@@ -99,7 +92,8 @@ Class GuiControls Extends GuiControlsMethods
 	 */
 	_addTabsGroupSection( $index, $tab_name )
 	{
-		;Dump($tab_name, "tab_name", 1)
+		$Tabset := this.Tabset($tab_name)
+		
 		this._Tabs.Tabs[$index].Controls.layout("row")
 			.GroupBox("TabsGroup")
 				.layout("row")
@@ -113,8 +107,8 @@ Class GuiControls Extends GuiControlsMethods
 					.add("R_replace")	
 			.section()
 			
-				.ListBox( this.Tabset($tab_name)._getTabsGroupsNames() )
-					.checked( this.Tabset($tab_name).getLast("tabsgroup") )					
+				.ListBox( $Tabset._getTabsGroupsNames() )
+					.checked( $Tabset.getLast("tabsgroup") )					
 					.callback( &this "._LB_TabsGroupChanged" )
 					.options("w128 h228 -Multi")
 					.add("LB_TabsGroup")
@@ -133,7 +127,8 @@ Class GuiControls Extends GuiControlsMethods
 	_addFoldersSection( $index, $tab_name )
 	{
 		;$tab_folders := this.Tabset($tab_name)._getTabsRootFolders("C:\Git\Laravel-Packages")
-		$tab_folders := this.Tabset($tab_name)._getTabsRootFolders(this.Tabset($tab_name).getLast("root"))
+		$Tabset	:= this.Tabset($tab_name)
+		$tab_folders	:= $Tabset._getTabsRootFolders($Tabset.getLast("root"))
 		
 		;if( $tab_folders.length()>0 )
 			this._Tabs.Tabs[$index].Controls
@@ -142,7 +137,7 @@ Class GuiControls Extends GuiControlsMethods
 						.add("GB_FoldersList")
 				
 					.ListBox( $tab_folders )
-						.checked( this.Tabset($tab_name).getLast("folder") )					
+						.checked( $Tabset.getLast("folder") )					
 						.callback( &this "._LB_FolderChanged" )
 						.options("w128 h256 -Multi")
 						.add("LB_Folder")

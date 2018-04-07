@@ -153,19 +153,27 @@ Class Tabset
 	 */
 	getTabsRootsPaths()
 	{
-		return % joinObject( getObjectKeys(this._TabsRoots), "|" )
-		
+		return % getObjectKeys(this._TabsRoots)
+	}
+	/**
+	 */
+	getTabsRootFoldersAll()
+	{
+		$all_folders	:= []
+		For $tabsroot_name, $TabsRoot in this._TabsRoots
+			$all_folders.push(this._getTabsRootFolders($tabsroot_name))
+		;Dump(  flatternObject($all_folders), "all_folders", 1)
+		return % flatternObject($all_folders)
 	}
 	/**
 	 */
 	_getTabsRootFolders($tabsroot)
 	{
-		;this._TabsRoots[$tabsroot].getFolders()
-		return % getObjectValues(this._TabsRoots[$tabsroot]._folders)
+		return % getObjectValues(this._TabsRoots[$tabsroot].folders())
 	}
 	
 	/*---------------------------------------
-		GET TabsGroups  DATA
+		GET TabsGroups DATA
 	-----------------------------------------
 	*/
 	/**

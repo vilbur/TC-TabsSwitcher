@@ -1,8 +1,11 @@
 [activetabs]
-0_path=C:\Git\Laravel-Packages\laravel-package-portfolio\
+0_path=C:\wamp64\www\laravel-fresh\vendor\vilbur\admin-setup\
 0_options=1|0|0|0|0|2|0
-1_path=C:\Git\Laravel-Packages\laravel-package-portfolio\src\
+1_path=C:\wamp64\www\laravel-fresh\vendor\vilbur\admin-setup\src\
 1_options=1|0|0|0|0|2|0
-2_path=C:\Git\Laravel-Packages\laravel-package-portfolio\publish\
+2_path=C:\wamp64\www\laravel-fresh\vendor\vilbur\admin-setup\publish\
 2_options=1|0|0|0|0|2|0
+3_path=C:\wamp64\www\laravel-fresh\vendor\vilbur\
+3_options=1|0|0|0|0|2|0
+3_caption=admin-setup\root
 activetab=0

@@ -38,9 +38,18 @@ Class GuiControlsMethods Extends GuiCallback
 	 */
 	_R_replaceUnselect( )
 	{
-		$Tab := this._getActiveTab().Controls
-		$Tab.get("R_replace.Root").edit(0)
-		$Tab.get("R_replace.Folder").edit(0)		
+		$Radios := this._getActiveTab().Controls.get("R_replace")
+		
+		
+		For $name, $addr in $Radios._buttons
+			$Radios.get($name).edit(0)
+			;Dump($Radio, $r, 1)
+			
+			;$Radio.edit(0)
+			 
+		
+		;$Tab.get("R_replace.Root").edit(0)
+		;$Tab.get("R_replace.Folder").edit(0)
 	}
 	
 	/*---------------------------------------
