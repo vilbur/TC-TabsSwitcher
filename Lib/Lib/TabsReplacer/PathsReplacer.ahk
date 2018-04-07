@@ -10,12 +10,8 @@ Class PathsReplacer
 	_search_roots	:= ""
 	_replace_root	:= ""	
 
+	_replace	:= "" ; "root|folder"
 
-	_replace	:= ""
-	;_old_folder_name	:= ""
-	;_tab_files	:= {}
-	;_tabset_folders	:= ""
-	
 	/**
 	 */
 	pathTabFile( $path_tab_file )

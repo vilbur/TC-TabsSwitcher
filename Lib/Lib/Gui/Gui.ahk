@@ -15,6 +15,7 @@ Class Gui Extends GuiControls
 	{
 		this._addTabsetControls()
 		this._addTabs()
+		this._addPaneLookUp()		
 		this._addMainButtons()
 		
 		this._createGui()

@@ -25,10 +25,13 @@ Class Tabfile
 	 */
 	getTabsCaptions()
 	{
-		;return "getTabsCaptions"
+
+		$captions := {}
+		
 		For $pane_name, $tabs in this._tabs ; $pane_name == "activetabs|inactivetabs"
-			$captions .= ( $pane_name=="inactivetabs" ? "`n":"") RegExReplace( $pane_name, "(.*)tabs", "------ $U1 ------`n" ) joinObject( $tabs )
-		return %$captions%
+			$captions[$pane_name] :=  joinObject( $tabs, " | " )
+			
+		return $captions
 	}	
 	/** Read *.tab file and parse lines
 	 */
@@ -36,7 +39,10 @@ Class Tabfile
 	{
 		IniRead, $sections, % this._path
 			Loop Parse, $sections, `n
-				this._parseSection( A_LoopField )	
+				this._parseSection( A_LoopField )
+				
+		;Dump(this._tabs, "this._tabs", 1)
+		
 		return this
 	}
 	/** delete Tabset folder
@@ -95,16 +101,16 @@ Class Tabfile
 			Loop Parse, $sections, `n
 				this._parseLine($section, A_LoopField )
 	} 
-	/** prse key=value par in ini
+	/** parse key=value par in ini
 	 */
-	_parseLine($section,  $line_content )
+	_parseLine( $section, $line_content )
 	{
 		$key_value	:= StrSplit($line_content, "=")
 		
-		RegExMatch( $key_value[1], "i)^(\d+)_(path|caption)", $key )
+		RegExMatch( $key_value[1], "i)^(\d+)_(path|caption)", $path_or_caption )
 		
-		if($key)
-			this._tabs[$section].push( this._getTabName( $tab_num1, $key2, $key_value[2] ) )
+		if($path_or_caption)
+			this._tabs[$section].push( this._getTabName( $tab_num1, $path_or_caption2, $key_value[2] ) )
 	}
 	
 	/** Get path folder name from key "path" or key "caption"

@@ -164,13 +164,36 @@ Class GuiControls Extends GuiControlsMethods
 				.options("x-78 w128 h256 -Multi")
 				.add("LB_Tabfile")
 			.section()
-
+		.GroupEnd()
 
 				
-			.Text()
-				.options("w128 h220 top")
-				.add("TabsNameLookUp")
+			;.Text()
+			;	.options("w128 h220 top")
+			;	.add("TabsNameLookUp")
 	}
+	
+	/*---------------------------------------
+		LOOKUP
+	-----------------------------------------
+	*/
+	/**
+	 */
+	_addPaneLookUp()
+	{
+		this._gui.Controls.GroupBox().options("y-14").add("MainButtons")
+		
+		For $pane, $style in {"left":"cGreen", "right":"cBlue"}
+		{
+			this._setFont( "s8", $style  )
+			this._gui.Controls.Text()
+								.options("w256 h48 top " ($i==1?"y-10":"")  )
+								.add("TEXT_pane_" $pane )
+		}
+								
+		this._resetFont()
+
+	} 
+
 	/*---------------------------------------
 		MAIN CONTROLS BELLOW TABS
 	-----------------------------------------
@@ -180,23 +203,22 @@ Class GuiControls Extends GuiControlsMethods
 	_addMainButtons()
 	{
 		this._gui.Controls
-		;.section()
 			.GroupBox().layout("row").add("MainButtons")
 
-			.Button()
-				.callback( this._Parent ".loadTabs" )
-				.options("h48 w320")
-				.submit("Load")
-			.Button()
-				.callback( this._Parent ".loadTabs" )
-				.options("w96 h48")
-				.exit("Exit")
-				
-			;.Button()
-			;	.callback( &this "._BTN_TEST" )
-			;	.options("w96 h48")
-			;	.add("TEST")		
+				.Button()
+					.callback( this._Parent ".loadTabs" )
+					.options("h48 w320")
+					.submit("Load")
+				.Button()
+					.callback( this._Parent ".loadTabs" )
+					.options("w96 h48")
+					.exit("Exit")
+				;.Button()
+				;	.callback( &this "._BTN_TEST" )
+				;	.options("w96 h48")
+				;	.add("TEST")		
 	}
+
 	/*---------------------------------------
 		HELPERS
 	-----------------------------------------
@@ -205,17 +227,30 @@ Class GuiControls Extends GuiControlsMethods
 	 */
 	_GroupBox( $index, $name, $label:="", $layout:="row")
 	{
-		this._gui.gui("Font", "s8 cBlue bold")
+		this._setFont()
 		
 		$GroupBox	:= this._Tabs.Tabs[$index].Controls
 					 .GroupBox( $label ? $label : $name )
 						.layout($layout)
 						.add("GB_" $name)
 
-		this._gui.gui("Font")
+		this._resetFont()
 		
 		return $GroupBox
-	} 	
+	}
+	/**
+	 */
+	_setFont( $size:="s8", $color:="cBlue bold" )
+	{
+		this._gui.gui("Font",  $size " " $color )
+	}
+	/**
+	 */
+	_resetFont()
+	{
+		this._gui.gui("Font")
+	}
+	
 	
 
 }
