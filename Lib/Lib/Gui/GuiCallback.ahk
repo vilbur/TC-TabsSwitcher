@@ -48,15 +48,25 @@ Class GuiCallback Extends Parent
 	*/
 	/**
 	 */
+	_DD_TabsetsChanged($Event)
+	{		
+		if( $Event.value == "Add" )
+			this._addNewTabset()
+				
+		else if(  $Event.value == "Remove" )
+			this._removeTabset()
+	}	
+	/**
+	 */
 	_DD_TabsetRootChanged($Event)
 	{
-		this._gui.alwaysOnTop(false)
+		;this._gui.alwaysOnTop(false)
 		
 		$data	:= this._getGuiData()
 
 		if( $Event.value == "Add" )
 			this.Tabset( $data.tabset )
-					.createTabsRoot( this._MsgBox.Input("ADD NEW ROOT FOLDER", "Set path to new root ?" , {"w":720, "default":A_WorkingDir})  )
+				.createTabsRoot( this._askPathToRoot() )
 		
 		else if( $Event.value == "Remove" )
 			if( this._MsgBox.confirm("REMOVE ROOT", "Remove root ?`n`n" $data.tabsetroot ) )
@@ -125,7 +135,7 @@ Class GuiCallback Extends Parent
 	 */
 	_LB_TabfileChanged( $Event )
 	{
-		$data	:= this._getGuiData()
+		;$data	:= this._getGuiData()
 		$control_key	:= GetKeyState("control", "P")
 		
 		if( $Event.type=="DoubleClick" ){
@@ -141,6 +151,19 @@ Class GuiCallback Extends Parent
 		HELPERS
 	-----------------------------------------
 	*/
+
+	/**
+	 */
+	_askPathToRoot()
+	{
+		$path := this._MsgBox.Input("ADD NEW ROOT FOLDER", "Set path to new root" , {"w":720, "default":A_WorkingDir})
+		
+		if( InStr( FileExist($path), "D" )==0 ) ; get dir path, if path to file 
+			SplitPath, $path,, $path
+		
+		return % FileExist($path) ? $path : false
+	} 
+
 	/**
 	 */
 	_getTabFilenames( $data )

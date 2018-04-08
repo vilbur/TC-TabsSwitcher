@@ -47,7 +47,7 @@ Class Tabset
 	 */
 	createTabsRoot( $path )
 	{
-		if( ! InStr( FileExist($path), "D" ) ||  _TabsRoots.hasKey($path) )
+		if( _TabsRoots.hasKey($path) )
 			return
 		
 		new TabsRoot().create( $path )
@@ -78,7 +78,6 @@ Class Tabset
 	 */
 	delete()
 	{
-		;MsgBox,262144,delete , % this._path_tabset,2   
 		FileRemoveDir, % this._path_tabset, 1
 		return this 
 	}

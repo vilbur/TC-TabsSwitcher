@@ -20,6 +20,40 @@ Class GuiControlsMethods Extends GuiCallback
 			
 	}
 	/*---------------------------------------
+		TABSET
+	-----------------------------------------
+	*/
+	/** reate New tabset
+	 */
+	_addNewTabset()
+	{
+		$new_root 	:= this._askPathToRoot()
+
+		if( ! $new_root )
+			return
+			
+		SplitPath, $new_root, $dir_name
+			
+		$tabset_name := this._MsgBox.Input("SET TABSET NAME", "Name of new tabset" , {"default":$dir_name})
+		
+		if( $tabset_name )
+			this.Tabsets().createTabset( $new_root, $new_root )
+			
+		Reload
+	}
+	/**
+	 */
+	_removeTabset()
+	{
+		$data	:= this._getGuiData()
+		
+		if( this._MsgBox.confirm("REMOVE TABSET", "Remove tabset: " $data.tabset, "no") )
+			this.Tabset($data.tabset).delete()
+			
+		Reload
+	} 
+	
+	/*---------------------------------------
 		TAB
 	-----------------------------------------
 	*/

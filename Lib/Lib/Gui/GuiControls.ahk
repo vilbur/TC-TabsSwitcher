@@ -21,7 +21,7 @@ Class GuiControls Extends GuiControlsMethods
 			;	.options("w148")
 			;	.add()
 			
-			.Dropdown( "Action||New|Rename|Delete" )
+			.Dropdown( "Add||Rename|Remove" )
 				.checked( this.Tabset($tab_name).get("last_tabsgroup") )
 				.callback( &this "._DD_TabsetsChanged" ) 
 				.add("DD_Tabsets")
@@ -134,7 +134,7 @@ Class GuiControls Extends GuiControlsMethods
 			;	.GroupBox("Folders")
 			;			.layout("column")
 			;			.add("GB_FoldersList")
-		this._GroupBox($index, "Folders" )
+		this._GroupBox($index, "Folders", "Folders in root")
 			.ListBox( $tab_folders )
 				.checked( $Tabset.getLastFolder($Tabset.getLast("root")) )					
 				.callback( &this "._LB_FolderChanged" )
@@ -151,7 +151,7 @@ Class GuiControls Extends GuiControlsMethods
 	_addTabsSection( $index, $tab_name )
 	{
 
-		this._GroupBox($index, "Tabfile", "", "column" )
+		this._GroupBox($index, "Tabfile", "*.tab files", "column" )
 					.Dropdown("New||Command|Rename|Copy|Delete" )
 				;.options("w128 h246")
 						.options("x+78 y-24 w72")
