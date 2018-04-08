@@ -16,12 +16,15 @@
 
 #Include %A_LineFile%\..\Lib\Install\Install.ahk
 #Include %A_LineFile%\..\Lib\Install\Example.ahk
+
 /* GUI
 */
 #Include %A_LineFile%\..\Lib\Gui\Gui.ahk
 #Include %A_LineFile%\..\Lib\Gui\GuiControls.ahk
 #Include %A_LineFile%\..\Lib\Gui\GuiControlsMethods.ahk
 #Include %A_LineFile%\..\Lib\Gui\GuiCallback.ahk
+
+#Include %A_LineFile%\..\Lib\TotalCmd\TotalCmd.ahk
 
 /* TARGET
 */

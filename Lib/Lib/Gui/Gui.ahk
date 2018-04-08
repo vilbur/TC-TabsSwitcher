@@ -4,7 +4,6 @@
 Class Gui Extends GuiControls
 {
 	_gui	:= new VilGUI("TabsSwitcher")
-	_TcPane 	:= new TcPane().setActivePane()
 
 	/*---------------------------------------
 		CREATE GUI
@@ -25,7 +24,7 @@ Class Gui Extends GuiControls
 		this._setFocusOnListbox("LB_FoldersList")
 		this._setFocusOnListbox("LB_Tabfile")				
 		
-		this._updateTabNamesLookUp()		
+		this._updateTabNamesLookUp()
 	}
 	
 	/**
@@ -72,5 +71,22 @@ Class Gui Extends GuiControls
 		;	,"tabfile":	$Controls.get("LB_Tabfile").value()}
 	}
 	
+
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

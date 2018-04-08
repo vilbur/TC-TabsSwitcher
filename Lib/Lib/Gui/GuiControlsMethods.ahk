@@ -104,7 +104,7 @@ Class GuiControlsMethods Extends GuiCallback
 
 		if( $Tabfile )
 		{
-			$active_pane	:= this._TcPane.getActivePane()
+			$active_pane	:= this.TotalCmd().activePane()
 			
 			$tabs	:= $Tabfile.getTabsCaptions()
 			

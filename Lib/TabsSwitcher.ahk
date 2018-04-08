@@ -1,4 +1,5 @@
 #Include %A_LineFile%\..\includes.ahk
+
 /** Class TabsSwitcher
 */
 Class TabsSwitcher Extends Accessors
@@ -10,6 +11,7 @@ Class TabsSwitcher Extends Accessors
 	_PathsReplacer 	:= new PathsReplacer()
 	_TabsLoader 	:= new TabsLoader()	
 	_MsgBox 	:= new MsgBox()
+	_TotalCmd 	:= new TotalCmd()
 
 	__New()
 	{
@@ -45,6 +47,7 @@ Class TabsSwitcher Extends Accessors
 		;Dump( this._Tabsets, "_Tabsets", 1)
 		this._Gui.createGui()
 		;Dump(this._Gui._gui, "this._Gui._gui.Controls", 0)
+		this._TotalCmd.watchTotalCommanderWindow()
 	}
 	/**
 	 */

@@ -14,7 +14,6 @@ Class Accessors
 	 */
 	Tabset($tabset_name)
 	{
-		;MsgBox,262144,, _Tabset,2 
 		return % this.Tabsets().getTabset($tabset_name)
 	}
 	/**
@@ -36,7 +35,12 @@ Class Accessors
 	{
 		return % this.parent()._TargetInfo 
 	}
-	
+	/**
+	 */
+	TotalCmd()
+	{
+		return % this.Parent()._TotalCmd
+	}
 	
 
 }

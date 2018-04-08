@@ -188,7 +188,6 @@ Class GuiControls Extends GuiControlsMethods
 		}
 								
 		this._resetFont()
-
 	} 
 
 	/*---------------------------------------
