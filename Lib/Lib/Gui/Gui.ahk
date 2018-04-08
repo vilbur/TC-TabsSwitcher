@@ -1,9 +1,10 @@
-/** Class Gui
+/** Create Gui
  *
  */
-Class Gui Extends GuiControls
+Class Gui Extends AddControls
 {
 	_gui	:= new VilGUI("TabsSwitcher")
+	_MsgBox 	:= new MsgBox()
 
 	/*---------------------------------------
 		CREATE GUI

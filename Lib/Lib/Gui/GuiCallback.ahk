@@ -1,27 +1,15 @@
 /** Callbacks for controls
  *
- *
  */
-Class GuiCallback Extends Parent
+Class GuiCallback Extends GuiCallbackMethods
 {
-	_MsgBox 	:= new MsgBox()
 	
 	/**
 	 */
 	_BTN_TEST()
 	{
-		;MsgBox,262144,, Test,2
 		$data	:= this._getGuiData()
 		Dump($data, "data", 1)
-		
-		;this._getActiveTab().Controls
-		;					;.get("R_replace.Folder")
-		;					.get("R_replace.Root")							
-		;					.edit(0)
-
-				
-		;this._getActiveTab().Controls.get("LB_TabsGroup").select(0)		
-		;this._LB_unselect("LB_TabsGroup")
 	}  
 	/*---------------------------------------
 		RADIO
@@ -34,13 +22,7 @@ Class GuiCallback Extends Parent
 		$data	:= this._getGuiData()
 
 		if(  $data.tabsgroup!="_shared" ) ; do not update if switching between radio buttons
-		{
-			this._LB_unselect("LB_TabsGroup")
-			this._LB_set( "LB_Folder", this._getTabsRootFolders( $data ), this._getLastFolder($data) )
-			
-			$data.tabsgroup := "_shared" 
-			this._LB_set( "LB_Tabfile", this._getTabFilenames( $data ) , 1 )
-		}
+			this._tabsGroupUnselect($data)
 	}
 	/*---------------------------------------
 		DROPDOWN
@@ -51,26 +33,24 @@ Class GuiCallback Extends Parent
 	_DD_TabsetsChanged($Event)
 	{		
 		if( $Event.value == "Add" )
-			this._addNewTabset()
+			this._tabsetAddNew()
 				
 		else if(  $Event.value == "Remove" )
-			this._removeTabset()
+			this._tabsetAddRemove()
 	}	
 	/**
 	 */
 	_DD_TabsetRootChanged($Event)
 	{
 		;this._gui.alwaysOnTop(false)
-		
+	
 		$data	:= this._getGuiData()
 
 		if( $Event.value == "Add" )
-			this.Tabset( $data.tabset )
-				.createTabsRoot( this._askPathToRoot() )
+			this._tabsRootCreate( $data )
 		
 		else if( $Event.value == "Remove" )
-			if( this._MsgBox.confirm("REMOVE ROOT", "Remove root ?`n`n" $data.tabsetroot ) )
-				this.Tabset( $data.tabset ).removeTabsRoot( $data.tabsetroot )
+			this._tabsRootRemove( $data )
 	}
 	/** 
 	 */
@@ -83,13 +63,14 @@ Class GuiCallback Extends Parent
 		;else if( $Event.value == "Remove" )
 			;this._Callback.delete( this.Tabset($data.tabset) )		
 	}
+	
 	/** 
 	 */
 	_DD_TabfileChanged( $Event )
 	{
 		$data	:= this._getGuiData()
-
-		this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile).Callback($Event, $data)
+		MsgBox,262144,, _DD_TabfileChanged,2 
+		;this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile).Callback($Event, $data)
 	}
 	
 	/*---------------------------------------
@@ -101,11 +82,9 @@ Class GuiCallback Extends Parent
 	_LB_TabsetRootChanged( $Event )
 	{
 		$data	:= this._getGuiData()
-		;Dump($data, "data", 1)
-		if( $data.tabsgroup!="_shared" )
-			return
-			
-		this._LB_set( "LB_Folder", this._getTabsRootFolders( $data ), this._getLastFolder($data) )
+
+		if( $data.tabsgroup=="_shared" )
+			this._updateFolderList( $data )			
 	}
 	/**
 	 */
@@ -113,16 +92,8 @@ Class GuiCallback Extends Parent
 	{
 		$data	:= this._getGuiData()
 
-		if( $data.tabsgroup=="_shared" )
-			return
-		
-		this._R_replaceUnselect()
-		
-		this._LB_set( "LB_Tabfile", this._getTabFilenames( $data ) , 1 )
-		
-		this._LB_set( "LB_Folder" )
-		
-		this._TEXT_update()
+		if( $data.tabsgroup!="_shared" )
+			this._tabsGroupUpdateGui( $data )
 	}
 	/**
 	 */
@@ -135,7 +106,6 @@ Class GuiCallback Extends Parent
 	 */
 	_LB_TabfileChanged( $Event )
 	{
-		;$data	:= this._getGuiData()
 		$control_key	:= GetKeyState("control", "P")
 		
 		if( $Event.type=="DoubleClick" ){
@@ -147,41 +117,6 @@ Class GuiCallback Extends Parent
 		else		
 			this._TEXT_update()
 	}
-	/*---------------------------------------
-		HELPERS
-	-----------------------------------------
-	*/
 
-	/**
-	 */
-	_askPathToRoot()
-	{
-		$path := this._MsgBox.Input("ADD NEW ROOT FOLDER", "Set path to new root" , {"w":720, "default":A_WorkingDir})
-		
-		if( InStr( FileExist($path), "D" )==0 ) ; get dir path, if path to file 
-			SplitPath, $path,, $path
-		
-		return % FileExist($path) ? $path : false
-	} 
-
-	/**
-	 */
-	_getTabFilenames( $data )
-	{
-		return % this.TabsGroup($data.tabset, $data.tabsgroup ).getTabFilenames()
-	} 
-	/**
-	 */
-	_getTabsRootFolders( $data )
-	{
-		return % this.Tabset($data.tabset)._getTabsRootFolders($data.tabsetroot)
-	}
-	/**
-	 */
-	_getLastFolder( $data )
-	{
-		return % this.Tabset($data.tabset).getLastFolder($data.tabsetroot)
-	}
-	
 }
 

@@ -1,8 +1,7 @@
 /** Create controls
  *
- *
  */
-Class GuiControls Extends GuiControlsMethods
+Class AddControls Extends GuiControl
 {
 	/*---------------------------------------
 		TABS
