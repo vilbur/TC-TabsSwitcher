@@ -64,27 +64,6 @@ Class GuiControl Extends GuiCallback
 		this._getActiveTab().Controls.get($listbox_name).select(0)	
 	}
 	
-	/*---------------------------------------
-		TEXT
-	-----------------------------------------
-	*/
-	/**
-	 */
-	_TEXT_update()
-	{
-		$data	:= this._getGuiData()
-		$Tabfile	:= this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile )
-
-		if( $Tabfile )
-		{
-			$active_pane	:= this.TotalCmd().activePane()
-			
-			$tabs	:= $Tabfile.getTabsCaptions()
-			
-			this._gui.Controls.get("TEXT_pane_" $active_pane).edit( $tabs.activetabs )
-			this._gui.Controls.get("TEXT_pane_" ($active_pane	== "right" ? "left" : "right")).edit( $tabs.inactivetabs )
-		}
-	}
 	
 	/*---------------------------------------
 		HELPERS

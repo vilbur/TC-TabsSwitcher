@@ -11,7 +11,7 @@ Class TabsSwitcher Extends Accessors
 	_PathsReplacer 	:= new PathsReplacer()
 	_TabsLoader 	:= new TabsLoader()	
 	_MsgBox 	:= new MsgBox()
-	_TotalCmd 	:= new TotalCmd()
+	_TotalCmd 	:= new TotalCmd().parent(this)
 
 	__New()
 	{

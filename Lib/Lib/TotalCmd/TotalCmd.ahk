@@ -1,18 +1,24 @@
 /** Class Gui
  *
  */
-Class TotalCmd
+Class TotalCmd Extends Parent
 {
 	_TcPane 	:= new TcPane().setActivePane()
 	_tc_has_focus	:= false
-
+	_wincmd_ini	:= ""
+	
+	__New()
+	{
+		$wincmd_ini	= %Commander_Path%\wincmd.ini		
+		this._wincmd_ini	:= $wincmd_ini
+	}
+	
 	/**
 	 */
 	activePane()
 	{
 		return this._TcPane.getActivePane()
 	}
-	
 	/**
 	 */
 	totalCommanderHasFocus()
@@ -23,8 +29,12 @@ Class TotalCmd
 	 */
 	tabsSwitcherHasFocus()
 	{
-		if( this._tc_has_focus )
-			this._TcPane.setActivePane()
+		if( ! this._tc_has_focus )
+			return
+		
+		this._TcPane.setActivePane()
+		
+		this.Parent()._Gui._TEXT_update()
 		
 		this._tc_has_focus := false
 	}
@@ -37,7 +47,18 @@ Class TotalCmd
 		DllCall( "RegisterShellHookWindow", UInt, $Hwnd )
 		$MsgNum := DllCall( "RegisterWindowMessage", Str,"SHELLHOOK" )
 		OnMessage( $MsgNum, "onWIndowChange_ts" )
-	} 
+	}
+	/** get curretn tabs from ini
+	 */
+	getCurrentTabs( $pane )
+	{
+		IniRead, $tabs, % this._wincmd_ini, %$pane% 
+			Loop Parse, $tabs, `n
+				if( ! InStr( A_LoopField, "activelocked" ) && ! InStr( A_LoopField, "activecaption" ) )
+					$tabs_string .= A_LoopField "`n"
+					
+		return $tabs_string
+	}
 	
 }
 

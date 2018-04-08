@@ -3,14 +3,45 @@
  */
 Class GuiCallback Extends GuiCallbackMethods
 {
-	
 	/**
 	 */
 	_BTN_TEST()
 	{
 		$data	:= this._getGuiData()
 		Dump($data, "data", 1)
-	}  
+	}
+	/*---------------------------------------
+		TABS
+	-----------------------------------------
+	*/
+	/**
+	 */
+	GUI_AddNewTabsSubmit($Event, $tabset, $tabsgroup)
+	{
+		;$Event.message(50)
+		$tabs	:= {}
+		$form_data	:= $Event.data
+		$active_pane	:= this.TotalCmd().activePane()
+		
+		For $i, $pane in ["lefttabs", "righttabs"]
+			if( $form_data[$pane] )
+				$tabs[$pane] := this.TotalCmd().getCurrentTabs($pane)
+		
+		this.TabsGroup( $tabset, $tabsgroup ).createNewTabfile($tabs, $form_data.tabfile)
+		
+		;MsgBox,262144,, callbackGui,2
+	}
+	/*---------------------------------------
+		TABS
+	-----------------------------------------
+	*/
+	/**
+	 */
+	_TabsChanged( $Event )
+	{
+		this._TEXT_update()
+	}	
+	
 	/*---------------------------------------
 		RADIO
 	-----------------------------------------
@@ -23,6 +54,8 @@ Class GuiCallback Extends GuiCallbackMethods
 
 		if(  $data.tabsgroup!="_shared" ) ; do not update if switching between radio buttons
 			this._tabsGroupUnselect($data)
+		
+		this._TEXT_update()
 	}
 	/*---------------------------------------
 		DROPDOWN
@@ -68,7 +101,9 @@ Class GuiCallback Extends GuiCallbackMethods
 	_DD_TabfileChanged( $Event )
 	{
 		$data	:= this._getGuiData()
-		MsgBox,262144,, _DD_TabfileChanged,2 
+		;MsgBox,262144,, _DD_TabfileChanged,2
+		if( $Event.value == "Add" )
+			this._tabfileCreateNew()
 		;this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile).Callback($Event, $data)
 	}
 	
@@ -93,6 +128,9 @@ Class GuiCallback Extends GuiCallbackMethods
 
 		if( $data.tabsgroup!="_shared" )
 			this._tabsGroupUpdateGui( $data )
+			
+		this._TEXT_update()
+
 	}
 	/**
 	 */

@@ -45,11 +45,17 @@ Class Tabfile
 		
 		return this
 	}
+	/**
+	 */
+	createNew()
+	{
+		
+	}
 	/** delete Tabset folder
 	 */
 	delete()
 	{
-		MsgBox,262144,DELETE , % this._path,2
+		MsgBox,262144,DELETE TABFILE, % this._path,2
 		;FileRemoveDir, % this._path_tabset, 1
 		;return this 
 	}

@@ -47,10 +47,10 @@ Class Tabset
 	 */
 	createTabsRoot( $path )
 	{
-		if( _TabsRoots.hasKey($path) )
+		if( ! $path || _TabsRoots.hasKey($path) )
 			return
 		
-		new TabsRoot().create( $path )
+		new TabsRoot().setRootFolders( $path )
 		
 		this._setIniValue( "roots", $path )
 

@@ -17,6 +17,22 @@ Class TabsGroup
 	{
 		FileCreateDir, % this._path_tabs_folder
 	}
+	
+	/** create new Tabfiles
+	 */
+	createNewTabfile($tabs, $tabs_name)
+	{
+		$tabs_file := this._path_tabs_folder "\\" $tabs_name ".tab"
+		
+		For $pane, $tabs_in_pane in $tabs
+			$tabs_string .= "[activetabs]`n" $tabs_in_pane
+		
+		;MsgBox,262144,tabs_string, %$tabs_string%,50 
+		
+		FileAppend, %$tabs_string%, %$tabs_file% 
+		;this._tabfiles[$tabs_name] := new Tabfile(this._path_tabs_folder "\\" $tabs_name ".tab").getTabFiles()
+	}
+	
 	/** get *.tab files in folder
 	 */
 	getTabFiles()

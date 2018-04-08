@@ -36,7 +36,7 @@ Class AddControls Extends GuiControl
 
 		this._Tabs	:= this._gui.Tabs( $tabsets_names )
 						.checked($active_tab)
-						;.checked(2)
+						.callback( &this "._TabsChanged" ) 
 						.add("Tabs_Tabsets")
 						.get()
 		
@@ -151,7 +151,7 @@ Class AddControls Extends GuiControl
 	{
 
 		this._GroupBox($index, "Tabfile", "*.tab files", "column" )
-					.Dropdown("New||Command|Rename|Copy|Delete" )
+					.Dropdown("Add||Copy|Rename|Remove" )
 				;.options("w128 h246")
 						.options("x+78 y-24 w72")
 				;.checked( this.Tabset($tab_name).get("last_Tabfiles") )

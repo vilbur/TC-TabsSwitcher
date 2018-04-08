@@ -126,6 +126,40 @@ Class GuiCallbackMethods Extends Parent
 	*/
 	/**
 	 */
+	_tabfileCreateNew()
+	{
+		;$Tabfile	:= this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile )
+		$data	:= this._getGuiData()
+		$active_pane	:= this.TotalCmd().activePane()
+
+		;MsgBox,262144,active_pane, %$active_pane%,3 
+		
+		$new_tabs	:= new VilGUI("AddNewTabs")
+		$new_tabs.Controls
+		.options("button", "h", 48 )
+		.options("Checkbox", "h", 48 ) 		
+		.Layout("row")
+			.Edit().label("Name of tabs").options("w128").add("tabfile")
+				.section()
+			.GroupBox("Save Tabs on side").add()
+				.Checkbox("Left").options("x+24 w96").checked(InStr($active_pane, "Left" )? 1 : 0).add("lefttabs")
+				.Checkbox("Right").options("x+24 w96").checked(InStr($active_pane, "Right")? 1 : 0).add("righttabs")						
+			.section()
+				.Button().Submit("Ok")
+				.Button().close("Cancel")			
+		
+		$new_tabs.Events.Gui
+		    .onSubmit( &this ".GUI_AddNewTabsSubmit", $data.tabset, $data.tabsgroup ) 
+		    .onSubmit("close")
+		    .onEscape("close")			
+		    .onEnter("submit")
+			
+		$new_tabs.create()
+	}
+
+	
+	/**
+	 */
 	_tabfileSelected($Event)
 	{
 		$data	:= this._getGuiData()
@@ -144,7 +178,29 @@ Class GuiCallbackMethods Extends Parent
 		$last_tabfile	:= this._last_state[$data.tabset][$data.tabsgroup]
 		
 		this._LB_set( "LB_Tabfile", $tab_filenames, ($last_tabfile ? $last_tabfile : 1) )
-	} 
+	}
+	/*---------------------------------------
+		TEXT
+	-----------------------------------------
+	*/
+	/**
+	 */
+	_TEXT_update()
+	{
+		$data	:= this._getGuiData()
+		$Tabfile	:= this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile )
+
+		if( $Tabfile )
+		{
+			$active_pane	:= this.TotalCmd().activePane()
+			
+			$tabs	:= $Tabfile.getTabsCaptions()
+			
+			this._gui.Controls.get("TEXT_pane_" $active_pane).edit( $tabs.activetabs )
+			this._gui.Controls.get("TEXT_pane_" ($active_pane	== "right" ? "left" : "right")).edit( $tabs.inactivetabs )
+		}
+	}
+	
 	/*---------------------------------------
 		HELPERS
 	-----------------------------------------
