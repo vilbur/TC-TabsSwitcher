@@ -63,7 +63,6 @@ Class GuiCallback Extends GuiCallbackMethods
 		;else if( $Event.value == "Remove" )
 			;this._Callback.delete( this.Tabset($data.tabset) )		
 	}
-	
 	/** 
 	 */
 	_DD_TabfileChanged( $Event )
@@ -99,8 +98,14 @@ Class GuiCallback Extends GuiCallbackMethods
 	 */
 	_LB_FolderChanged( $Event )
 	{
-		if( $Event.type=="DoubleClick" )
+		
+		if( $Event.type=="LeftClick" )
+			this._folderChanged($Event)
+		
+		else if( $Event.type=="DoubleClick")
 			this.Parent().loadTabs()
+			
+		
 	}
 	/**
 	 */
@@ -114,8 +119,8 @@ Class GuiCallback Extends GuiCallbackMethods
 			else
 				this.Parent().loadTabs()
 		}
-		else		
-			this._TEXT_update()
+		else
+			this._tabfileSelected($Event)
 	}
 
 }

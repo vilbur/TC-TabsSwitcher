@@ -26,6 +26,8 @@ Class Gui Extends AddControls
 		this._setFocusOnListbox("LB_Tabfile")				
 		
 		this._updateTabNamesLookUp()
+		
+		this._initLastStateStore()		
 	}
 	
 	/**

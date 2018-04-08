@@ -32,15 +32,15 @@ Class AddControls Extends GuiControl
 	{
 		IniRead, $active_tab, %$ini_path%, tabset, last 
 		
-		$Tabfiles_names	:= this.Tabsets()._getTabfilesNames()
+		$tabsets_names	:= this.Tabsets()._getTabfilesNames()
 
-		this._Tabs	:= this._gui.Tabs( $Tabfiles_names )
+		this._Tabs	:= this._gui.Tabs( $tabsets_names )
 						.checked($active_tab)
 						;.checked(2)
 						.add("Tabs_Tabsets")
 						.get()
 		
-		For $i, $Tabfiles_name in $Tabfiles_names
+		For $i, $Tabfiles_name in $tabsets_names
 			this._addTab( $i, $Tabfiles_name )
 	}
 	/**

@@ -186,7 +186,7 @@ Class Tabset
 		$all_folders	:= []
 		For $tabsroot_name, $TabsRoot in this._TabsRoots
 			$all_folders.push(this._getTabsRootFolders($tabsroot_name))
-		;Dump(  flatternObject($all_folders), "all_folders", 1)
+
 		return % flatternObject($all_folders)
 	}
 	/**
@@ -228,7 +228,6 @@ Class Tabset
 			$key_value	:= StrSplit( A_LoopField, "=")
 			this._last[$key_value[1]] := $key_value[2]
 		}
-
 	}
 	/** save last loaded items to *.ini
 	 */

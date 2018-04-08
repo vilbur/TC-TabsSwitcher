@@ -1,8 +1,21 @@
 /** Methods called by callbacks
  *
+ * Orchestrate controls for current state of gui
  */
 Class GuiCallbackMethods Extends Parent
 {
+	
+	_last_state := {}
+	
+	/**
+	 */
+	_initLastStateStore()
+	{
+		For $i, $tabset in this.Tabsets()._getTabfilesNames()
+			 this._last_state[$tabset] := {}
+	} 
+	
+	
 	/*---------------------------------------
 		TABSET
 	-----------------------------------------
@@ -64,10 +77,10 @@ Class GuiCallbackMethods Extends Parent
 	_tabsGroupUnselect($data)
 	{
 		this._LB_unselect("LB_TabsGroup")
-		this._LB_set( "LB_Folder", this._getTabsRootFolders( $data ), this._getLastFolder($data) )
+		this._LB_set( "LB_Folder", this._getTabsRootFolders( $data ), this._getLastSeletedFolder($data) )
 		
 		$data.tabsgroup := "_shared" 
-		this._LB_set( "LB_Tabfile", this._getTabFilenames( $data ) , 1 )
+		this._updateTabfile( $data )
 	}
 	/**
 	 */
@@ -75,7 +88,7 @@ Class GuiCallbackMethods Extends Parent
 	{
 		this._R_replaceUnselect()
 		
-		this._LB_set( "LB_Tabfile", this._getTabFilenames( $data ) , 1 )
+		this._updateTabfile( $data )
 		
 		this._LB_set( "LB_Folder" )
 		
@@ -88,9 +101,50 @@ Class GuiCallbackMethods Extends Parent
 	*/
 	_updateFolderList( $data )
 	{
-		this._LB_set( "LB_Folder", this._getTabsRootFolders( $data ), this._getLastFolder($data) )
+		this._LB_set( "LB_Folder", this._getTabsRootFolders( $data ), this._getLastSeletedFolder($data) )		
 	}
+	/**
+	 */
+	_folderChanged($Event)
+	{
+		$data	:= this._getGuiData()
+
+		this._last_state[$data.tabset][$data.tabsetroot] := $Event.value
+
+	}
+	/**
+	 */
+	_getLastSeletedFolder( $data )
+	{
+		$last_folder := this._last_state[$data.tabset][$data.tabsetroot]
+		
+		return % $last_folder ? $last_folder : 1
+	} 
+	/*---------------------------------------
+		TAB FILE
+	-----------------------------------------
+	*/
+	/**
+	 */
+	_tabfileSelected($Event)
+	{
+		$data	:= this._getGuiData()
+
+		this._last_state[$data.tabset][$data.tabsgroup] := $Event.value
 	
+		this._TEXT_update()
+
+	} 
+	/**
+	 */
+	_updateTabfile( $data )
+	{
+		$tab_filenames := this.TabsGroup($data.tabset, $data.tabsgroup ).getTabFilenames()
+		
+		$last_tabfile	:= this._last_state[$data.tabset][$data.tabsgroup]
+		
+		this._LB_set( "LB_Tabfile", $tab_filenames, ($last_tabfile ? $last_tabfile : 1) )
+	} 
 	/*---------------------------------------
 		HELPERS
 	-----------------------------------------
@@ -106,12 +160,6 @@ Class GuiCallbackMethods Extends Parent
 			SplitPath, $path,, $path
 		
 		return % FileExist($path) ? $path : false
-	} 
-	/**
-	 */
-	_getTabFilenames( $data )
-	{
-		return % this.TabsGroup($data.tabset, $data.tabsgroup ).getTabFilenames()
 	} 
 	/**
 	 */
