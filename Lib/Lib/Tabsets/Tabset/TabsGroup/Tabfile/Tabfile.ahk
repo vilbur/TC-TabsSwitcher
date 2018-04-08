@@ -25,7 +25,6 @@ Class Tabfile
 	 */
 	getTabsCaptions()
 	{
-
 		$captions := {}
 		
 		For $pane_name, $tabs in this._tabs ; $pane_name == "activetabs|inactivetabs"
@@ -47,17 +46,18 @@ Class Tabfile
 	}
 	/**
 	 */
-	createNew()
+	rename($new_name)
 	{
+		SplitPath, % this._path, $name, $dir, $ext
 		
+		FileMove, % this._path, % $dir "\\" $new_name "." $ext, 1
 	}
+	
 	/** delete Tabset folder
 	 */
 	delete()
 	{
-		MsgBox,262144,DELETE TABFILE, % this._path,2
-		;FileRemoveDir, % this._path_tabset, 1
-		;return this 
+		FileDelete, % this._path
 	}
 	/**
 	 */

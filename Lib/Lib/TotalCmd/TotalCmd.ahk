@@ -46,7 +46,7 @@ Class TotalCmd Extends Parent
 		$Hwnd := WinExist()
 		DllCall( "RegisterShellHookWindow", UInt, $Hwnd )
 		$MsgNum := DllCall( "RegisterWindowMessage", Str,"SHELLHOOK" )
-		OnMessage( $MsgNum, "onWIndowChange_ts" )
+		OnMessage( $MsgNum, "onWindowChange" )
 	}
 	/** get curretn tabs from ini
 	 */
@@ -64,7 +64,7 @@ Class TotalCmd Extends Parent
 
 /** On window changed callback
   */
-onWIndowChange_ts( $wParam, $lParam )
+onWindowChange( $wParam, $lParam )
 {
 	WinGetTitle, $title, ahk_id %$lParam%
 	WinGetClass, $class, ahk_id %$lParam%

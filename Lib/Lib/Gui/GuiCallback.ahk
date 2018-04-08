@@ -21,15 +21,16 @@ Class GuiCallback Extends GuiCallbackMethods
 		;$Event.message(50)
 		$tabs	:= {}
 		$form_data	:= $Event.data
-		$active_pane	:= this.TotalCmd().activePane()
+		$active_pane	:= this.TotalCmd().activePane() "tabs"
 		
 		For $i, $pane in ["lefttabs", "righttabs"]
 			if( $form_data[$pane] )
-				$tabs[$pane] := this.TotalCmd().getCurrentTabs($pane)
+				$tabs[$pane] := this.TotalCmd().getCurrentTabs($pane "")
 		
-		this.TabsGroup( $tabset, $tabsgroup ).createNewTabfile($tabs, $form_data.tabfile)
+		$tabs_active	:= $tabs[$active_pane]
+		$tabs_inactive	:= $tabs[$active_pane=="lefttabs"?"righttabs":"lefttabs"]		
 		
-		;MsgBox,262144,, callbackGui,2
+		this.TabsGroup( $tabset, $tabsgroup ).createNewTabfile([$tabs_active, $tabs_inactive], $form_data.tabfile)
 	}
 	/*---------------------------------------
 		TABS
@@ -100,11 +101,7 @@ Class GuiCallback Extends GuiCallbackMethods
 	 */
 	_DD_TabfileChanged( $Event )
 	{
-		$data	:= this._getGuiData()
-		;MsgBox,262144,, _DD_TabfileChanged,2
-		if( $Event.value == "Add" )
-			this._tabfileCreateNew()
-		;this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile).Callback($Event, $data)
+		this["_tabfile" $Event.value]()
 	}
 	
 	/*---------------------------------------

@@ -28,7 +28,7 @@ Class TabsGroup
 			$tabs_string .= "[activetabs]`n" $tabs_in_pane
 		
 		;MsgBox,262144,tabs_string, %$tabs_string%,50 
-		
+		FileDelete, %$tabs_file% 
 		FileAppend, %$tabs_string%, %$tabs_file% 
 		;this._tabfiles[$tabs_name] := new Tabfile(this._path_tabs_folder "\\" $tabs_name ".tab").getTabFiles()
 	}

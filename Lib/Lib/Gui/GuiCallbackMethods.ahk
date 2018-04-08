@@ -126,14 +126,12 @@ Class GuiCallbackMethods Extends Parent
 	*/
 	/**
 	 */
-	_tabfileCreateNew()
+	_tabfileAdd()
 	{
 		;$Tabfile	:= this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile )
 		$data	:= this._getGuiData()
 		$active_pane	:= this.TotalCmd().activePane()
 
-		;MsgBox,262144,active_pane, %$active_pane%,3 
-		
 		$new_tabs	:= new VilGUI("AddNewTabs")
 		$new_tabs.Controls
 		.options("button", "h", 48 )
@@ -156,8 +154,31 @@ Class GuiCallbackMethods Extends Parent
 			
 		$new_tabs.create()
 	}
+	/**
+	 */
+	_tabfileRename()
+	{
+		$data	:= this._getGuiData()
+		
+		$new_name := this._MsgBox.Input("RENAME TABS", "New name of tabs" , {"w":256, "default":$data.tabfile})
+		
+		if( $new_name )
+			this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile ).rename($new_name)
+		
+		
+		;$Tabfile	:= this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile )
+	} 
+	/**
+	 */
+	_tabfileRemove()
+	{
+		$data	:= this._getGuiData()
+		
+		if( this._MsgBox.confirm("REMOVE TABS", "Remove tabs ?`n`n" $data.tabfile ) )
+			this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile ).delete()
+			
 
-	
+	} 
 	/**
 	 */
 	_tabfileSelected($Event)
