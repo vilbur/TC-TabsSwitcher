@@ -29,11 +29,16 @@ Class Tabsets Extends Parent
 		if( ! $name )
 			SplitPath, $path_target, $name
 		
-		this._Tabsets[$name] := new Tabset()
-									.pathTarget( $path_target )
-									.name( $name )
-									.create()
-									.createTabsGroup( "_shared" )
+		$Tabset := new Tabset()
+						.pathTarget( $path_target )
+						.name( $name )
+						.create()
+						.createTabsGroup( "_shared" )
+
+									
+		this._Tabsets[$name] := $Tabset
+		
+		return $Tabset
 	}
 	/**
 	 */

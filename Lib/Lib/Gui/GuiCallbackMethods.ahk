@@ -15,7 +15,6 @@ Class GuiCallbackMethods Extends Parent
 			 this._last_state[$tabset] := {}
 	} 
 	
-	
 	/*---------------------------------------
 		TABSET
 	-----------------------------------------
@@ -34,8 +33,10 @@ Class GuiCallbackMethods Extends Parent
 		$tabset_name := this._MsgBox.Input("SET TABSET NAME", "Name of new tabset" , {"default":$dir_name})
 		
 		if( $tabset_name )
-			this.Tabsets().createTabset( $new_root, $new_root )
-			
+			this.Tabsets()
+				.createTabset( $new_root, $tabset_name )
+				.createTabsRoot( $new_root )
+				
 		Reload
 	}
 	/**
@@ -77,11 +78,8 @@ Class GuiCallbackMethods Extends Parent
 	_tabsGroupAdd()
 	{
 		$data	:= this._getGuiData()
-		
-		;SplitPath, A_WorkingDir, $dir_name
-		
+				
 		$name := $data.folder ? $data.folder : this.TotalCmd().getDir()
-		
 		
 		$tabsgroup := this.Tabset( $data.tabset )
 						.createTabsGroup( this._MsgBox.Input("ADD NEW TABSGROUP", "New tabsgroup name" , {"w":320, "default":$name} ) )
@@ -249,7 +247,7 @@ Class GuiCallbackMethods Extends Parent
 	 */
 	_askPathToRoot()
 	{
-		$path := this._MsgBox.Input("ADD NEW ROOT FOLDER", "Set path to new root" , {"w":720, "default":A_WorkingDir})
+		$path := this._MsgBox.Input("ADD NEW ROOT FOLDER", "Set path to new root" , {"w":720, "default": this.TotalCmd()._TcPane.getSourcePath()})
 		
 		if( InStr( FileExist($path), "D" )==0 ) ; get dir path, if path to file 
 			SplitPath, $path,, $path

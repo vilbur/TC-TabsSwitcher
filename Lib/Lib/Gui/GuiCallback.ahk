@@ -18,8 +18,6 @@ Class GuiCallback Extends GuiCallbackMethods
 	 */
 	GUI_AddNewTabsSubmit($Event, $tabset, $tabsgroup)
 	{
-		;$Event.message(50)
-
 		$tabs	:= {}		
 		$form_data	:= $Event.data
 		$active_pane	:= this.TotalCmd().activePane() "tabs"
@@ -29,9 +27,6 @@ Class GuiCallback Extends GuiCallbackMethods
 			
 		if( $form_data.righttabs )
 			$tabs.righttabs := ""	
-		
-		;MsgBox,262144,, % $tabs.GetCapacity(),2 
-		
 
 		if( $tabs.GetCapacity()>0 && $form_data.tabfile )
 		{
@@ -41,16 +36,10 @@ Class GuiCallback Extends GuiCallbackMethods
 				if( $form_data[$pane] )
 					$tabs[$pane] := this.TotalCmd().getTabs($pane "")
 			
-			;$tabs_active	:= $tabs[$active_pane]
-			;$tabs_inactive	:= $tabs[$active_pane=="lefttabs"?"righttabs":"lefttabs"]		
-			;Dump($tabs, "tabs", 1)
-			
 			this.TabsGroup( $tabset, $tabsgroup ).createNewTabfile($tabs, $form_data.tabfile)
 			
 		} else
 			MsgBox,262144,MISSING FIELDS, Fill tabs name and at least one side of tabs, 10 
-	
-		
 	}
 	/*---------------------------------------
 		TABS

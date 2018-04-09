@@ -91,8 +91,8 @@ Class TotalCmd Extends Parent
 		
 		$tabs[$tabs.activetab "_caption"] := $tabs.activecaption
 		
-		$tabs.delete("activecaption")
-		$tabs.delete("activelocked")		
+		$tabs.remove("activecaption")
+		$tabs.remove("activelocked")		
 	}
 
 	

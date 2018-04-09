@@ -51,7 +51,7 @@ Class AddControls Extends GuiControl
 		this._addTargetRoot( $index, $tab_name )
 		this._addTabsGroupSection( $index, $tab_name )				
 		this._addFoldersSection( $index, $tab_name )
-		this._addTabsSection($index, $tab_name)
+		this._addTabfileSection($index, $tab_name)
 	}
 	/*---------------------------------------
 		TABS CONTENT
@@ -89,7 +89,8 @@ Class AddControls Extends GuiControl
 	 */
 	_addTabsGroupSection( $index, $tab_name )
 	{
-		$Tabset := this.Tabset($tab_name)
+		$Tabset	:= this.Tabset($tab_name)
+		$tabsgroup_last	:= $Tabset.getLast("tabsgroup")
 		
 		this._Tabs.Tabs[$index].Controls.layout("row")
 				
@@ -104,12 +105,14 @@ Class AddControls Extends GuiControl
 				.items(["Root","Folder"])
 				.callback( &this "._R_replaceChanged" )
 				.options("x+8 w72 h30")
-				.checked(1)
+				.checked( $tabsgroup_last=="_shared"?1:0 )
+				;.checked( $tabsgroup_last )				
 				.add("R_replace")	
 		.section()
 		
 			.ListBox( $Tabset._getTabsGroupsNames() )
-				.checked( $Tabset.getLast("tabsgroup") )					
+				;.checked( $tabsgroup_last!="_shared" ? $tabsgroup_last : 0 )					
+				.checked( $tabsgroup_last )				
 				.callback( &this "._LB_TabsGroupChanged" )
 				.options("h220 -Multi " this._LB_WIDTH)
 				.add("LB_TabsGroup")
@@ -124,22 +127,15 @@ Class AddControls Extends GuiControl
 	 */
 	_addFoldersSection( $index, $tab_name )
 	{
-		;$tab_folders := this.Tabset($tab_name)._getTabsRootFolders("C:\Git\Laravel-Packages")
 		$Tabset	:= this.Tabset($tab_name)
 		$tab_folders	:= $Tabset._getTabsRootFolders($Tabset.getLast("root"))
 		
-		;if( $tab_folders.length()>0 )
-			;this._Tabs.Tabs[$index].Controls
-			;	.GroupBox("Folders")
-			;			.layout("column")
-			;			.add("GB_FoldersList")
 		this._GroupBox($index, "Folders", "Folders in root")
-			.ListBox( $tab_folders )
-				.checked( $Tabset.getLastFolder($Tabset.getLast("root")) )					
-				.callback( &this "._LB_FolderChanged" )
-				.options("h252 y+8 -Multi " this._LB_WIDTH)
-				.add("LB_Folder")
-		;.section()
+				.ListBox( $tab_folders )
+					.checked( $Tabset.getLastFolder($Tabset.getLast("root")) )					
+					.callback( &this "._LB_FolderChanged" )
+					.options("h252 y+8 -Multi " this._LB_WIDTH)
+					.add("LB_Folder")
 	} 
 	/*---------------------------------------
 		TABS FILES
@@ -147,18 +143,21 @@ Class AddControls Extends GuiControl
 	*/
 	/** Add Listbox and other controls
 	 */
-	_addTabsSection( $index, $tab_name )
+	_addTabfileSection( $index, $tab_name )
 	{
+		$Tabset	:= this.Tabset($tab_name)
+		$tabsgroup_last	:= $Tabset.getLast("tabsgroup")
 
 		this._GroupBox($index, "Tabfile", "*.tab files", "column" )
-					.Dropdown("Add||Rename|Remove" )
-				;.options("w128 h246")
-						.options("x+78 y-24 w72")
+			.Dropdown("Add||Rename|Remove" )
+		;.options("w128 h246")
+				.options("x+78 y-24 w72")
 				;.checked( this.Tabset($tab_name).get("last_Tabfiles") )
 				.callback( &this "._DD_TabfileChanged" )
 				.add("DD_Tabfile")
 
-			.ListBox( this.TabsGroup($tab_name, "_shared" ).getTabFilenames() )
+			;.ListBox( this.TabsGroup($tab_name, $Tabset.getLast("tabsgroup") ).getTabFilenames() )
+			.ListBox( this.TabsGroup($tab_name, $tabsgroup_last!=1 ? $tabsgroup_last : "_shared" ).getTabFilenames() )
 				;.checked( this.Tabset($tab_name).get("last_tabs") )
 				.checked( this.Tabset($tab_name).getLast("tabfile") )					
 				.callback( &this "._LB_TabfileChanged" )

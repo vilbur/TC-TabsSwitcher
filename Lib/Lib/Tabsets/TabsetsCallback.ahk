@@ -8,6 +8,7 @@ Class TabsetsCallback
 	 */
 	new( )
 	{
+		MsgBox,262144,, DELETE CLASS TabsetsCallback ? 
 		SplitPath, A_WorkingDir, $dir_name
 		if( this._MsgBox.confirm( "CREATE NEW ROOT", "Create new tabset in path:`n`n" A_WorkingDir ) )
 		{
@@ -25,6 +26,7 @@ Class TabsetsCallback
 	 */
 	delete( $Tabset )
 	{
+		MsgBox,262144,, DELETE CLASS TabsetsCallback ? 
 		if( this._MsgBox.confirm( "DELETE ROOT", "Delete tabset: " $data.tabset , "no") ){
 			$Tabset.delete()
 			Reload			

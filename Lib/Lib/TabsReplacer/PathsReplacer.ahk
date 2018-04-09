@@ -124,7 +124,7 @@ Class PathsReplacer
 	 */
 	_replaceFolder( $path_old )
 	{
-		return % RegExReplace( $path_old, "i)([\\\/])(?:" this._search_folders ")([\\\/])" , "$1" this._replace_folder "$2" )
+		return % RegExReplace( $path_old, "i)([\\\/])(?:" this._search_folders ")([\\\/])*" , "$1" this._replace_folder "$2" )
 	}
 	
 	/** replace key 1_caption in *.tab

@@ -41,7 +41,8 @@ Class Gui Extends AddControls
 		
 		this._gui.Events.Gui
 				.onEscape("exit")
-				.onEnter("submit")			
+				.onClose("exit")							
+				.onEnter("submit")
 		
 		this._gui.Menus.Tray
 				.icon("\Icons\TabsSwitcher.ico")	; file in working dir subdir

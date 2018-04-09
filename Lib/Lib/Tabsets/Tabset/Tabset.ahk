@@ -9,7 +9,6 @@ Class Tabset
 	_path_target	:= ""
 	_path_tabset	:= "" 	
 	
-	;_unique_file	:= ""
 	_last	:= {}
 
 	/**
@@ -20,7 +19,6 @@ Class Tabset
 		if( $path_target )
 			this._path_target	:= $path_target
 			
-		;Dump($path_target, "path_target", 1)
 		return  % $path_target ? this : this._path_target
 	}
 	
@@ -40,7 +38,7 @@ Class Tabset
 	create()
 	{
 		FileCreateDir, % this._path_tabset
-		this._setIniValue( "path-target", this._path_target )
+		this._setIniValue( "roots", this._path_target )
 		return this 
 	}
 	/** create new TabsGroups
@@ -116,8 +114,18 @@ Class Tabset
 	 */
 	getLast( $property )
 	{
-		;$value := this.get( "last_" $property )
-		$value := this._last[$property]	
+		$value := this._last[$property]
+		
+		if( ! $value )
+		{
+			if( $property=="tabsgroup" )
+				return % "_shared"
+				
+			else if( $property=="root" )
+				return % this.getFirstTabsRoot()
+			
+		}
+		
 		return % $value ? $value : 1
 	}
 	/*
@@ -174,6 +182,13 @@ Class Tabset
 		GET TabRoots  DATA
 	-----------------------------------------
 	*/
+	/**
+	 */
+	getFirstTabsRoot()
+	{
+		For $root, $v in this._TabsRoots
+			return $root
+	}	
 	/**
 	 */
 	getTabsRootsPaths()

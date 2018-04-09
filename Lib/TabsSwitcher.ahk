@@ -99,6 +99,9 @@ Class TabsSwitcher Extends Accessors
 					.replaceFolder( $data.folder )
 					.replace( $data.replace )
 		
+		
+		IniWrite, % $data.tabset, %$ini_path%, tabset, last
+		
 		this.Tabset($data.tabset).saveLastToIni( $data.tabsetroot, $data.tabsgroup, $data.folder, $data.tabfile )
 		
 		/* LAOD TAB FILE
