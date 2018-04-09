@@ -4,12 +4,16 @@ Class TotalCommander
 {
 	_process_name	:= ""
 	_hwnd	:= ""
+	_wincmd_ini	:= ""
 	_previous_vindow	:= {"ahk_id":"","onTopState":""}
 
 	/**
 	 */
 	_init()
 	{
+		$wincmd_ini	= %Commander_Path%\wincmd.ini		
+		this._wincmd_ini	:= $wincmd_ini
+		
 		this._setProcessName()
 		this._setHwnd()
 	}

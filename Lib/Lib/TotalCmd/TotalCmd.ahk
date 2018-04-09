@@ -58,45 +58,42 @@ Class TotalCmd Extends Parent
 		$MsgNum := DllCall( "RegisterWindowMessage", Str,"SHELLHOOK" )
 		OnMessage( $MsgNum, "onWindowChange" )
 	}
+	
+	
+	/*---------------------------------------
+		TABS
+	-----------------------------------------
+	*/
+
 	/** get curretn tabs from ini
 	 */
-	getTabs( $pane )
+	getTabs( $side )
 	{
-		this._TcPane.saveConfig()
-
-		$tabs := {}
+		$tabs := this._TcPane.TcTabs().getTabs($side)
 		
-		IniRead, $tabs_ini, % this._wincmd_ini, %$pane%
-		{			
-			Loop Parse, $tabs_ini, `n
-				this._setTab( $tabs, A_LoopField )
-					
-			this._setActiveTabCaptions( $tabs )
-		}
-		return stringifyObject($tabs)
+		return % this.stringifyTabs($tabs) "`nactivetab=" $tabs.activetab
 	}
 	/**
 	 */
-	_setTab( ByRef $tabs, $ini_line )
+	stringifyTabs($tabs)
 	{
-		$key_value	:= StrSplit( $ini_line, "=")
-		$tabs[$key_value[1]]	:= $key_value[2]
+		For $index, $tab in $tabs 
+			$tabs_string .= this.stringifySingleTab($index, $tab) "`n"
+
+		return % SubStr( $tabs_string, 1, StrLen($tabs_string) -2 )
+		;return % $tabs_string	
 	}
+	
 	/**
 	 */
-	_setActiveTabCaptions( ByRef $tabs )
+	stringifySingleTab($index ,$tabs)
 	{
-		if( ! $tabs.activecaption )
-			return 
+		For $key, $value in $tabs
+			$string .= $index "_" $key "=" $value "`n"
 		
-		$tabs[$tabs.activetab "_caption"] := $tabs.activecaption
-		
-		$tabs.remove("activecaption")
-		$tabs.remove("activelocked")		
+		return % SubStr( $string, 1, StrLen($string) -2 )
 	}
 
-	
-	
 }
 
 /** On window changed callback

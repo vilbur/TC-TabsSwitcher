@@ -26,12 +26,10 @@ Class TabsGroup
 		$tabs_file := this._path_tabs_folder "\\" $tabs_name ".tab"
 		
 		For $pane, $tabs_in_pane in $tabs
-			$tabs_string .= "[" (A_Index==1?"activetabs":"inactivetabs") "]`n" $tabs_in_pane
+			$tabs_string .= "[" (A_Index==1?"activetabs":"inactivetabs") "]`n" $tabs_in_pane "`n"
 		
-		;MsgBox,262144,tabs_string, %$tabs_string%,50 
 		FileDelete, %$tabs_file% 
 		FileAppend, %$tabs_string%, %$tabs_file% 
-		;this._tabfiles[$tabs_name] := new Tabfile(this._path_tabs_folder "\\" $tabs_name ".tab").getTabFiles()
 	}
 	
 	/** get *.tab files in folder
@@ -48,10 +46,8 @@ Class TabsGroup
 	 */
 	getTabFile($tabfile_name)
 	{
-		;Dump(this, $tabfile_name, 1)
 		return % this._tabfiles[$tabfile_name]
 	}
-	
 	/**
 	 */
 	getTabFilePath( $tabfile_name )
@@ -65,14 +61,7 @@ Class TabsGroup
 	{
 		return % getObjectKeys(this._tabfiles)
 	}
-	
-	;/** get values of keys "caption" in *.tab file
-	; */
-	;getTabsCaptions( $tabfile_name )
-	;{
-	;	return "getTabsCaptions"
-	;	return % this._tabfiles[$tabfile_name].getTabsCaptions()
-	;}
+
 	/**
 	 */
 	_getTabFileName($tabs_filename)

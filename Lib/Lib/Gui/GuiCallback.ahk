@@ -20,13 +20,13 @@ Class GuiCallback Extends GuiCallbackMethods
 	{
 		$tabs	:= {}		
 		$form_data	:= $Event.data
-		$active_pane	:= this.TotalCmd().activePane() "tabs"
+		;$active_pane	:= this.TotalCmd().activePane() "tabs"
 		
-		if( $form_data.lefttabs )
-			$tabs.lefttabs := ""
+		if( $form_data.left )
+			$tabs.left := ""
 			
-		if( $form_data.righttabs )
-			$tabs.righttabs := ""	
+		if( $form_data.right )
+			$tabs.right := ""	
 
 		if( $tabs.GetCapacity()>0 && $form_data.tabfile )
 		{
@@ -34,7 +34,7 @@ Class GuiCallback Extends GuiCallbackMethods
 			
 			For $pane, $s in $tabs
 				if( $form_data[$pane] )
-					$tabs[$pane] := this.TotalCmd().getTabs($pane "")
+					$tabs[$pane] := this.TotalCmd().getTabs($pane)
 			
 			this.TabsGroup( $tabset, $tabsgroup ).createNewTabfile($tabs, $form_data.tabfile)
 			
