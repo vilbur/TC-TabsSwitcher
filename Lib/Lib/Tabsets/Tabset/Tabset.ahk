@@ -70,9 +70,10 @@ Class Tabset
 	 */
 	createTabsGroup( $name )
 	{
-		;MsgBox,262144,, createTabsGroups,2 
-		new TabsGroup( this._path_tabset "\\" $name ).create()
-		return this 
+		if( ! $name || _TabsGroups.hasKey($name) )
+			return
+			
+		return % new TabsGroup( this._path_tabset "\\" $name ).create()
 	}
 	/** delete Tabset folder
 	 */

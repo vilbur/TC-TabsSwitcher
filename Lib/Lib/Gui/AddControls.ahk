@@ -151,7 +151,7 @@ Class AddControls Extends GuiControl
 	{
 
 		this._GroupBox($index, "Tabfile", "*.tab files", "column" )
-					.Dropdown("Add||Copy|Rename|Remove" )
+					.Dropdown("Add||Rename|Remove" )
 				;.options("w128 h246")
 						.options("x+78 y-24 w72")
 				;.checked( this.Tabset($tab_name).get("last_Tabfiles") )

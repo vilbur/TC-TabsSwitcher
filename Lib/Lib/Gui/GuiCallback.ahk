@@ -19,18 +19,38 @@ Class GuiCallback Extends GuiCallbackMethods
 	GUI_AddNewTabsSubmit($Event, $tabset, $tabsgroup)
 	{
 		;$Event.message(50)
-		$tabs	:= {}
+
+		$tabs	:= {}		
 		$form_data	:= $Event.data
 		$active_pane	:= this.TotalCmd().activePane() "tabs"
 		
-		For $i, $pane in ["lefttabs", "righttabs"]
-			if( $form_data[$pane] )
-				$tabs[$pane] := this.TotalCmd().getCurrentTabs($pane "")
+		if( $form_data.lefttabs )
+			$tabs.lefttabs := ""
+			
+		if( $form_data.righttabs )
+			$tabs.righttabs := ""	
 		
-		$tabs_active	:= $tabs[$active_pane]
-		$tabs_inactive	:= $tabs[$active_pane=="lefttabs"?"righttabs":"lefttabs"]		
+		;MsgBox,262144,, % $tabs.GetCapacity(),2 
 		
-		this.TabsGroup( $tabset, $tabsgroup ).createNewTabfile([$tabs_active, $tabs_inactive], $form_data.tabfile)
+
+		if( $tabs.GetCapacity()>0 && $form_data.tabfile )
+		{
+			this.new_tabs.close()
+			
+			For $pane, $s in $tabs
+				if( $form_data[$pane] )
+					$tabs[$pane] := this.TotalCmd().getTabs($pane "")
+			
+			;$tabs_active	:= $tabs[$active_pane]
+			;$tabs_inactive	:= $tabs[$active_pane=="lefttabs"?"righttabs":"lefttabs"]		
+			;Dump($tabs, "tabs", 1)
+			
+			this.TabsGroup( $tabset, $tabsgroup ).createNewTabfile($tabs, $form_data.tabfile)
+			
+		} else
+			MsgBox,262144,MISSING FIELDS, Fill tabs name and at least one side of tabs, 10 
+	
+		
 	}
 	/*---------------------------------------
 		TABS
@@ -90,12 +110,10 @@ Class GuiCallback Extends GuiCallbackMethods
 	 */
 	_DD_TabsGroupChanged( $Event )
 	{
-		;this.Tabsets().Callback($Event, this._getGuiData())
 		if( $Event.value == "Add" )
-			MsgBox,262144,, Test,2 
+			this["_tabsgroup" $Event.value]()
 				
-		;else if( $Event.value == "Remove" )
-			;this._Callback.delete( this.Tabset($data.tabset) )		
+
 	}
 	/** 
 	 */

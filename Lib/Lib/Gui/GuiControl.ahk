@@ -35,7 +35,6 @@ Class GuiControl Extends GuiCallback
 	*/
 	_LB_set( $listbox_name, $data:="", $select:=0 )
 	{
-		;MsgBox,262144,, _LB_fill,2
 		$listbox := this._getActiveTab().Controls.get( $listbox_name )
 		
 		$listbox.clear()
@@ -45,6 +44,18 @@ Class GuiControl Extends GuiCallback
 			
 		if( $select )
 			$listbox.select( $select )
+	}
+	/**
+	 */
+	_LB_add( $listbox_name, $data:="", $select:=0 )
+	{
+		$listbox := this._getActiveTab().Controls.get( $listbox_name )
+				
+		if( $data )
+			$listbox.edit( $data )
+			
+		;if( $select )
+		;	$listbox.select( $select )
 	}
 	/**
 	 */

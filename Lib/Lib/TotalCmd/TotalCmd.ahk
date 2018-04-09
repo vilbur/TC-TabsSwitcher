@@ -21,6 +21,16 @@ Class TotalCmd Extends Parent
 	}
 	/**
 	 */
+	getDir($pane:="source")
+	{
+		$path := $pane=="source" ? this._TcPane.getSourcePath() : this._TcPane.getTargetPath()
+		
+		SplitPath, $path, $dir_name
+
+		return $dir_name
+	}
+	/**
+	 */
 	totalCommanderHasFocus()
 	{
 		this._tc_has_focus := true
@@ -50,15 +60,42 @@ Class TotalCmd Extends Parent
 	}
 	/** get curretn tabs from ini
 	 */
-	getCurrentTabs( $pane )
+	getTabs( $pane )
 	{
-		IniRead, $tabs, % this._wincmd_ini, %$pane% 
-			Loop Parse, $tabs, `n
-				if( ! InStr( A_LoopField, "activelocked" ) && ! InStr( A_LoopField, "activecaption" ) )
-					$tabs_string .= A_LoopField "`n"
+		this._TcPane.saveConfig()
+
+		$tabs := {}
+		
+		IniRead, $tabs_ini, % this._wincmd_ini, %$pane%
+		{			
+			Loop Parse, $tabs_ini, `n
+				this._setTab( $tabs, A_LoopField )
 					
-		return $tabs_string
+			this._setActiveTabCaptions( $tabs )
+		}
+		return stringifyObject($tabs)
 	}
+	/**
+	 */
+	_setTab( ByRef $tabs, $ini_line )
+	{
+		$key_value	:= StrSplit( $ini_line, "=")
+		$tabs[$key_value[1]]	:= $key_value[2]
+	}
+	/**
+	 */
+	_setActiveTabCaptions( ByRef $tabs )
+	{
+		if( ! $tabs.activecaption )
+			return 
+		
+		$tabs[$tabs.activetab "_caption"] := $tabs.activecaption
+		
+		$tabs.delete("activecaption")
+		$tabs.delete("activelocked")		
+	}
+
+	
 	
 }
 

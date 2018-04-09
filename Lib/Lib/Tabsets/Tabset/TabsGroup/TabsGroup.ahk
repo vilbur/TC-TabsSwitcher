@@ -16,6 +16,7 @@ Class TabsGroup
 	create()
 	{
 		FileCreateDir, % this._path_tabs_folder
+		return this
 	}
 	
 	/** create new Tabfiles
@@ -25,7 +26,7 @@ Class TabsGroup
 		$tabs_file := this._path_tabs_folder "\\" $tabs_name ".tab"
 		
 		For $pane, $tabs_in_pane in $tabs
-			$tabs_string .= "[activetabs]`n" $tabs_in_pane
+			$tabs_string .= "[" (A_Index==1?"activetabs":"inactivetabs") "]`n" $tabs_in_pane
 		
 		;MsgBox,262144,tabs_string, %$tabs_string%,50 
 		FileDelete, %$tabs_file% 

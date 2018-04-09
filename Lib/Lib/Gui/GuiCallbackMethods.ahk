@@ -74,6 +74,24 @@ Class GuiCallbackMethods Extends Parent
 	*/
 	/**
 	 */
+	_tabsGroupAdd()
+	{
+		$data	:= this._getGuiData()
+		
+		;SplitPath, A_WorkingDir, $dir_name
+		
+		$name := $data.folder ? $data.folder : this.TotalCmd().getDir()
+		
+		
+		$tabsgroup := this.Tabset( $data.tabset )
+						.createTabsGroup( this._MsgBox.Input("ADD NEW TABSGROUP", "New tabsgroup name" , {"w":320, "default":$name} ) )
+		
+		if( $tabsgroup )
+			this._LB_add( "LB_TabsGroup", $name )
+		
+	} 
+	/**
+	 */
 	_tabsGroupUnselect($data)
 	{
 		this._LB_unselect("LB_TabsGroup")
@@ -132,8 +150,9 @@ Class GuiCallbackMethods Extends Parent
 		$data	:= this._getGuiData()
 		$active_pane	:= this.TotalCmd().activePane()
 
-		$new_tabs	:= new VilGUI("AddNewTabs")
-		$new_tabs.Controls
+		this.new_tabs	:= new VilGUI("AddNewTabs")
+		
+		this.new_tabs.Controls
 		.options("button", "h", 48 )
 		.options("Checkbox", "h", 48 ) 		
 		.Layout("row")
@@ -146,13 +165,13 @@ Class GuiCallbackMethods Extends Parent
 				.Button().Submit("Ok")
 				.Button().close("Cancel")			
 		
-		$new_tabs.Events.Gui
+		this.new_tabs.Events.Gui
 		    .onSubmit( &this ".GUI_AddNewTabsSubmit", $data.tabset, $data.tabsgroup ) 
-		    .onSubmit("close")
+		    ;.onSubmit("close")
 		    .onEscape("close")			
 		    .onEnter("submit")
 			
-		$new_tabs.create()
+		this.new_tabs.create()
 	}
 	/**
 	 */
@@ -174,10 +193,9 @@ Class GuiCallbackMethods Extends Parent
 	{
 		$data	:= this._getGuiData()
 		
-		if( this._MsgBox.confirm("REMOVE TABS", "Remove tabs ?`n`n" $data.tabfile ) )
+		if( this._MsgBox.confirm("REMOVE TABS", "Remove tabs ?`n`n" $data.tabset " " $data.tabfile ) )
 			this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile ).delete()
-			
-
+		
 	} 
 	/**
 	 */

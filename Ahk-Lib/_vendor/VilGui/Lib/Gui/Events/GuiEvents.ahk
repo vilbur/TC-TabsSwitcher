@@ -35,6 +35,13 @@ Class GuiEvents_vgui{
 		this._setCallback("escape", $callback, $params*)
 		return this
 	}
+	/** Fired on enter pressed.
+	*/
+	onEnter($callback, $params*){
+		this.parent().Key.bindEvents()
+		this._setCallback("enter", $callback, $params*)
+		return this
+	}
 	/** Fired on gui close with "X" button.
 	*/
 	onClose($callback, $params*){

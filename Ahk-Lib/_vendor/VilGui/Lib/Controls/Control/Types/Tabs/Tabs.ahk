@@ -69,7 +69,7 @@ Class Tabs_vgui extends ControlItems_vgui {
 	 */
 	value()
 	{
-		return % this.Tabs[this.active()]._name
+		return % this.Tabs[this.active()].name()
 	}
 	/** delete control from Layout, ControlList and Gui 
 	 */

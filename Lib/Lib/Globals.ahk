@@ -40,8 +40,16 @@ joinObject($object, $delimeter:="`n", $remove:=1)
 	For $key, $value in $object
 		$string .= $value $delimeter
 	
-	return % SubStr( $string, 1, StrLen($string) - $remove )
-	;return $string
+	return % SubStr( $string, 1, StrLen($string) - (StrLen($delimeter)) )
+}
+/**
+ */
+stringifyObject($object, $key_delimeter:="=", $line_delimeter:="`n")
+{
+	For $key, $value in $object
+		$string .= $key $key_delimeter $value $line_delimeter
+	
+	return % SubStr( $string, 1, StrLen($string) - (StrLen($line_delimeter)) )
 }
 /**
  */

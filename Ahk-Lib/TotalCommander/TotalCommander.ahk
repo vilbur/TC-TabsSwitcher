@@ -69,7 +69,14 @@ Class TotalCommander
 		WinGet, ExStyle, ExStyle, A
 		return (ExStyle & 0x8) == 8 ? true : false
 	} 
-
+	/**
+	 */
+	saveConfig()
+	{
+		SendMessage  1075, 580, 0, , % "ahk_id " this._hwnd
+		
+		return this
+	} 
 
 
 }
