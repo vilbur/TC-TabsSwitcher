@@ -18,7 +18,13 @@ Class TabsGroup
 		FileCreateDir, % this._path_tabs_folder
 		return this
 	}
-	
+	/** create new Tabfiles
+	 */
+	delete()
+	{
+		FileRemoveDir, % this._path_tabs_folder
+		return this
+	}
 	/** create new Tabfiles
 	 */
 	createNewTabfile($tabs, $tabs_name)

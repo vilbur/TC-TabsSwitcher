@@ -21,7 +21,7 @@ Class GuiCallbackMethods Extends Parent
 	*/
 	/** reate New tabset
 	 */
-	_tabsetAddNew()
+	_tabSetAdd()
 	{
 		$new_root 	:= this._askPathToRoot()
 
@@ -41,7 +41,7 @@ Class GuiCallbackMethods Extends Parent
 	}
 	/**
 	 */
-	_tabsetAddRemove()
+	_tabSetRemove()
 	{
 		$data	:= this._getGuiData()
 		
@@ -56,14 +56,14 @@ Class GuiCallbackMethods Extends Parent
 	*/
 	/**
 	 */
-	_tabsRootCreate( $data )
+	_tabsetRootAdd( $data )
 	{
 		this.Tabset( $data.tabset )
 			.createTabsRoot( this._askPathToRoot() )
 	} 
 	/**
 	 */
-	_tabsRootRemove( $data )
+	_tabsetRootRemove( $data )
 	{
 		if( this._MsgBox.confirm("REMOVE ROOT", "Remove root ?`n`n" $data.tabsetroot ) )
 			this.Tabset( $data.tabset ).removeTabsRoot( $data.tabsetroot )
@@ -75,10 +75,8 @@ Class GuiCallbackMethods Extends Parent
 	*/
 	/**
 	 */
-	_tabsGroupAdd()
-	{
-		$data	:= this._getGuiData()
-				
+	_tabsGroupAdd($data)
+	{				
 		$name := $data.folder ? $data.folder : this.TotalCmd().getDir()
 		
 		$tabsgroup := this.Tabset( $data.tabset )
@@ -86,6 +84,16 @@ Class GuiCallbackMethods Extends Parent
 		
 		if( $tabsgroup )
 			this._LB_add( "LB_TabsGroup", $name )
+		
+	}
+	/**
+	 */
+	_tabsGroupRemove($data)
+	{
+		if( this._MsgBox.confirm("REMOVE GROUP", "Remove group ?`n`n" $data.tabsgroup ) )
+			this.TabsGroup( $data.tabset , $data.tabsgroup).delete()
+
+		reload
 		
 	} 
 	/**
@@ -142,10 +150,8 @@ Class GuiCallbackMethods Extends Parent
 	*/
 	/**
 	 */
-	_tabfileAdd()
+	_tabFileAdd( $data )
 	{
-		;$Tabfile	:= this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile )
-		$data	:= this._getGuiData()
 		$active_pane	:= this.TotalCmd().activePane()
 
 		this.new_tabs	:= new VilGUI("AddNewTabs")
@@ -173,21 +179,18 @@ Class GuiCallbackMethods Extends Parent
 	}
 	/**
 	 */
-	_tabfileRename()
-	{
-		$data	:= this._getGuiData()
-		
+	_tabFileRename( $data )
+	{		
 		$new_name := this._MsgBox.Input("RENAME TABS", "New name of tabs" , {"w":256, "default":$data.tabfile})
 		
 		if( $new_name )
 			this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile ).rename($new_name)
-		
-		
+
 		;$Tabfile	:= this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile )
 	} 
 	/**
 	 */
-	_tabfileRemove()
+	_tabFileRemove()
 	{
 		$data	:= this._getGuiData()
 		
@@ -197,7 +200,7 @@ Class GuiCallbackMethods Extends Parent
 	} 
 	/**
 	 */
-	_tabfileSelected($Event)
+	_tabFileSelected($Event)
 	{
 		$data	:= this._getGuiData()
 

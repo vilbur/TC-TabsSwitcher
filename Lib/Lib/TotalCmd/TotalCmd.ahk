@@ -71,17 +71,16 @@ Class TotalCmd Extends Parent
 	{
 		$tabs := this._TcPane.TcTabs().getTabs($side)
 		
-		return % this.stringifyTabs($tabs) "`nactivetab=" $tabs.activetab
+		return % this.stringifyTabs($tabs) "activetab=" $tabs.activetab
 	}
 	/**
 	 */
 	stringifyTabs($tabs)
 	{
 		For $index, $tab in $tabs 
-			$tabs_string .= this.stringifySingleTab($index, $tab) "`n"
+			$tabs_string .= this.stringifySingleTab($index, $tab) 
 
-		return % SubStr( $tabs_string, 1, StrLen($tabs_string) -2 )
-		;return % $tabs_string	
+		return % $tabs_string	
 	}
 	
 	/**
@@ -91,7 +90,7 @@ Class TotalCmd Extends Parent
 		For $key, $value in $tabs
 			$string .= $index "_" $key "=" $value "`n"
 		
-		return % SubStr( $string, 1, StrLen($string) -2 )
+		return $string
 	}
 
 }

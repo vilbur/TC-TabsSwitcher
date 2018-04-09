@@ -21,13 +21,14 @@ Class GuiCallback Extends GuiCallbackMethods
 		$tabs	:= {}		
 		$form_data	:= $Event.data
 		;$active_pane	:= this.TotalCmd().activePane() "tabs"
-		
+
 		if( $form_data.left )
 			$tabs.left := ""
 			
 		if( $form_data.right )
 			$tabs.right := ""	
 
+		;Dump($form_data, "form_data", 1)	
 		if( $tabs.GetCapacity()>0 && $form_data.tabfile )
 		{
 			this.new_tabs.close()
@@ -71,46 +72,14 @@ Class GuiCallback Extends GuiCallbackMethods
 		DROPDOWN
 	-----------------------------------------
 	*/
+	
 	/**
 	 */
-	_DD_TabsetsChanged($Event)
+	_DD_Changed($Event, $control_name)
 	{		
-		if( $Event.value == "Add" )
-			this._tabsetAddNew()
-				
-		else if(  $Event.value == "Remove" )
-			this._tabsetAddRemove()
-	}	
-	/**
-	 */
-	_DD_TabsetRootChanged($Event)
-	{
-		;this._gui.alwaysOnTop(false)
-	
-		$data	:= this._getGuiData()
+		this["_" $control_name $Event.value](this._getGuiData())
+	}
 
-		if( $Event.value == "Add" )
-			this._tabsRootCreate( $data )
-		
-		else if( $Event.value == "Remove" )
-			this._tabsRootRemove( $data )
-	}
-	/** 
-	 */
-	_DD_TabsGroupChanged( $Event )
-	{
-		if( $Event.value == "Add" )
-			this["_tabsgroup" $Event.value]()
-				
-
-	}
-	/** 
-	 */
-	_DD_TabfileChanged( $Event )
-	{
-		this["_tabfile" $Event.value]()
-	}
-	
 	/*---------------------------------------
 		LISTBOX
 	-----------------------------------------
@@ -134,7 +103,6 @@ Class GuiCallback Extends GuiCallbackMethods
 			this._tabsGroupUpdateGui( $data )
 			
 		this._TEXT_update()
-
 	}
 	/**
 	 */
@@ -146,8 +114,6 @@ Class GuiCallback Extends GuiCallbackMethods
 		
 		else if( $Event.type=="DoubleClick")
 			this.Parent().loadTabs()
-			
-		
 	}
 	/**
 	 */

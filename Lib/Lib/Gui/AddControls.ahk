@@ -7,7 +7,6 @@ Class AddControls Extends GuiControl
 		TABS
 	-----------------------------------------
 	*/
-	
 	static _LB_WIDTH := "w164"
 	
 	/**
@@ -15,16 +14,10 @@ Class AddControls Extends GuiControl
 	_addTabsetControls()
 	{
 		this._gui.controls
-			;.GroupBox("Tabsets").add("GB_Tabsets")
-			;.Text("Current: " this.TargetInfo().get("folder_current") )
-			;	.options("w148")
-			;	.add()
-			
 			.Dropdown( "Add||Rename|Remove" )
-				.checked( this.Tabset($tab_name).get("last_tabsgroup") )
-				.callback( &this "._DD_TabsetsChanged" ) 
-				.add("DD_Tabsets")
-		;.section()
+				.checked( this.Tabset(this._tab.name).get("last_tabsgroup") )
+				.callback( &this "._DD_Changed", "tabSet" ) 
+				.add("DD_tabset")
 	}
 	/**
 	 */
@@ -45,13 +38,14 @@ Class AddControls Extends GuiControl
 	}
 	/**
 	 */
-	_addTab( $index, $tab_name )
+	_addTab( $tab_index, $tab_name )
 	{
-		;Dump($tab_name, "tab_name", 1)
-		this._addTargetRoot( $index, $tab_name )
-		this._addTabsGroupSection( $index, $tab_name )				
-		this._addFoldersSection( $index, $tab_name )
-		this._addTabfileSection($index, $tab_name)
+		this._tab := {"index":	$tab_index, "name": $tab_name}
+		
+		this._addTargetRoot()
+		this._addTabsGroupSection()				
+		this._addFoldersSection()
+		this._addTabfileSection()
 	}
 	/*---------------------------------------
 		TABS CONTENT
@@ -59,27 +53,25 @@ Class AddControls Extends GuiControl
 	*/
 	/**
 	 */
-	_addTargetRoot( $index, $tab_name )
+	_addTargetRoot()
 	{
 		if( $tab_name=="_Tabs" )
 			return
 			
-		$Tabset := this.Tabset($tab_name)
+		$Tabset := this.Tabset(this._tab.name)
 		
-		this._GroupBox($index, "TabsetRoot" )
+		this._GroupBox( "TabsetRoot" )
 			.ListBox( $Tabset.getTabsRootsPaths() )
 				.checked( $Tabset.getLast("root") )					
 				.callback( &this "._LB_TabsetRootChanged" )
 				.options("w520 h64 -Multi")
 				.add("LB_TabsetRoot")
 			
-			.Dropdown("Add||Remove")
-				.options("w72 x-92 y-24")
-				.callback( &this "._DD_TabsetRootChanged")
-				.add("DD_TabsetRoot")
-				
+			this._addDropdown("TabsetRoot", "Add||Remove", "x-92 y-24")
 		.section()
 	}
+	
+
 
 	/*---------------------------------------
 		TABSGROUP
@@ -87,19 +79,17 @@ Class AddControls Extends GuiControl
 	*/
 	/**
 	 */
-	_addTabsGroupSection( $index, $tab_name )
+	_addTabsGroupSection()
 	{
-		$Tabset	:= this.Tabset($tab_name)
+		$Tabset	:= this.Tabset(this._tab.name)
 		$tabsgroup_last	:= $Tabset.getLast("tabsgroup")
 		
-		this._Tabs.Tabs[$index].Controls.layout("row")
+		this._tabControls().layout("row")
 				
-		this._GroupBox($index, "TabsGroup" )
-			.Dropdown( "Add||Rename|Remove" )
-				.options("x+78 y-24 w72")
-				.callback( &this "._DD_TabsGroupChanged" )
-				.add("DD_TabsGroup")
-			.section()
+		this._GroupBox("TabsGroup" )
+			this._addDropdown("TabsGroup")
+			
+		.section()
 
 			.Radio()
 				.items(["Root","Folder"])
@@ -107,7 +97,8 @@ Class AddControls Extends GuiControl
 				.options("x+8 w72 h30")
 				.checked( $tabsgroup_last=="_shared"?1:0 )
 				;.checked( $tabsgroup_last )				
-				.add("R_replace")	
+				.add("R_replace")
+				
 		.section()
 		
 			.ListBox( $Tabset._getTabsGroupsNames() )
@@ -125,12 +116,12 @@ Class AddControls Extends GuiControl
 	/** Add folders in target root
 	  * not showed if unique tabs
 	 */
-	_addFoldersSection( $index, $tab_name )
+	_addFoldersSection()
 	{
-		$Tabset	:= this.Tabset($tab_name)
+		$Tabset	:= this.Tabset(this._tab.name)
 		$tab_folders	:= $Tabset._getTabsRootFolders($Tabset.getLast("root"))
 		
-		this._GroupBox($index, "Folders", "Folders in root")
+		this._GroupBox("Folders", "Folders in root")
 				.ListBox( $tab_folders )
 					.checked( $Tabset.getLastFolder($Tabset.getLast("root")) )					
 					.callback( &this "._LB_FolderChanged" )
@@ -143,27 +134,22 @@ Class AddControls Extends GuiControl
 	*/
 	/** Add Listbox and other controls
 	 */
-	_addTabfileSection( $index, $tab_name )
+	_addTabfileSection()
 	{
-		$Tabset	:= this.Tabset($tab_name)
+		$Tabset	:= this.Tabset(this._tab.name)
 		$tabsgroup_last	:= $Tabset.getLast("tabsgroup")
 
-		this._GroupBox($index, "Tabfile", "*.tab files", "column" )
-			.Dropdown("Add||Rename|Remove" )
-		;.options("w128 h246")
-				.options("x+78 y-24 w72")
-				;.checked( this.Tabset($tab_name).get("last_Tabfiles") )
-				.callback( &this "._DD_TabfileChanged" )
-				.add("DD_Tabfile")
+		this._GroupBox("Tabfile", "*.tab files", "column" )
+			this._addDropdown("TabFile")
 
-			;.ListBox( this.TabsGroup($tab_name, $Tabset.getLast("tabsgroup") ).getTabFilenames() )
-			.ListBox( this.TabsGroup($tab_name, $tabsgroup_last!=1 ? $tabsgroup_last : "_shared" ).getTabFilenames() )
-				;.checked( this.Tabset($tab_name).get("last_tabs") )
-				.checked( this.Tabset($tab_name).getLast("tabfile") )					
+			.ListBox( this.TabsGroup(this._tab.name, $tabsgroup_last!=1 ? $tabsgroup_last : "_shared" ).getTabFilenames() )
+				;.checked( this.Tabset(this._tab.name).get("last_tabs") )
+				.checked( this.Tabset(this._tab.name).getLast("tabfile") )					
 				.callback( &this "._LB_TabfileChanged" )
 				.options("x-78 h256 -Multi " this._LB_WIDTH)
 				.add("LB_Tabfile")
-			.section()
+				
+			;.section()
 		.GroupEnd()
 	}
 	
@@ -181,8 +167,8 @@ Class AddControls Extends GuiControl
 		{
 			this._setFont( "s8", $style  )
 			this._gui.Controls.Text()
-								.options(" w268 h40 top " ($i==1?"y-10":"")  )
-								.add("TEXT_pane_" $pane )
+					.options(" w268 h40 top " ($i==1?"y-10":"")  )
+					.add("TEXT_pane_" $pane )
 		}
 								
 		this._resetFont()
@@ -206,11 +192,7 @@ Class AddControls Extends GuiControl
 				.Button()
 					.callback( this._Parent ".loadTabs" )
 					.options("w96 h48")
-					.exit("Exit")
-				;.Button()
-				;	.callback( &this "._BTN_TEST" )
-				;	.options("w96 h48")
-				;	.add("TEST")		
+					.exit("Exit")		
 	}
 
 	/*---------------------------------------
@@ -219,11 +201,11 @@ Class AddControls Extends GuiControl
 	*/
 	/** Add styled groupbox
 	 */
-	_GroupBox( $index, $name, $label:="", $layout:="row")
+	_GroupBox( $name, $label:="", $layout:="row")
 	{
 		this._setFont()
 		
-		$GroupBox	:= this._Tabs.Tabs[$index].Controls
+		$GroupBox	:= this._tabControls()
 					 .GroupBox( $label ? $label : $name )
 						.layout($layout)
 						.add("GB_" $name)
@@ -232,6 +214,24 @@ Class AddControls Extends GuiControl
 		
 		return $GroupBox
 	}
+	/**
+	 */
+	_addDropdown( $name, $items:="Add||Rename|Remove", $options:="x+78" )
+	{
+		return % this._tabControls()
+						.Dropdown( $items )
+							;.options("x+78 y-24 w72 " $options)
+							.options("y-24 w72 " $options)							
+							;.options($options)							
+							.callback( &this "._DD_Changed", $name ) 
+							.add("DD_" $name)
+	}
+	/**
+	 */
+	_tabControls()
+	{
+		return this._Tabs.Tabs[this._tab.index].Controls
+	} 
 	/**
 	 */
 	_setFont( $size:="s8", $color:="cBlue bold" )
