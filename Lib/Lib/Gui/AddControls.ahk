@@ -208,10 +208,8 @@ Class AddControls Extends GuiControl
 	{
 		this._setFont()
 		
-		$options := this._tab.name=="_Tabs"	? "x+64" : ""
-		$options .= $name=="TabsGroup"	? " y+64" : ""
-	
-				
+		$options := this._tab.name=="_Tabs"	? ($name=="TabsGroup" ? "y+64 " : "") "x+64" : ""	
+
 		$GroupBox	:= this._tabControls()
 					 .GroupBox( $label ? $label : $name )
 						.layout($layout)
