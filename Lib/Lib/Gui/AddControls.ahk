@@ -55,7 +55,7 @@ Class AddControls Extends GuiControl
 	 */
 	_addTargetRoot()
 	{
-		if( $tab_name=="_Tabs" )
+		if(this._tab.name=="_Tabs" )
 			return
 			
 		$Tabset := this.Tabset(this._tab.name)
@@ -118,6 +118,9 @@ Class AddControls Extends GuiControl
 	 */
 	_addFoldersSection()
 	{
+		if(this._tab.name=="_Tabs" )
+			return
+		
 		$Tabset	:= this.Tabset(this._tab.name)
 		$tab_folders	:= $Tabset._getTabsRootFolders($Tabset.getLast("root"))
 		
@@ -183,11 +186,11 @@ Class AddControls Extends GuiControl
 	_addMainButtons()
 	{
 		this._gui.Controls
-			.GroupBox().layout("row").add("MainButtons")
-
+			.section()
+			;.GroupBox().layout("row").add("MainButtons")
 				.Button()
 					.callback( this._Parent ".loadTabs" )
-					.options("h48 w320")
+					.options("h48 w440")
 					.submit("Load")
 				.Button()
 					.callback( this._Parent ".loadTabs" )
@@ -205,9 +208,14 @@ Class AddControls Extends GuiControl
 	{
 		this._setFont()
 		
+		$options := this._tab.name=="_Tabs"	? "x+64" : ""
+		$options .= $name=="TabsGroup"	? " y+64" : ""
+	
+				
 		$GroupBox	:= this._tabControls()
 					 .GroupBox( $label ? $label : $name )
 						.layout($layout)
+						.options( $options )
 						.add("GB_" $name)
 
 		this._resetFont()
