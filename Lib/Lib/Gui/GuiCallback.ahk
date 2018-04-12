@@ -7,13 +7,17 @@ Class GuiCallback Extends GuiCallbackMethods
 	 */
 	_BTN_TEST()
 	{
-		$data	:= this._getGuiData()
-		Dump($data, "data", 1)
+		;$data	:= this._getGuiData()
+		;Dump($data, "data", 1)
+		
+		MsgBox,262144,listbox_new, % "root_tabset: " this._last_focused_listbox.root_tabset "`n`nfolder_tabfile: " this._last_focused_listbox.folder_tabfile,5
+
 	}
 	/*---------------------------------------
-		TABS
+		GUI
 	-----------------------------------------
 	*/
+
 	/**
 	 */
 	GUI_AddNewTabsSubmit($Event, $tabset, $tabsgroup)
@@ -48,11 +52,17 @@ Class GuiCallback Extends GuiCallbackMethods
 	*/
 	/**
 	 */
+	_TAB_SelectByNumber( $Event )
+	{
+		$Tabs	:= this._gui.Tabs_Tabsets
+		$Tabs.select( $Event.key )
+	}
+	/**
+	 */
 	_TabsChanged( $Event )
 	{
 		this._TEXT_update()
 	}	
-	
 	/*---------------------------------------
 		RADIO
 	-----------------------------------------
@@ -86,12 +96,40 @@ Class GuiCallback Extends GuiCallbackMethods
 	*/
 	/**
 	 */
+	_LB_ToggleRootsAndTabset( $Event, $listbox_name )
+	{
+		this._LB_focus(  this._last_focused_listbox.root_tabset=="LB_TabsetRoot" ? "LB_TabsGroup" : "LB_TabsetRoot" )
+	}
+	/**
+	 */
+	_LB_FoldersAndTabfile( $Event, $listbox_name )
+	{
+		this._LB_focus(  this._last_focused_listbox.folder_tabfile=="LB_Folder" ? "LB_Tabfile" : "LB_Folder" )
+	}
+	/**
+	 */
+	_LB_SelectNext( $Event )
+	{
+		$data	:= this._getGuiData()
+		
+		MsgBox,262144,, _LB_SelectNext,2 
+		;if( $data.tabsgroup=="_shared" )
+			;this._updateFolderList( $data )
+		
+		;if( $Event.type=="DoubleClick")
+			;this.Parent().loadTabs()
+	}
+	/**
+	 */
 	_LB_TabsetRootChanged( $Event )
 	{
 		$data	:= this._getGuiData()
-
+		
 		if( $data.tabsgroup=="_shared" )
-			this._updateFolderList( $data )			
+			this._updateFolderList( $data )
+		
+		if( $Event.type=="DoubleClick")
+			this.Parent().loadTabs()
 	}
 	/**
 	 */

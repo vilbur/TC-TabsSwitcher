@@ -4,6 +4,7 @@
 Class GuiControl Extends GuiCallback
 {
 	_last_selected_folders	:= {}
+	_last_focused_listbox	:= {root_tabset:"", folder_tabfile:""}
 
 	/*---------------------------------------
 		TAB
@@ -59,14 +60,31 @@ Class GuiControl Extends GuiCallback
 	}
 	/**
 	 */
-	_LB_focus( $listbox_name, $select )
+	_LB_focus( $listbox_name, $select:="" )
 	{
 		$listbox := this._getActiveTab().Controls.get($listbox_name)
 		
 		$listbox.focus()
 		
 		if( $select )
-			$listbox.select($select)	
+			$listbox.select($select)
+			
+		;if( $listbox_name=="LB_TabsetRoot" || $listbox_name=="LB_TabsGroup"  )
+		this._last_focused_listbox[this._getListBoxType( $listbox_name )] := $listbox_name
+		
+		;$listbox.guiControl("Font","Red")
+		;$listbox.color()
+		
+		;MsgBox,262144,, % $listbox.hwnd,2
+		MsgBox,262144,, % this._gui._hwnd,2 		
+		GuiHwnd := WinExist()
+
+		ControlCol( $listbox.hwnd, GuiHwnd, 0x00FF00)
+
+		;MsgBox,262144, _LB_focus , %$listbox_name%,5
+		
+		;Dump(this._last_focused_listbox, "this._last_focused_listbox", 1)
+
 	}
 	/**
 	 */
@@ -74,7 +92,6 @@ Class GuiControl Extends GuiCallback
 	{
 		this._getActiveTab().Controls.get($listbox_name).select(0)	
 	}
-	
 	
 	/*---------------------------------------
 		HELPERS
@@ -86,8 +103,12 @@ Class GuiControl Extends GuiCallback
 	{
 		return % this._gui.Controls.get($control_name).value()
 	}
-
-
+	/** get type of listbox for toogling by keyboard
+	 */
+	_getListBoxType( $listbox_name )
+	{
+		return % $listbox_name=="LB_TabsetRoot" || $listbox_name=="LB_TabsGroup" ? "root_tabset" : "folder_tabfile"
+	} 
 
 	/*---------------------------------------
 		UNUSED

@@ -31,14 +31,16 @@ Class TotalCmd Extends Parent
 	}
 	/**
 	 */
-	totalCommanderHasFocus()
+	totalCommanderHasFocus( $Event )
 	{
-		this._tc_has_focus := true
+		If ( $Event.class=="TTOTAL_CMD" )
+			this._tc_has_focus := true
 	}
 	/**
 	 */
-	tabsSwitcherHasFocus()
+	tabsSwitcherHasFocus( $Event )
 	{
+		;$Event.message()
 		if( ! this._tc_has_focus )
 			return
 		
@@ -48,17 +50,6 @@ Class TotalCmd Extends Parent
 		
 		this._tc_has_focus := false
 	}
-	/**
-	 */
-	watchTotalCommanderWindow()
-	{
-		Gui +LastFound 
-		$Hwnd := WinExist()
-		DllCall( "RegisterShellHookWindow", UInt, $Hwnd )
-		$MsgNum := DllCall( "RegisterWindowMessage", Str,"SHELLHOOK" )
-		OnMessage( $MsgNum, "onWindowChange" )
-	}
-	
 	
 	/*---------------------------------------
 		TABS
@@ -94,23 +85,6 @@ Class TotalCmd Extends Parent
 	}
 
 }
-
-/** On window changed callback
-  */
-onWindowChange( $wParam, $lParam )
-{
-	WinGetTitle, $title, ahk_id %$lParam%
-	WinGetClass, $class, ahk_id %$lParam%
-
-	If ( $class=="TTOTAL_CMD" )
-		$TabsSwitcher.TotalCmd().totalCommanderHasFocus()
-		
-	else if ( $title=="TabsSwitcher" )
-		$TabsSwitcher.TotalCmd().tabsSwitcherHasFocus()
-}
-
-
-
 
 
 

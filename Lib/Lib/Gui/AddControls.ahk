@@ -7,14 +7,16 @@ Class AddControls Extends GuiControl
 		TABS
 	-----------------------------------------
 	*/
-	static _LB_WIDTH := "w164"
+	static _LB_WIDTH := " w164 "
+	
+	static _LB_HEIGHT	:= " h164 "
 	
 	/**
 	 */
 	_addTabsetControls()
 	{
 		this._gui.controls
-			.Dropdown( "Add||Rename|Remove" )
+			.Dropdown( "|Add|Rename|Remove" )
 				.checked( this.Tabset(this._tab.name).get("last_tabsgroup") )
 				.callback( &this "._DD_Changed", "tabSet" ) 
 				.add("DD_tabset")
@@ -67,7 +69,7 @@ Class AddControls Extends GuiControl
 				.options("w520 h64 -Multi")
 				.add("LB_TabsetRoot")
 			
-			this._addDropdown("TabsetRoot", "Add||Remove", "x-92 y-24")
+			this._addDropdown("TabsetRoot", "|Add|Remove", "x-92 y-24")
 		.section()
 	}
 	
@@ -105,7 +107,7 @@ Class AddControls Extends GuiControl
 				;.checked( $tabsgroup_last!="_shared" ? $tabsgroup_last : 0 )					
 				.checked( $tabsgroup_last )				
 				.callback( &this "._LB_TabsGroupChanged" )
-				.options("h220 -Multi " this._LB_WIDTH)
+				.options("h128 -Multi " this._LB_WIDTH)
 				.add("LB_TabsGroup")
 	}
 
@@ -128,7 +130,7 @@ Class AddControls Extends GuiControl
 				.ListBox( $tab_folders )
 					.checked( $Tabset.getLastFolder($Tabset.getLast("root")) )					
 					.callback( &this "._LB_FolderChanged" )
-					.options("h252 y+8 -Multi " this._LB_WIDTH)
+					.options("y+8 -Multi " this._LB_WIDTH this._LB_HEIGHT)
 					.add("LB_Folder")
 	} 
 	/*---------------------------------------
@@ -149,7 +151,7 @@ Class AddControls Extends GuiControl
 				;.checked( this.Tabset(this._tab.name).get("last_tabs") )
 				.checked( this.Tabset(this._tab.name).getLast("tabfile") )					
 				.callback( &this "._LB_TabfileChanged" )
-				.options("x-78 h256 -Multi " this._LB_WIDTH)
+				.options("x-78 -Multi red" this._LB_WIDTH this._LB_HEIGHT)
 				.add("LB_Tabfile")
 				
 			;.section()
@@ -192,10 +194,15 @@ Class AddControls Extends GuiControl
 					.callback( this._Parent ".loadTabs" )
 					.options("h48 w440")
 					.submit("Load")
+				;.Button()
+				;	.callback( this._Parent ".loadTabs" )
+				;	.options("w96 h48")
+				;	.exit("Exit")
+					
 				.Button()
-					.callback( this._Parent ".loadTabs" )
-					.options("w96 h48")
-					.exit("Exit")		
+					.callback( &this "._BTN_TEST" )
+					;.options("w96 h48")
+					.add("TEST")		
 	}
 
 	/*---------------------------------------
@@ -222,7 +229,7 @@ Class AddControls Extends GuiControl
 	}
 	/**
 	 */
-	_addDropdown( $name, $items:="Add||Rename|Remove", $options:="x+78" )
+	_addDropdown( $name, $items:="|Add|Rename|Remove", $options:="x+78" )
 	{
 		return % this._tabControls()
 						.Dropdown( $items )

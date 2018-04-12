@@ -102,7 +102,10 @@ Class PathsReplacer
 		
 		if( InStr( this._replace, "root" )  )
 			$path_new	:= this._replaceRoot( $path_new )
-		
+			
+		;$Old	:= $path_new
+		;MsgBox,262144,_replaceRoot, % "_search_roots:`n" this._search_roots "`n---------`n_replace_root:`n" this._replace_root "`n---------`n$Old:`n" $Old "`n---------`n$path_new:`n" $path_new
+	
 		$path_new	:= this._replaceFolder( $path_new )
 		
 		this._setToIni( $key_path[1], $path_new )
@@ -114,17 +117,21 @@ Class PathsReplacer
 		REPLACE VALUES
 	-----------------------------------------
 	*/
-	/** replace key 1_path in *.tab
+	/** Replace root in path
+	  * @example "C:\search\root\foo\bar" >>> "C:\replaced\path\foo\bar"
+	  *
 	 */
 	_replaceRoot( $path_old )
 	{
 		return % RegExReplace( $path_old, "i)^(" this._search_roots ")", this._replace_root  )
 	}
-	/** 
+	/**
+	  *	@example	"C:\foo\bar\search-folder"	>>> "C:\foo\bar\replaced-folder"
+	  *		"C:\foo\search-folder\bar"	>>> "C:\foo\replaced-folder\bar"
 	 */
 	_replaceFolder( $path_old )
 	{
-		return % RegExReplace( $path_old, "i)([\\\/])(?:" this._search_folders ")([\\\/])*" , "$1" this._replace_folder "$2" )
+		return % RegExReplace( $path_old, "i)([\\\/])(?:" this._search_folders ")(?:([\\\/])|$)" , "$1" this._replace_folder "$2" )
 	}
 	
 	/** replace key 1_caption in *.tab

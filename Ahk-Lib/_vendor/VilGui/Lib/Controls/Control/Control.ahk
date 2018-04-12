@@ -79,6 +79,14 @@ Class Control_vgui extends ControlSetup_vgui{
 		WM_CLOSE=0x10
 		PostMessage, %WM_CLOSE%,,,, % "ahk_id " this.hwnd
 	}
+	/**
+	 */
+	color(  )
+	{
+		Gui, Font, cRed
+		GuiControl, Font, % "ahk_id " this.hwnd
+		GuiControl,, % "ahk_id " this.hwnd, BLUE	
+	}
 	/*---------------------------------------
 		PARENTS
 	-----------------------------------------

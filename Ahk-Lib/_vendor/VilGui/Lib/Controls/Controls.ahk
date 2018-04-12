@@ -56,6 +56,22 @@ Class Controls_vgui extends ControlsTypes_vgui
 			return % this._List.get($control_name) ; return Control object from list
 
 	}
+	/** Set focus to control if defined
+	  * Or get focused control class_nn
+	 */
+	focus( $control:="" )
+	{
+		if( ! $control )
+		{
+			ControlGetFocus, $focused_control, % this.hwnd()
+			;;;GuiControlGet, $focused_control, Hwnd, %$focused_control% ; get hwnd of control
+			return $focused_control
+			
+		} else
+			ControlFocus, %$control%, % this._hwnd
+		
+	}
+	
 	/*---------------------------------------
 		OPTIONS
 	-----------------------------------------

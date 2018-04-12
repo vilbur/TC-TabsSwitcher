@@ -23,18 +23,18 @@ Class TabsSwitcher Extends Accessors
 		this.setTabsPath()
 		this._Tabsets.loadTabsets()
 		this._TargetInfo.findCurrentTabset( this._Tabsets )
-		
+
 		;Dump(this._Tabsets, "this._Tabsets", 0)
 		;Dump(this._TargetInfo, "this._TargetInfo", 0)		
 		;Dump(this._Tabsets._Tabsets.Tabs, "this._Tabsets._Tabsets.Tabs", 1)
 		;Dump(this._Tabsets._Tabsets.Users, "this._Tabsets._Tabsets.Users", 1)				
-		;this._getTabs()
 	}
 	/** managerGui
 	*/	
 	managerGui()
 	{
 		this._Gui.managerGui()
+		
 	}
 	/** createGui
 	*/	
@@ -43,11 +43,9 @@ Class TabsSwitcher Extends Accessors
 		;MsgBox,262144,, createGui,2 
 		if( ! this._Tabsets.isAnyTabsetExists())
 			 new Example().parent(this).createExample()
-			
-		;Dump( this._Tabsets, "_Tabsets", 1)
+
 		this._Gui.createGui()
-		;Dump(this._Gui._gui, "this._Gui._gui.Controls", 0)
-		this._TotalCmd.watchTotalCommanderWindow()
+	
 	}
 	/**
 	 */
