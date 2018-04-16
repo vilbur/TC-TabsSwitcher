@@ -1,44 +1,59 @@
 /** Class Control
 */
-Class Control_vgui extends ControlSetup_vgui{
+Class Control_vgui extends ControlSetup_vgui
+{
 
 	_Options := new Options_vgui()
 
 	__New($Controls)
 	{
+		this.guiName($Controls.guiName())
+		
 		this._Controls	:= &$Controls
-		this._guihwnd	:= $Controls._hwnd
 		this._type	:= RegExReplace(  this.__class, "_vgui$", "" )
 		this.address()
 	}
-	/** add
-	*/
+	/** Add control to Gui
+	 * 
+	 * @param	string	$name	name of control
+	 * 
+	 * @return	object Controls
+	 */
 	add($name:="")
 	{
 		this.name($name)
+		
 		return % this.Controls().add(this) ; clone added object if user insert one object multiple times
 	}
-	/** delete control from Layout, ControlList and Gui 
+	
+	/** Delete control from Gui, Layout & ControlList
 	 */
 	delete()
 	{
 		;MsgBox,262144,DELETE CONTROL, % this._name ,3
 		Object(this._layout_container).deleteControlFromSection(this)
 	}
-	/** Get configured Control object which is able passed to Controls.add()
-	*/
+	/** Get configured Control object which is prepared to be passed Controls.add( $Control )
+	 * 
+	 * @return	object	Control	  
+	 */
 	get()
 	{
 		this.preAdd()
 		return this
 	}
 	/** clear values in item types control
-	  * TODO: Tested on Dropdown, needs to be tesed on others
+	 * 
 	 */
 	clear()
 	{
 		return % this.edit("")
 	}
+	
+	/*---------------------------------------
+		PRIVATE
+	-----------------------------------------
+	*/
 	/** set Value Or Items
 	*/
 	_setValue($value)
@@ -64,7 +79,7 @@ Class Control_vgui extends ControlSetup_vgui{
 	*/
 	_sanitizeName()
 	{
-		;this._name := RegExReplace( this._name, "i)[^A-Z0-9_]+", "" )
+		;;;this._name := RegExReplace( this._name, "i)[^A-Z0-9_]+", "" )
 		this._name := RegExReplace( this._name, "i)`n", " " )		
 		
 		return this
@@ -74,35 +89,37 @@ Class Control_vgui extends ControlSetup_vgui{
 	removeFromGui()
 	{
 		;MsgBox,262144,DELETE CONTROL, % this._name ,3
-
 		this.Controls()._List.delete(this.hwnd)
 		WM_CLOSE=0x10
 		PostMessage, %WM_CLOSE%,,,, % "ahk_id " this.hwnd
 	}
-	/**
-	 */
-	color(  )
-	{
-		Gui, Font, cRed
-		GuiControl, Font, % "ahk_id " this.hwnd
-		GuiControl,, % "ahk_id " this.hwnd, BLUE	
-	}
+
 	/*---------------------------------------
 		PARENTS
 	-----------------------------------------
 	*/
+	/** Set\Get Base class VilGUI
+		@return V
+	*/
+	Base()
+	{
+		return % this.Controls().Base()		
+	}
+	/** name of gui
+	*/
+	guiName($gui:="")
+	{
+		if($gui)
+			this._gui	:= $gui
+			
+		return % $gui ? this : this._gui
+	}	
 	/** Controls
 	*/
 	Controls()
 	{
 		return % Object(this._Controls)
 	}
-	/** Get Base class VilGUI
-		@return object
-	*/
-	Base()
-	{
-		return % this.Controls().Parent()
-	}
+
 
 }

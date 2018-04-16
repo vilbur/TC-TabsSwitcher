@@ -16,7 +16,7 @@ Class AddControls Extends GuiControl
 	_addTabsetControls()
 	{
 		this._gui.controls
-			.Dropdown( "|Add|Rename|Remove" )
+			.Dropdown( "Add|Rename|Remove" )
 				.checked( this.Tabset(this._tab.name).get("last_tabsgroup") )
 				.callback( &this "._DD_Changed", "tabSet" ) 
 				.add("DD_tabset")
@@ -69,7 +69,7 @@ Class AddControls Extends GuiControl
 				.options("w520 h64 -Multi")
 				.add("LB_TabsetRoot")
 			
-			this._addDropdown("TabsetRoot", "|Add|Remove", "x-92 y-24")
+			this._addDropdown("TabsetRoot", "Add|Remove", "x-92 y-24")
 		.section()
 	}
 	
@@ -125,13 +125,14 @@ Class AddControls Extends GuiControl
 		
 		$Tabset	:= this.Tabset(this._tab.name)
 		$tab_folders	:= $Tabset._getTabsRootFolders($Tabset.getLast("root"))
-		
+	
 		this._GroupBox("Folders", "Folders in root")
 				.ListBox( $tab_folders )
 					.checked( $Tabset.getLastFolder($Tabset.getLast("root")) )					
 					.callback( &this "._LB_FolderChanged" )
 					.options("y+8 -Multi " this._LB_WIDTH this._LB_HEIGHT)
 					.add("LB_Folder")
+					
 	} 
 	/*---------------------------------------
 		TABS FILES
@@ -194,15 +195,15 @@ Class AddControls Extends GuiControl
 					.callback( this._Parent ".loadTabs" )
 					.options("h48 w440")
 					.submit("Load")
-				;.Button()
-				;	.callback( this._Parent ".loadTabs" )
-				;	.options("w96 h48")
-				;	.exit("Exit")
-					
 				.Button()
-					.callback( &this "._BTN_TEST" )
-					;.options("w96 h48")
-					.add("TEST")		
+					.callback( this._Parent ".loadTabs" )
+					.options("w96 h48")
+					.exit("Exit")
+					
+				;.Button()
+					;.callback( &this "._BTN_TEST" )
+					;;.options("w96 h48")
+					;.add("TEST")		
 	}
 
 	/*---------------------------------------
@@ -229,7 +230,7 @@ Class AddControls Extends GuiControl
 	}
 	/**
 	 */
-	_addDropdown( $name, $items:="|Add|Rename|Remove", $options:="x+78" )
+	_addDropdown( $name, $items:="Add|Rename|Remove", $options:="x+78" )
 	{
 		return % this._tabControls()
 						.Dropdown( $items )

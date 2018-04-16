@@ -22,6 +22,10 @@
 -----------------------------------------
 */
 #Include %A_LineFile%\..\Gui\Gui.ahk
+#Include %A_LineFile%\..\Gui\GuiSize.ahk
+#Include %A_LineFile%\..\Gui\GuiPosition.ahk
+#Include %A_LineFile%\..\Gui\GuiLayout.ahk
+
 #Include %A_LineFile%\..\Gui\ScollBar.ahk
 
 /*---------------------------------------
@@ -47,6 +51,7 @@
 	CONTROLS
 -----------------------------------------
 */
+
 #Include %A_LineFile%\..\Controls\Controls.ahk
 #Include %A_LineFile%\..\Controls\ControlsTypes.ahk
 #Include %A_LineFile%\..\Controls\OptionsDefaults.ahk
@@ -105,10 +110,11 @@
 #Include %A_LineFile%\..\Controls\Control\Types\Path\PathBrowse.ahk
 
 /*
-   Tabs
+   TABS
 */
 #Include %A_LineFile%\..\Controls\Control\Types\Tabs\Tabs.ahk
 #Include %A_LineFile%\..\Controls\Control\Types\Tabs\Tab.ahk
+
 
 /*---------------------------------------
 	LAYOUT
@@ -117,8 +123,16 @@
 #Include %A_LineFile%\..\Controls\Layout\Layout.ahk
 #Include %A_LineFile%\..\Controls\Layout\Container.ahk
 #Include %A_LineFile%\..\Controls\Layout\Section.ahk
-#Include %A_LineFile%\..\Controls\Layout\GuiMargin.ahk
 #Include %A_LineFile%\..\Controls\Layout\Bbox.ahk
+
+/*---------------------------------------
+	STYLE
+-----------------------------------------
+*/
+#Include %A_LineFile%\..\Style\Style.ahk
+#Include %A_LineFile%\..\Controls\Layout\GuiMargin.ahk
+#Include %A_LineFile%\..\Style\ControlColor\ControlColor.ahk
+#Include %A_LineFile%\..\Style\ControlColor\Class_CtlColors.ahk
 
 /*---------------------------------------
 	MENUS

@@ -5,12 +5,10 @@ Class GuiCallback Extends GuiCallbackMethods
 {
 	/**
 	 */
-	_BTN_TEST()
+	_TEST()
 	{
-		;$data	:= this._getGuiData()
-		;Dump($data, "data", 1)
-		
-		MsgBox,262144,listbox_new, % "root_tabset: " this._last_focused_listbox.root_tabset "`n`nfolder_tabfile: " this._last_focused_listbox.folder_tabfile,5
+		MsgBox,262144,, Callback Test,2 		
+		;MsgBox,262144,listbox_new, % "root_tabset: " this._last_focused_listbox.root_tabset "`n`nfolder_tabfile: " this._last_focused_listbox.folder_tabfile,5
 
 	}
 	/*---------------------------------------
@@ -146,7 +144,6 @@ Class GuiCallback Extends GuiCallbackMethods
 	 */
 	_LB_FolderChanged( $Event )
 	{
-		
 		if( $Event.type=="LeftClick" )
 			this._folderChanged($Event)
 		

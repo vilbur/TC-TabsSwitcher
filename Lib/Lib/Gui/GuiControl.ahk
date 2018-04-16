@@ -73,13 +73,13 @@ Class GuiControl Extends GuiCallback
 		this._last_focused_listbox[this._getListBoxType( $listbox_name )] := $listbox_name
 		
 		;$listbox.guiControl("Font","Red")
-		;$listbox.color()
+		;$listbox.color("d0e3f4")
 		
 		;MsgBox,262144,, % $listbox.hwnd,2
-		MsgBox,262144,, % this._gui._hwnd,2 		
-		GuiHwnd := WinExist()
+		;MsgBox,262144,, % this._gui._hwnd,2 		
+		;GuiHwnd := WinExist()
 
-		ControlCol( $listbox.hwnd, GuiHwnd, 0x00FF00)
+		;ControlCol( $listbox.hwnd, GuiHwnd, 0x00FF00)
 
 		;MsgBox,262144, _LB_focus , %$listbox_name%,5
 		

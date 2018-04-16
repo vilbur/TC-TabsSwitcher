@@ -35,7 +35,7 @@ getObjectValues($object)
 }
 /**
  */
-joinObject($object, $delimeter:="`n", $remove:=1)
+joinObject($object, $delimeter:="`n")
 {
 	For $key, $value in $object
 		$string .= $value $delimeter
@@ -44,12 +44,12 @@ joinObject($object, $delimeter:="`n", $remove:=1)
 }
 /**
  */
-stringifyObject($object, $key_delimeter:="=", $line_delimeter:="`n")
+stringifyObject($object, $pair_delimeter:="=", $item_delimeter:="`n")
 {
 	For $key, $value in $object
-		$string .= $key $key_delimeter $value $line_delimeter
+		$string .= $key $pair_delimeter $value $item_delimeter
 	
-	return % SubStr( $string, 1, StrLen($string) - (StrLen($line_delimeter)) )
+	return % SubStr( $string, 1, StrLen($string) - (StrLen($item_delimeter)) )
 }
 /**
  */

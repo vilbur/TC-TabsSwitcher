@@ -8,4 +8,9 @@
 2_options=1|0|0|0|0|2|0
 3_path=C:\GoogleDrive\Programs\Core\Autohotkey\Lib\_vendor\_vilbur\VilGui\Lib\Controls\Control\Types\Tabs\
 3_options=1|0|0|0|0|2|0
+4_path=C:\GoogleDrive\Programs\Core\Autohotkey\Lib\_vendor\_vilbur\VilGui\Test\
+4_options=1|0|0|0|0|2|0
+5_path=C:\GoogleDrive\Programs\Core\Autohotkey\Lib\_vendor\_vilbur\VilGui\Test\Controls\
+5_caption=Test\Controls
+5_options=1|0|0|0|0|2|0
 activetab=0

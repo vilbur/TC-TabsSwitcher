@@ -50,18 +50,21 @@ Class TcPane extends TotalCommander
 		return % this._active_pane
 	}
 	/** @return string ClassNN of active pane
+	  *
+	  * NOTE: IT SEEM THAT ControlGetFocus WORKS WITHOUT WinActivate
+	  *
 	 */
 	getSourcePaneClass()
 	{
-		this._saveActiveWindow()
-
-		WinSet, AlwaysOnTop, On, A
-		
-		WinActivate, % this.hwnd()
+		;this._saveActiveWindow()
+		;
+		;WinSet, AlwaysOnTop, On, A
+		;
+		;WinActivate, % this.hwnd()
 
 		ControlGetFocus, $source_pane, % this.hwnd()
 		
-		this._restorePreviousWindow()
+		;this._restorePreviousWindow()
 		
 		return %$source_pane%
 	}

@@ -1,0 +1,1 @@
+# Gui setup  ## Examples  [include:\gui-setup.ahk]  ## Result  ![gui setup](gui-setup.png)  

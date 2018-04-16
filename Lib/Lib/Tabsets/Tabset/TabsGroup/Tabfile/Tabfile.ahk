@@ -28,7 +28,7 @@ Class Tabfile
 		$captions := {}
 		
 		For $pane_name, $tabs in this._tabs ; $pane_name == "activetabs|inactivetabs"
-			$captions[$pane_name] :=  joinObject( $tabs, " | ", 3 )
+			$captions[$pane_name] :=  joinObject( $tabs, " | " )
 			
 		return $captions
 	}	

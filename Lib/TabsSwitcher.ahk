@@ -86,8 +86,9 @@ Class TabsSwitcher Extends Accessors
 		if( $tabfile && ! $Tabset.isPathInTarget( A_WorkingDir ) )
 			this._goToTargetRoot( $Tabset.pathTarget() )
 		
-		;/* REPLACE SHARED TABS
-		;*/
+		
+		/* REPLACE SHARED TABS
+		*/
 		if( $data.replace )
 			this._PathsReplacer.clone()
 					.pathTabFile( $path_tab_file )
@@ -97,7 +98,8 @@ Class TabsSwitcher Extends Accessors
 					.replaceFolder( $data.folder )
 					.replace( $data.replace )
 		
-		
+
+
 		IniWrite, % $data.tabset, %$ini_path%, tabset, last
 		
 		this.Tabset($data.tabset).saveLastToIni( $data.tabsetroot, $data.tabsgroup, $data.folder, $data.tabfile )
@@ -122,7 +124,6 @@ Class TabsSwitcher Extends Accessors
 	setTabsPath()
 	{
 		IniRead, $tabs_path, %$ini_path%, paths, tabs_path 
-		;return %$tabs_path% 
 	}
 	
 	/** get data object from gui or params

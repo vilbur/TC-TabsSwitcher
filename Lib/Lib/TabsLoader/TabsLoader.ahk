@@ -22,6 +22,7 @@ Class TabsLoader
 	{
 		;this.createCommandRunTabSwitcher()
 		this._editCommandLoadTabs("OPENTABS """ $tab_file_path """")
+		sleep, 100
 		this._createShortcut()
 		this._executeShortcut()
 	} 

@@ -12,7 +12,7 @@ Class GuiCallbackMethods Extends Parent
 	_initLastStateStore()
 	{
 		For $i, $tabset in this.Tabsets()._getTabfilesNames()
-			 this._last_state[$tabset] := {}
+			this._last_state[$tabset] := {}
 	} 
 	
 	/*---------------------------------------

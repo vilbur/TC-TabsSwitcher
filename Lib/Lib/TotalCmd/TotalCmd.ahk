@@ -33,6 +33,7 @@ Class TotalCmd Extends Parent
 	 */
 	totalCommanderHasFocus( $Event )
 	{
+
 		If ( $Event.class=="TTOTAL_CMD" )
 			this._tc_has_focus := true
 	}
@@ -43,12 +44,16 @@ Class TotalCmd Extends Parent
 		;$Event.message()
 		if( ! this._tc_has_focus )
 			return
-		
+			
+
+		;this.Parent()._Gui._gui.redraw(false)
+		;sleep,500
 		this._TcPane.setActivePane()
 		
 		this.Parent()._Gui._TEXT_update()
 		
 		this._tc_has_focus := false
+		
 	}
 	
 	/*---------------------------------------

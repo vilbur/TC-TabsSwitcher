@@ -56,22 +56,6 @@ Class Controls_vgui extends ControlsTypes_vgui
 			return % this._List.get($control_name) ; return Control object from list
 
 	}
-	/** Set focus to control if defined
-	  * Or get focused control class_nn
-	 */
-	focus( $control:="" )
-	{
-		if( ! $control )
-		{
-			ControlGetFocus, $focused_control, % this.hwnd()
-			;;;GuiControlGet, $focused_control, Hwnd, %$focused_control% ; get hwnd of control
-			return $focused_control
-			
-		} else
-			ControlFocus, %$control%, % this._hwnd
-		
-	}
-	
 	/*---------------------------------------
 		OPTIONS
 	-----------------------------------------
@@ -124,9 +108,9 @@ Class Controls_vgui extends ControlsTypes_vgui
 	{
 		this._tabActivateToggle()
 
-		Gui, % this._hwnd ":Add", % this._getAddControlType(), % "hwndCtrlHWND " this._getOptions(),  % this._Control._getValueOrItems()
+		Gui, % this.guiName() ":Add", % this._getAddControlType(), % "hwndCtrlHWND " this._getOptions(),  % this._Control._getValueOrItems()
 		this._Control.hwnd := CtrlHWND
-		
+
 	}
 	/** _setControlName
 		1) sanitize name
@@ -205,26 +189,40 @@ Class Controls_vgui extends ControlsTypes_vgui
 		PARENT METHODS
 	-----------------------------------------
 	*/
+	/** name of gui
+	*/
+	guiName($gui:="")
+	{
+		if($gui)
+			this._gui	:= $gui
+			
+		return % $gui ? this : this._gui
+	}
 	/** set\get parent class
 	*/
 	Parent($Parent:="")
 	{
 		if($Parent)
 			this._Parent	:= &$Parent
+			
 		return % $Parent ? this : Object(this._Parent)
 	}
+	/** Set\Get Base class VilGUI
+		@return VilGui
+	*/
+	Base($Base:="")
+	{
+		if($Base)
+			this._Base	:= &$Base
+			
+		return % $Base ? this : (this._Base ? Object(this._Base) : this.Parent())
+	}
+	
+	/**
+	*/
 	ControlsList()
 	{
-		return % $_GUI[this._hwnd].List
-	}
-	/** hwnd of gui
-	*/
-	hwnd($hwnd:="")
-	{
-		;MsgBox,262144,, IS THIS METHOD USED `nControls_vgui.hwnd()? ,2
-		if($hwnd)
-			this._hwnd	:= $hwnd
-		return % $hwnd ? this : this._hwnd
+		return % this._List
 	}
 	/*---------------------------------------
 		TABS
@@ -249,14 +247,14 @@ Class Controls_vgui extends ControlsTypes_vgui
 	*/
 	_tabActivate()
 	{
-		Gui, % this._hwnd ":Tab", % this.parent().tab_num
+		Gui, % this.guiName() ":Tab", % this.parent().tab_num
 	}
 	/** Deactivate tabs if parent is not tab
 	  * Used for adding controls after tabs
 	  */
 	_tabDeactivate()
 	{
-		Gui, % this._hwnd ":Tab"
+		Gui, % this.guiName() ":Tab"
 	}
 	/** Store current tab number if any for enxt control
 	  */
@@ -301,12 +299,8 @@ Class Controls_vgui extends ControlsTypes_vgui
 		if( $Control.value()!=0 )
 			$form_data[$Control.RadioGroup] := $Control._name
 	}
+
 	
-	
-	
-	
-	
-	
-	
-	
+
 }
+
