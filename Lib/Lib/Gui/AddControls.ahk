@@ -13,6 +13,20 @@ Class AddControls Extends GuiControl
 	
 	/**
 	 */
+	_addControls()
+	{
+		this._gui.controls.layout("row")
+		this._addTabsetControls()
+		this._addOptions()
+		this._gui.controls.section()
+		this._addTabs()
+		this._gui.controls.section()		
+		this._addPaneLookUp()		
+		this._addMainButtons()
+	}
+	
+	/**
+	 */
 	_addTabsetControls()
 	{
 		this._gui.controls
@@ -20,6 +34,26 @@ Class AddControls Extends GuiControl
 				.checked( this.Tabset(this._tab.name).get("last_tabsgroup") )
 				.callback( &this "._DD_Changed", "tabSet" ) 
 				.add("DD_tabset")
+	}
+	/**
+	 */
+	_addOptions()
+	{
+		this._gui.controls
+				.GroupBox( "Options" )
+				   ;.layout($layout)
+				   .options( "y-12" )
+				   .add("GB_Options")
+			.Checkbox("Title")
+					.options( "y-8 w48" )
+					.checked( this._options.title )
+					.callback( &this "._setOption", "title" )
+					.add("CBX_option_title")
+			.Dropdown( "Active||Left|Right" )
+				.checked( this._options.active_pane )
+				.options( "w64" )
+				.callback( &this "._setOption", "active_pane" )
+				.add("DD_option_activePane")
 	}
 	/**
 	 */

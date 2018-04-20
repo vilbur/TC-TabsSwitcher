@@ -133,8 +133,11 @@ Class GuiCallback Extends GuiCallbackMethods
 	 */
 	_LB_TabsGroupChanged( $Event )
 	{
+		if( $Event.type=="DoubleClick")
+			return % this.Parent().loadTabs()
+		
 		$data	:= this._getGuiData()
-
+		
 		if( $data.tabsgroup!="_shared" )
 			this._tabsGroupUpdateGui( $data )
 			
@@ -166,5 +169,21 @@ Class GuiCallback Extends GuiCallbackMethods
 			this._tabfileSelected($Event)
 	}
 
+
+	/*---------------------------------------
+		OPTIONS
+	-----------------------------------------
+	*/
+	/** Set option to ini by options control
+	 */
+	_setOption($Event, $option)
+	{		
+		IniWrite, % $Event.value, %$ini_path%, options, %$option%
+		
+		this._options[$option] := $Event.value
+	}
+	
+	
+	
 }
 

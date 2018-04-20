@@ -1,9 +1,9 @@
 [activetabs]
-0_caption=cerny-lubor-local.com-wedos-working-db-error-error-db-error-error-db-error\factories
+0_caption=laravel-fresh-wedos-working-db-error-error-db-error-error-db-error\factories
 0_options=1|0|0|0|0|2|0
-0_path=c:\wamp64\www\cerny-lubor-local.com\database\factories\
+0_path=c:\wamp64\www\laravel-fresh\database\factories\
 1_options=1|0|0|0|0|2|0
-1_path=c:\wamp64\www\cerny-lubor-local.com\database\migrations\
+1_path=c:\wamp64\www\laravel-fresh\database\migrations\
 2_options=1|0|0|0|0|2|0
-2_path=c:\wamp64\www\cerny-lubor-local.com\database\seeds\
+2_path=c:\wamp64\www\laravel-fresh\database\seeds\
 activetab=0

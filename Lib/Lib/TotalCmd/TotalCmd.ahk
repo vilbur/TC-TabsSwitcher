@@ -33,7 +33,6 @@ Class TotalCmd Extends Parent
 	 */
 	totalCommanderHasFocus( $Event )
 	{
-
 		If ( $Event.class=="TTOTAL_CMD" )
 			this._tc_has_focus := true
 	}
@@ -88,7 +87,23 @@ Class TotalCmd Extends Parent
 		
 		return $string
 	}
-
+	
+	/** Set Total commander window title by loaded tabs
+	  * IF TABSGROUP DEFINED:
+	  *		"Tabs-Group: TabFile"
+	  *
+	  * IF TABS ARE SHARED:
+	  *		"Root-Folder: TabFile"
+	 */
+	_setWindowTitleByTabs($data, $options)
+	{
+		if( ! $options.title )
+			return
+		
+		$title := ( $data.tabsgroup != "_shared" ? $data.tabsgroup : $data.folder ) ": " $data.tabfile
+		
+		 this._TcPane.title( $title )			
+	} 
 }
 
 

@@ -5,19 +5,27 @@ Class Gui Extends AddControls
 {
 	_gui	:= new VilGUI("TabsSwitcher")
 	_MsgBox 	:= new MsgBox()
+	_options	:= {}
 
 	/*---------------------------------------
 		CREATE GUI
 	-----------------------------------------
 	*/
+	/**
+	 */
+	options( ByRef $options )
+	{
+		if( $options )
+			this._options	:= $options
+		
+		return this
+	} 
 	/** createGui
 	 */
 	createGui()
 	{
-		this._addTabsetControls()
-		this._addTabs()
-		this._addPaneLookUp()		
-		this._addMainButtons()
+		
+		this._addControls()
 		
 		this._createGui()
 		
@@ -166,6 +174,7 @@ Class Gui Extends AddControls
 		IniDelete, %$ini_path%, window 
 		this._gui._centerToWindow()
 	} 
+
 
 	
 }

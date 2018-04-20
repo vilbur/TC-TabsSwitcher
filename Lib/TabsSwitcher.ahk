@@ -12,11 +12,13 @@ Class TabsSwitcher Extends Accessors
 	_TabsLoader 	:= new TabsLoader()	
 	_MsgBox 	:= new MsgBox()
 	_TotalCmd 	:= new TotalCmd().parent(this)
+	_options	:= {}
 
 	__New()
 	{
 		$TabsSwitcher := this
-		
+		this._loadOptions()
+
 		If ( ! FileExist( $ini_path ))
 			this.install()
 			
@@ -29,13 +31,12 @@ Class TabsSwitcher Extends Accessors
 		;Dump(this._Tabsets._Tabsets.Tabs, "this._Tabsets._Tabsets.Tabs", 1)
 		;Dump(this._Tabsets._Tabsets.Users, "this._Tabsets._Tabsets.Users", 1)				
 	}
-	/** managerGui
-	*/	
-	managerGui()
-	{
-		this._Gui.managerGui()
-		
-	}
+	;/** managerGui
+	;*/	
+	;managerGui()
+	;{
+	;	this._Gui.managerGui()
+	;}
 	/** createGui
 	*/	
 	createGui()
@@ -44,7 +45,7 @@ Class TabsSwitcher Extends Accessors
 		if( ! this._Tabsets.isAnyTabsetExists())
 			 new Example().parent(this).createExample()
 
-		this._Gui.createGui()
+		this._Gui.options(this._options).createGui()
 	
 	}
 	/**
@@ -104,9 +105,12 @@ Class TabsSwitcher Extends Accessors
 		
 		this.Tabset($data.tabset).saveLastToIni( $data.tabsetroot, $data.tabsgroup, $data.folder, $data.tabfile )
 		
-		/* LAOD TAB FILE
+		/* LOAD TAB FILE
 		*/
 		this._TabsLoader.loadTabs( $path_tab_file )
+		
+		this._TotalCmd._setWindowTitleByTabs($data, this._options)
+		
 	}
 	
 	/** open *.tab file
@@ -125,7 +129,6 @@ Class TabsSwitcher Extends Accessors
 	{
 		IniRead, $tabs_path, %$ini_path%, paths, tabs_path 
 	}
-	
 	/** get data object from gui or params
 	 */
 	_getData( $tabset:="", $tabsgroup:="", $tabfile:="" )
@@ -145,8 +148,19 @@ Class TabsSwitcher Extends Accessors
 		WinGet, $process_name , ProcessName, ahk_class TTOTAL_CMD
 		Run, %COMMANDER_PATH%\%$process_name% /O /S /L=%$path%
 		exitApp
+	}
+
+	/**
+	 */
+	_loadOptions()
+	{
+		IniRead, $sections, %$ini_path%, options
+			Loop Parse, $sections, `n
+			{
+				$key_value	:= StrSplit(A_LoopField, "=")
+				this._options[$key_value[1]] := $key_value[2]
+			}
 	} 
-	
 	/** set\get parent class
 	 * @return object parent class
 	*/
