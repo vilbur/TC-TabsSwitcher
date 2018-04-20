@@ -49,7 +49,6 @@ Class PathsReplacer
 		this._replace_folder	:= $folder_name
 		return this
 		;this._setPathTargetRegex()
-
 	}
 	/**
 	 */

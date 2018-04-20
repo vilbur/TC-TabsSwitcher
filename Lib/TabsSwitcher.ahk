@@ -99,14 +99,14 @@ Class TabsSwitcher Extends Accessors
 					.replaceFolder( $data.folder )
 					.replace( $data.replace )
 		
-
-
 		IniWrite, % $data.tabset, %$ini_path%, tabset, last
 		
 		this.Tabset($data.tabset).saveLastToIni( $data.tabsetroot, $data.tabsgroup, $data.folder, $data.tabfile )
 		
 		/* LOAD TAB FILE
 		*/
+		this._activatePane($path_tab_file)
+		;Dump(this._options, "this._options", 1)
 		this._TabsLoader.loadTabs( $path_tab_file )
 		
 		this._TotalCmd._setWindowTitleByTabs($data, this._options)
@@ -123,6 +123,15 @@ Class TabsSwitcher Extends Accessors
 		
 		Run, Notepad++ %$path_tab_file%
 	}
+	/**
+	 */
+	_activatePane( $path_tab_file )
+	{
+		IniRead, $inactive_tabs, %$path_tab_file%, inactivetabs
+
+		if( this._options.active_pane!="Active" && $inactive_tabs )
+			this._TotalCmd.activePane(this._options.active_pane)
+	} 
 	/**
 	 */
 	setTabsPath()

@@ -3,7 +3,7 @@
  */
 Class TotalCmd Extends Parent
 {
-	_TcPane 	:= new TcPane().setActivePane()
+	_TcPane 	:= new TcPane()
 	_tc_has_focus	:= false
 	_wincmd_ini	:= ""
 	
@@ -15,9 +15,9 @@ Class TotalCmd Extends Parent
 	
 	/**
 	 */
-	activePane()
+	activePane($side:="")
 	{
-		return this._TcPane.getActivePane()
+		return % this._TcPane.activePane($side)
 	}
 	/**
 	 */
@@ -43,11 +43,11 @@ Class TotalCmd Extends Parent
 		;$Event.message()
 		if( ! this._tc_has_focus )
 			return
-			
+			 
 
 		;this.Parent()._Gui._gui.redraw(false)
 		;sleep,500
-		this._TcPane.setActivePane()
+		;this._TcPane.setActivePane()
 		
 		this.Parent()._Gui._TEXT_update()
 		
