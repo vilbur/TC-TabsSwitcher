@@ -24,7 +24,6 @@ Class Gui Extends AddControls
 	 */
 	createGui()
 	{
-		
 		this._addControls()
 		
 		this._createGui()
@@ -114,8 +113,7 @@ Class Gui Extends AddControls
 	_bindWindowEvents()
 	{
 		this._gui.Events.Window
-		    .on("focus",	&this.Parent()._TotalCmd ".tabsSwitcherHasFocus")
-		    .on("blur",	&this.Parent()._TotalCmd ".totalCommanderHasFocus")
+		    .on("focus",	&this "._TEXT_update")
 		    .on("sizedmoved",	&this ".saveWindowPosition")
 	} 
 	/**
@@ -145,6 +143,7 @@ Class Gui Extends AddControls
 	 */
 	saveWindowPosition($Event, $params*)
 	{
+		;$Event.message()
 		if( ! $Event.x )
 			return 
 		
@@ -163,7 +162,8 @@ Class Gui Extends AddControls
 		IniRead, $y, %$ini_path%, window, y
 		
 		if( $x!="ERROR" && $y!="ERROR" )
-			this._gui.move($x, $y)
+			this._gui.position($x, $y)
+		
 		else
 			this._gui.center("window")
 	}

@@ -2,25 +2,78 @@
 
 #Include %A_LineFile%\..\..\TcPane.ahk
 
-$TcPane := new TcPane()
+global $TcPane := new TcPane()
 
-;Dump($TcPane.getSourcePaneClass(), "_getSourcePaneClass()", 1)
-;Dump($TcPane._getTargetPaneClass(), "_getTargetPaneClass()", 1)
+/* Get ClassNN of pane
+*/
+getClassTest()
+{
+	Dump($TcPane._getPaneClass("source"), "_getPaneClass('source')", 1)
+	Dump($TcPane._getPaneClass("target"), "_getPaneClass('target')", 1)
+	
+	Dump($TcPane._getPaneClass("left"), "_getPaneClass('left')", 1)
+	Dump($TcPane._getPaneClass("right"), "_getPaneClass('right')", 1)
+}
+/**
+ */
+getPathControlHwnd()
+{
+	Dump($TcPane.getHwnd("source"), "getHwnd('source')", 1)
+	Dump($TcPane.getHwnd("source", "path"), "_getPaneClass('source')", 1)	
 
+}
 
-;Dump($TcPane.getSourcePath(), "getSourcePath()", 1)
-;Dump($TcPane.getTargetPath(), "getTargetPane()", 1)
+/* Get path of current pane
+*/
+getPathTest()
+{
+	Dump($TcPane.getPath("source"), "getPath('source')", 1)
+	Dump($TcPane.getPath("target"), "getPath('target')", 1)
+	;
+	Dump($TcPane.getPath("left"), "getPath('left')", 1)
+	Dump($TcPane.getPath("right"), "getPath('right')", 1)
+}
+/* Active pane
+*/
+/**
+ */
+activatePaneTest()
+{
+	sleep, 1000
+	$TcPane.activePane("right")
+	
+	sleep, 1000
+	$TcPane.activePane("left")
+	
+	sleep, 1000
+	$TcPane.activePane("right")
+	
+	sleep, 1000
+	$TcPane.activePane("target")
+}
 
-;Dump($TcPane.getPath(), "getPath('left')", 1)
-;Dump($TcPane.getPath("right"),	"getPath('right')", 1)
-;
-;Dump($TcPane.getPanedHwnd(),	"getPanedHwnd('source')", 1)
-;Dump($TcPane.getPanedHwnd("target"),	"getPanedHwnd('target')", 1)
-;
-;Dump($TcPane.getPane(),	"getPane('source')", 1)
-;Dump($TcPane.getPane("target"),	"getPane('target')", 1)
-
-Dump($TcPane.activePane() , "activePane", 1)
-
-;$TcPane.activePane("left") 
-;$TcPane.activePane("right")
+/**
+ * 1) create test file in target pane
+ * 2) refresh target pane 	
+ * 3) delete test file
+ */
+refreshPaneTest()
+{
+	$test_file := $TcPane.getPath("target") "\test.txt"
+	FileAppend, "", %$test_file% 
+	
+	$TcPane.refresh("target")
+	
+	sleep, 1000
+	FileDelete, %$test_file%
+	
+	$TcPane.refresh("target")
+}
+/* RUN TEST
+  
+ */
+getClassTest()
+getPathControlHwnd()
+getPathTest()
+activatePaneTest()
+refreshPaneTest()

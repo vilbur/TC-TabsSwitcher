@@ -17,7 +17,11 @@ Class TotalCmd Extends Parent
 	 */
 	activePane($side:="")
 	{
-		return % this._TcPane.activePane($side)
+		$active_pane := this._TcPane.activePane($side)
+		;MsgBox,262144,active_pane, %$active_pane%,3 
+		
+		return $active_pane 
+		;return % this._TcPane.activePane($side)
 	}
 	/**
 	 */
@@ -29,32 +33,6 @@ Class TotalCmd Extends Parent
 
 		return $dir_name
 	}
-	/**
-	 */
-	totalCommanderHasFocus( $Event )
-	{
-		If ( $Event.class=="TTOTAL_CMD" )
-			this._tc_has_focus := true
-	}
-	/**
-	 */
-	tabsSwitcherHasFocus( $Event )
-	{
-		;$Event.message()
-		if( ! this._tc_has_focus )
-			return
-			 
-
-		;this.Parent()._Gui._gui.redraw(false)
-		;sleep,500
-		;this._TcPane.setActivePane()
-		
-		this.Parent()._Gui._TEXT_update()
-		
-		this._tc_has_focus := false
-		
-	}
-	
 	/*---------------------------------------
 		TABS
 	-----------------------------------------

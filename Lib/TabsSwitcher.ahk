@@ -105,11 +105,11 @@ Class TabsSwitcher Extends Accessors
 		
 		/* LOAD TAB FILE
 		*/
-		this._activatePane($path_tab_file)
+		;this._activatePane( $path_tab_file )
 		;Dump(this._options, "this._options", 1)
 		this._TabsLoader.loadTabs( $path_tab_file )
 		
-		this._TotalCmd._setWindowTitleByTabs($data, this._options)
+		;this._TotalCmd._setWindowTitleByTabs($data, this._options)
 		
 	}
 	
@@ -123,14 +123,23 @@ Class TabsSwitcher Extends Accessors
 		
 		Run, Notepad++ %$path_tab_file%
 	}
-	/**
+	/** Load tabs always to one side if *.tab contains both sides
 	 */
 	_activatePane( $path_tab_file )
 	{
 		IniRead, $inactive_tabs, %$path_tab_file%, inactivetabs
-
+		
 		if( this._options.active_pane!="Active" && $inactive_tabs )
-			this._TotalCmd.activePane(this._options.active_pane)
+		{
+			;MsgBox,262144,_options.active_pane, % this._options.active_pane,2
+			WinActivate, ahk_class TTOTAL_CMD 
+			;this._TotalCmd.activePane(this._options.active_pane)			
+		;			
+		;	;WinGet, $process_name , ProcessName, ahk_class TTOTAL_CMD
+		;	;Run, %COMMANDER_PATH%\%$process_name% /O /L=C:\
+		;	;this._TotalCmd.activePane(this._options.active_pane)
+			;sleep, 1000
+		}
 	} 
 	/**
 	 */

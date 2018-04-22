@@ -20,12 +20,23 @@ Class TabsLoader
 	 */
 	loadTabs( $tab_file_path )
 	{
-		;this.createCommandRunTabSwitcher()
+		;this._activatePane( $tab_file_path, $options )
 		this._editCommandLoadTabs("OPENTABS """ $tab_file_path """")
 		sleep, 100
 		this._createShortcut()
 		this._executeShortcut()
-	} 
+	}
+	
+	;/** Load tabs always to one side if *.tab contains both sides
+	; */
+	;_activatePane( $tab_file_path, $options )
+	;{
+	;	IniRead, $inactive_tabs, %$tab_file_path%, inactivetabs
+	;
+	;	if(  $options.active_pane!="Active" && $inactive_tabs )
+	;		Run ahk_class TTOTAL_CMD
+	;	
+	;} 
 	/** Edit command in wincmd.ini
 		This command is loadnig tab files
 	 */

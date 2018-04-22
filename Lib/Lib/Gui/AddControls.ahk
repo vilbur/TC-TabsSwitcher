@@ -49,7 +49,7 @@ Class AddControls Extends GuiControl
 					.checked( this._options.title )
 					.callback( &this "._setOption", "title" )
 					.add("CBX_option_title")
-			.Dropdown( "Active||Left|Right" )
+			.Dropdown( "Active||left|right" )
 				.checked( this._options.active_pane )
 				.options( "w64" )
 				.callback( &this "._setOption", "active_pane" )
