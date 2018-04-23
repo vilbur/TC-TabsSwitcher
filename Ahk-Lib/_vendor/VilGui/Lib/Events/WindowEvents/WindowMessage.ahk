@@ -3,8 +3,8 @@
 Class WindowMessage_vgui
 {
 	_data	:= {}
-	_events	:=	{2:	"close"
-			,6:	"created"
+	_events	:=	{1:	"created"
+			,2:	"close"
 			,32772:	"focus"}
 	
 	/** Recive Window Message
@@ -134,25 +134,6 @@ onWindowMessage( wParam, lParam )
 		$_last_window	:= ""
 	}
 }
-; ----------------------------------------------
-; ------------- SHELL HOOK EXAMPLE -------------
-; ----------------------------------------------
-; 1	HSHELL_WINDOWCREATED 
-; 2	HSHELL_WINDOWDESTROYED 
-; 3	HSHELL_ACTIVATESHELLWINDOW 
-; 4	HSHELL_WINDOWACTIVATED 
-; 5	HSHELL_GETMINRECT 
-; 6	HSHELL_REDRAW 
-; 7	HSHELL_TASKMAN 
-; 8	HSHELL_LANGUAGE 
-; 9	HSHELL_SYSMENU 
-; 10	HSHELL_ENDTASK 
-; 11	HSHELL_ACCESSIBILITYSTATE 
-; 12	HSHELL_APPCOMMAND 
-; 13	HSHELL_WINDOWREPLACED 
-; 14	HSHELL_WINDOWREPLACING 
-; 15	HSHELL_HIGHBIT 
-; 16	HSHELL_FLASH 
-; 17	HSHELL_RUDEAPPACTIVATED
+
 
 

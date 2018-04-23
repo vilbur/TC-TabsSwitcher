@@ -73,14 +73,11 @@ Class TotalCmd Extends Parent
 	  * IF TABS ARE SHARED:
 	  *		"Root-Folder: TabFile"
 	 */
-	_setWindowTitleByTabs($data, $options)
+	_setWindowTitleByTabs($data)
 	{
-		if( ! $options.title )
-			return
-		
 		$title := ( $data.tabsgroup != "_shared" ? $data.tabsgroup : $data.folder ) ": " $data.tabfile
-		
-		 this._TcPane.title( $title )			
+
+		WinSetTitle, % this._TcPane.ahkId(),, %$title%
 	} 
 }
 

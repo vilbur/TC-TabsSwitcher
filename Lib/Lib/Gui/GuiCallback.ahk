@@ -181,7 +181,16 @@ Class GuiCallback Extends GuiCallbackMethods
 		IniWrite, % $Event.value, %$ini_path%, options, %$option%
 		
 		this._options[$option] := $Event.value
+		
+		if( $option=="on_top" )
+			this._gui.alwaysOnTop($Event.value)
+		;MsgBox,262144,, OnTop,2 
+			
+		else if( $option=="center_window" && $Event.value)
+			this._gui._centerToWindow()
+
 	}
+	
 	
 	
 	

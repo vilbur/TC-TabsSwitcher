@@ -171,7 +171,7 @@ Class TcPane extends TcControlClasses
 	 */
 	_getControlHwnd( $class_nn )
 	{
-		ControlGet, $hwnd, Hwnd,, %$class_nn%,  % this.hwnd()
+		ControlGet, $hwnd, Hwnd,, %$class_nn%,  % this.ahkId()
 
 		return $hwnd 
 	}

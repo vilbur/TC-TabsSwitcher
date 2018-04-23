@@ -40,20 +40,33 @@ Class AddControls Extends GuiControl
 	_addOptions()
 	{
 		this._gui.controls
-				.GroupBox( "Options" )
-				   ;.layout($layout)
-				   .options( "y-12" )
-				   .add("GB_Options")
+			.GroupBox( "Options" )
+				;.layout($layout)
+				.options( "y-12" )
+				.add("GB_Options")
+			
 			.Checkbox("Title")
-					.options( "y-8 w48" )
-					.checked( this._options.title )
-					.callback( &this "._setOption", "title" )
-					.add("CBX_option_title")
+				.options( "y-8 w48" )
+				.checked( this._getOption("title") )
+				.callback( &this "._setOption", "title" )
+				.add("CBX_option_title")
+			.Checkbox("On Top")
+				.options( "x-4 w64" )
+				.checked( this._getOption("on_top") )
+				.callback( &this "._setOption", "on_top" )
+				.add("CBX_option_onTop")
+			.Checkbox("Center")
+				.options( "x-4 w64" )
+				.checked( this._getOption("center_window") )
+				.callback( &this "._setOption", "center_window" )
+				.add("CBX_option_CenterWindow")
+				
 			.Dropdown( "Active||left|right" )
-				.checked( this._options.active_pane )
-				.options( "w64" )
+				.checked( this._getOption("active_pane") )
+				.options( "x-4 w64" )
 				.callback( &this "._setOption", "active_pane" )
 				.add("DD_option_activePane")
+				
 	}
 	/**
 	 */
@@ -158,11 +171,13 @@ Class AddControls Extends GuiControl
 			return
 		
 		$Tabset	:= this.Tabset(this._tab.name)
-		$tab_folders	:= $Tabset._getTabsRootFolders($Tabset.getLast("root"))
-	
+		$root_last	:= $Tabset.getLast("root")
+		$tabsgroup_last	:= $Tabset.getLast("tabsgroup")
+		$tab_folders	:= $tabsgroup_last=="_shared" ? $Tabset._getTabsRootFolders($root_last) : ""
+
 		this._GroupBox("Folders", "Folders in root")
 				.ListBox( $tab_folders )
-					.checked( $Tabset.getLastFolder($Tabset.getLast("root")) )					
+					.checked( $Tabset.getLastFolder($root_last) )					
 					.callback( &this "._LB_FolderChanged" )
 					.options("y+8 -Multi " this._LB_WIDTH this._LB_HEIGHT)
 					.add("LB_Folder")

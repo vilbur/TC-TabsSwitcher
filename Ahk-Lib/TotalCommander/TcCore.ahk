@@ -14,7 +14,7 @@ Class TcCore
 	}
 	/**
 	 */
-	hwnd()
+	ahkId()
 	{
 		return % "ahk_id " this._hwnd
 	}

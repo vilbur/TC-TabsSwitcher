@@ -5,29 +5,36 @@ Class Gui Extends AddControls
 {
 	_gui	:= new VilGUI("TabsSwitcher")
 	_MsgBox 	:= new MsgBox()
-	_options	:= {}
+	;_options	:= {}
 
 	/*---------------------------------------
 		CREATE GUI
 	-----------------------------------------
 	*/
-	/**
-	 */
-	options( ByRef $options )
-	{
-		if( $options )
-			this._options	:= $options
-		
-		return this
-	} 
+	;/**
+	; */
+	;options( ByRef $options )
+	;{
+	;	if( $options )
+	;		this._options	:= $options
+	;	
+	;	return this
+	;} 
 	/** createGui
 	 */
 	createGui()
 	{
 		this._addControls()
 		
-		this._createGui()
+		this._setMargin()
+		this._addMenus()
 		
+		this._bindEvents()
+		
+		this._setGuiShowPosition()
+		
+		this._gui.create()
+
 		this._setFocusOnListbox("LB_TabsGroup")
 		this._setFocusOnListbox("LB_FoldersList")
 		this._setFocusOnListbox("LB_Tabfile")				
@@ -37,38 +44,54 @@ Class Gui Extends AddControls
 		this._initLastStateStore()
 		
 		this._LB_focus("LB_Folder")
+		
+		sleep, 200 ; wait then TcPaneWatcher is initialized, it handles win onTop state
+		if( this._getOption("on_top") )
+			this._gui.alwaysOnTop()		
 	}
-	
 	/**
 	 */
-	_createGui()
+	_setMargin()
 	{
 		this._gui.Margin.x(5).y(10) ; set margin for all - UI, CONTAINERS & CONTROLS
-				
+	}  
+	/**
+	 */
+	_bindEvents()
+	{
 		this._bindKeyEvents()
 		this._bindGuiEvents()
 		this._bindControlEvents()				
 		this._bindWindowEvents()		
-		
-		this._gui.Menus.Main
+	}
+	/**
+	 */
+	_addMenus()
+	{
+		;this._gui.Menus.Main
 				;.menu("Window")
-				.item("Center window", &this "._centerrWindow")
+				;.item("Center window", &this "._centerWindow")
 				
 		this._gui.Menus.Tray
 				.icon("\TabsSwitcher.ico")	; file in working dir subdir
-				.item("Center window", &this "._centerrWindow")
+				.item("Center window", &this "._centerWindow")
 				.item("Exit")
 				;.defaults()
 				.show()
-				
-		this._gui
-				;.minSize(500,500)
-				.create()
-				.autosize()	; autoresize gui by content
-				.alwaysOnTop()
-				
-		this._setWindowPosition()
 	}
+	/**
+	 */
+	_setGuiShowPosition()
+	{
+		this._gui.autosize()	
+		
+		if(  this._getOption("center_window") )
+			this._gui.center("window")
+		
+		else
+			this._gui.position( this._getWindowIniPosition("x"), this._getWindowIniPosition("y") )
+
+	}  
 	/**
 	 */
 	_bindKeyEvents()
@@ -79,8 +102,7 @@ Class Gui Extends AddControls
 				;.on( "space", this "._TEST")				
 				.on( "number", &this "._TAB_SelectByNumber")
 				.on( "space", &this "._LB_FoldersAndTabfile", "LB_Folder")
-				.on( ["control", "space"], &this "._LB_ToggleRootsAndTabset", "LB_Folder")																
-	
+				.on( ["control", "space"], &this "._LB_ToggleRootsAndTabset", "LB_Folder")
 	} 
 	/**
 	 */
@@ -96,17 +118,9 @@ Class Gui Extends AddControls
 	 */
 	_bindControlEvents()
 	{
-	;$items := ["item A|", "item B", "item C"]
-	;
-	;this._gui.Controls
-	;	.Dropdown().items($items).add()	
-	;	.Radio().items($items).add()
-	;	.ListBox().items($items).add()
-		
 		this._gui.Style.Color
 				.focus( 0x00FF00, 0xFF0080)
 				.focus( "d0e3f4", "", "listbox")
-						
 	} 
 	/**
 	 */
@@ -125,7 +139,6 @@ Class Gui Extends AddControls
 		$Controls	:= $tab.Controls
 		$form_data	:= {"tabset":	$tab.name()
 			   ,"tabsgroup":	"_shared"}
-		
 		
 		For $control_name, $value in $Controls.values()
 			if( $value && ! InStr($control_name, "DD_" ) )
@@ -157,25 +170,24 @@ Class Gui Extends AddControls
 	}
 	/**
 	 */
-	_setWindowPosition()
+	_getWindowIniPosition($xy)
 	{
-		IniRead, $x, %$ini_path%, window, x
-		IniRead, $y, %$ini_path%, window, y
+		IniRead, $value, %$ini_path%, %$xy%, x, 0
 		
-		if( $x!="ERROR" && $y!="ERROR" )
-			this._gui.position($x, $y)
-		
-		else
-			this._gui.center("window")
-	}
+		return $value 
+	} 
+	/*---------------------------------------
+		OPTIONS
+	-----------------------------------------
+	*/
 	/**
 	 */
-	_centerrWindow()
+	_getOption( $options, $default:=0 )
 	{
-		IniDelete, %$ini_path%, window 
-		this._gui._centerToWindow()
-	} 
-
+		IniRead, $value, %$ini_path%, options, %$options%, %$default%
+		
+		return $value
+	}
 
 	
 }
