@@ -3,6 +3,7 @@
 #Include %A_LineFile%\..\..\Ahk-Lib\_vendor\VilGui\VilGui.ahk
 #Include %A_LineFile%\..\..\Ahk-Lib\TotalCommander\TcPane\TcPane.ahk
 ;#Include %A_LineFile%\..\..\Ahk-Lib\TotalCommander\TcCommandSetter\TcCommand\TcCommand.ahk
+#Include %A_LineFile%\..\..\Ahk-Lib\TotalCommander\TcTabs\TcTabs.ahk
 
 #Include %A_LineFile%\..\..\Ahk-Lib\MsgBox\MsgBox.ahk
 #Include %A_LineFile%\..\..\Ahk-Lib\IrfanView\IrfanView.ahk
@@ -44,8 +45,7 @@
 #Include %A_LineFile%\..\Lib\Tabsets\Tabset\TabsGroup\Tabfile\Tabfile.ahk
 #Include %A_LineFile%\..\Lib\Tabsets\Tabset\TabsGroup\Tabfile\TabfileCallback.ahk
 
-/* TABS LOADING
+/* TABS FILE REPLACE
 */
 #Include %A_LineFile%\..\Lib\TabsReplacer\PathsReplacer.ahk
-#Include %A_LineFile%\..\Lib\TabsLoader\TabsLoader.ahk
 

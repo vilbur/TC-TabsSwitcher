@@ -8,11 +8,18 @@ global $tabs_path
 
 $ini_path	:= RegExReplace( A_ScriptFullPath, "\.(ahk|exe)$", ".ini" )
  
+setTabsPath()
+ 
 /*---------------------------------------
 	FUNCTIONS
 -----------------------------------------
 */
-
+/** Set Global variable
+ */
+setTabsPath()
+{
+	IniRead, $tabs_path, %$ini_path%, paths, tabs_path 
+}
 /**
  */
 getObjectKeys($object, $ignore:="")

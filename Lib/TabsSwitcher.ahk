@@ -9,20 +9,16 @@ Class TabsSwitcher Extends Accessors
 	_Gui	:= new Gui().parent(this)
 	_Install 	:= new Install()
 	_PathsReplacer 	:= new PathsReplacer()
-	_TabsLoader 	:= new TabsLoader()	
 	_MsgBox 	:= new MsgBox()
 	_TotalCmd 	:= new TotalCmd().parent(this)
-	;_options	:= {}
 
 	__New()
 	{
 		$TabsSwitcher := this
-		;this._loadOptions()
 
 		If ( ! FileExist( $ini_path ))
 			this.install()
 			
-		this.setTabsPath()
 		this._Tabsets.loadTabsets()
 		this._TargetInfo.findCurrentTabset( this._Tabsets )
 
@@ -36,7 +32,6 @@ Class TabsSwitcher Extends Accessors
 	*/	
 	createGui()
 	{
-		;MsgBox,262144,, createGui,2 
 		if( ! this._Tabsets.isAnyTabsetExists())
 			 new Example().parent(this).createExample()
 
@@ -99,13 +94,10 @@ Class TabsSwitcher Extends Accessors
 		
 		/* LOAD TAB FILE
 		*/
-		;this._activatePane( $path_tab_file )
-		;Dump(this._options, "this._options", 1)
-		this._TabsLoader.loadTabs( $path_tab_file )
+		this._TotalCmd._TcTabs.load( $path_tab_file, this._Gui._getOption("active_pane") )		
 		
 		if( this._Gui._getOption("title") )
 			this._TotalCmd._setWindowTitleByTabs($data)
-		
 	}
 	
 	/** open *.tab file
@@ -118,30 +110,8 @@ Class TabsSwitcher Extends Accessors
 		
 		Run, Notepad++ %$path_tab_file%
 	}
-	/** Load tabs always to one side if *.tab contains both sides
-	 */
-	_activatePane( $path_tab_file )
-	{
-		IniRead, $inactive_tabs, %$path_tab_file%, inactivetabs
-		
-		if( this._options.active_pane!="Active" && $inactive_tabs )
-		{
-			;MsgBox,262144,_options.active_pane, % this._options.active_pane,2
-			WinActivate, ahk_class TTOTAL_CMD 
-			;this._TotalCmd.activePane(this._options.active_pane)			
-		;			
-		;	;WinGet, $process_name , ProcessName, ahk_class TTOTAL_CMD
-		;	;Run, %COMMANDER_PATH%\%$process_name% /O /L=C:\
-		;	;this._TotalCmd.activePane(this._options.active_pane)
-			;sleep, 1000
-		}
-	} 
-	/**
-	 */
-	setTabsPath()
-	{
-		IniRead, $tabs_path, %$ini_path%, paths, tabs_path 
-	}
+
+
 	/** get data object from gui or params
 	 */
 	_getData( $tabset:="", $tabsgroup:="", $tabfile:="" )
@@ -163,17 +133,6 @@ Class TabsSwitcher Extends Accessors
 		exitApp
 	}
 
-	;/**
-	; */
-	;_loadOptions()
-	;{
-	;	IniRead, $sections, %$ini_path%, options
-	;		Loop Parse, $sections, `n
-	;		{
-	;			$key_value	:= StrSplit(A_LoopField, "=")
-	;			this._options[$key_value[1]] := $key_value[2]
-	;		}
-	;} 
 	/** set\get parent class
 	 * @return object parent class
 	*/

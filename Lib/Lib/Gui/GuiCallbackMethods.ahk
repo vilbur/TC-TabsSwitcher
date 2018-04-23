@@ -193,8 +193,10 @@ Class GuiCallbackMethods Extends Parent
 	_tabFileRemove()
 	{
 		$data	:= this._getGuiData()
-		
-		if( this._MsgBox.confirm("REMOVE TABS", "Remove tabs ?`n`n" $data.tabset " " $data.tabfile ) )
+
+		$tabs_name := $data.tabset " \ " ($data.tabsgroup=="_shared" ? "" : $data.tabsgroup " \ ") $data.tabfile
+
+		if( this._MsgBox.confirm("REMOVE TABS", "Remove tabs ?`n`n" $tabs_name ) )
 			this.Tabfile($data.tabset, $data.tabsgroup, $data.tabfile ).delete()
 		
 	} 

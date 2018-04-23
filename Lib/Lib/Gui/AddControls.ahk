@@ -16,10 +16,13 @@ Class AddControls Extends GuiControl
 	_addControls()
 	{
 		this._gui.controls.layout("row")
+		
 		this._addTabsetControls()
 		this._addOptions()
+		
 		this._gui.controls.section()
 		this._addTabs()
+		
 		this._gui.controls.section()		
 		this._addPaneLookUp()		
 		this._addMainButtons()

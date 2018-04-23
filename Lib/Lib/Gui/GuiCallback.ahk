@@ -22,24 +22,19 @@ Class GuiCallback Extends GuiCallbackMethods
 	{
 		$tabs	:= {}		
 		$form_data	:= $Event.data
-		;$active_pane	:= this.TotalCmd().activePane() "tabs"
+		$tab_filename	:= $form_data.tabfile
 
-		if( $form_data.left )
-			$tabs.left := ""
-			
-		if( $form_data.right )
-			$tabs.right := ""	
-
-		;Dump($form_data, "form_data", 1)	
-		if( $tabs.GetCapacity()>0 && $form_data.tabfile )
+		if( $tab_filename && ( $form_data.left || $form_data.right ) )
 		{
 			this.new_tabs.close()
 			
-			For $pane, $s in $tabs
-				if( $form_data[$pane] )
-					$tabs[$pane] := this.TotalCmd().getTabs($pane)
+			$TabsGroup	:= this.TabsGroup( $tabset, $tabsgroup )
+			$tab_file_path	:= $TabsGroup.getTabFilePath($tab_filename)
 			
-			this.TabsGroup( $tabset, $tabsgroup ).createNewTabfile($tabs, $form_data.tabfile)
+			;MsgBox,262144,tab_file_path, %$tab_file_path%,3 
+			this.TotalCmd()._TcTabs.save($tab_file_path)
+	
+			$TabsGroup.setTabFile($tab_filename, $tab_file_path)
 			
 		} else
 			MsgBox,262144,MISSING FIELDS, Fill tabs name and at least one side of tabs, 10 

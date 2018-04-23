@@ -4,6 +4,7 @@
 Class TotalCmd Extends Parent
 {
 	_TcPane 	:= new TcPane()
+	_TcTabs 	:= new TcTabs()	
 	_tc_has_focus	:= false
 	_wincmd_ini	:= ""
 	
@@ -17,10 +18,6 @@ Class TotalCmd Extends Parent
 	 */
 	activePane($side:="")
 	{
-		;$active_pane := this._TcPane.activePane($side)
-		;MsgBox,262144,active_pane, %$active_pane%,3 
-		
-		;return $active_pane 
 		return % this._TcPane.activePane($side)
 	}
 	/**
@@ -33,6 +30,7 @@ Class TotalCmd Extends Parent
 
 		return $dir_name
 	}
+	
 	/*---------------------------------------
 		TABS
 	-----------------------------------------
