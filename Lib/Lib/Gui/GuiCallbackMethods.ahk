@@ -225,6 +225,14 @@ Class GuiCallbackMethods Extends Parent
 	*/
 	/**
 	 */
+	_guiFocus()
+	{
+		;MsgBox,262144,_TEXT_update, FOCUS,3
+		;MsgBox,262144,_TEXT_update, % this.TotalCmd().activePane(),3		
+		this._TEXT_update()
+	}  
+	/**
+	 */
 	_TEXT_update()
 	{
 		$data	:= this._getGuiData()

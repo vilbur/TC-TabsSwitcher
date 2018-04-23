@@ -61,10 +61,10 @@ Class Gui Extends AddControls
 				;.defaults()
 				.show()
 				
-		this._gui.create()
+		this._gui
 				;.minSize(500,500)
+				.create()
 				.autosize()	; autoresize gui by content
-
 				.alwaysOnTop()
 				
 		this._setWindowPosition()
@@ -113,7 +113,8 @@ Class Gui Extends AddControls
 	_bindWindowEvents()
 	{
 		this._gui.Events.Window
-		    .on("focus",	&this "._TEXT_update")
+		    ;.on("focus",	&this "._guiFocus")
+		    .on("focus",	&this "._guiFocus")			
 		    .on("sizedmoved",	&this ".saveWindowPosition")
 	} 
 	/**
